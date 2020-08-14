@@ -121,17 +121,12 @@ background: #67b0d1;
         
       <br>
       <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
-        <center><b>Choose Related Research Projects</b></center><div id="tagged" class="hiddenCB"></div>
-      </div><br>
-  
-  
-      <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
-        <center><b>Choose Related Education Items</b></center><div id="tag_edu" class="hiddenCB"></div>
-      </div><br>    
+        <center><b>Choose Related Projects</b></center><div id="tagged" class="hiddenCB"></div>
+      </div><br>  
   
       <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
         <center><b>Choose Related Courses</b></center><div id="tag_courses" class="hiddenCB"></div>
-      </div><br>    
+      </div><br>
         
         <div><iframe src="../edit.html" style="border:0px; width:100%; min-height:50vh;"></iframe></div>
   
@@ -143,7 +138,6 @@ background: #67b0d1;
           </center>
       </div>
     </div>
-  </div>
   </center>
   <script>
     window.onload = function() {
@@ -176,7 +170,6 @@ background: #67b0d1;
               "tagged_people: "+tagged_people.map(i => i.substr(1)).join(",")+"\n"+
               "date: "+dates+"\n"+
               "links: "+links+"\n"+
-              "tagged_education: "+education.toString()+"\n"+
               "tagged_courses: "+courses.toString()+"\n"+
               "key: "+topic+"\n"+
               "abstract: "+msg+"\n"+"---"
@@ -223,7 +216,6 @@ background: #67b0d1;
   
     var res_topics = tagger(localStorage.getItem("title_string"), 'tagged', "t");
     var people = tagger(localStorage.getItem("people_list"), 'peoples', "v");
-    var education = tagger(localStorage.getItem("education_string"), 'tag_edu', "edu");
     var courses = tagger(localStorage.getItem("course_string"), 'tag_courses', "c");
     
   
