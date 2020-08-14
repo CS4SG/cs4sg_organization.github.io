@@ -34,7 +34,7 @@ layout: default
             <p>There are the list of all the forms you can fill. Please select the suitable catagory of form and fill it out.</p>
             <ol>
               {% for form in site.forms %}
-                <li><a href="{{ form.url }}" target="_blank">{{ form.title }}</a></li>
+                <li><a href="/{{ form.url }}" target="_blank">{{ form.title }}</a></li>
               {% endfor %}
             </ol>
           </li>
