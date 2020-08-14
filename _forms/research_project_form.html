@@ -1,0 +1,244 @@
+---
+layout: form
+title: Research Project Form
+upload: https://github.com/CS4SG/CS4SG.github.io/tree/master/_research_projects
+---
+
+<style>
+* {
+    box-sizing: border-box;
+}
+div {
+    padding: 10px;
+    background-color: transparent;
+    overflow: hidden;
+}
+input[type=text], textarea, select {
+    font: 17px Calibri;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+input[type=url], textarea, select {
+    font: 17px Calibri;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+input[type=button]{ 
+    font: 17px Calibri;
+    width: auto;
+    float: center;
+    cursor: pointer;
+    padding: 7px;
+}
+</style>
+
+
+<style>
+iframe{
+width: 100%;
+border: 2px solid #ccc;
+}
+</style>
+
+<style>
+label {
+padding: 4px 6px;
+line-height: 190%;
+outline-style: none;
+transition: all .3s;
+}
+
+.hiddenCB div {
+display: inline;
+margin: 0;
+padding: 0;
+list-style: none;
+}
+
+.hiddenCB input[type="checkbox"],
+.hiddenCB input[type="radio"] {
+display: none;
+
+}
+
+.hiddenCB label {
+
+cursor: pointer;
+}
+
+.hiddenCB input[type="checkbox"]+label:hover{
+background: #67b0d1;
+}
+
+.hiddenCB input[type="checkbox"]:checked+label {
+background: #67b0d1;
+}
+
+.hiddenCB input[type="checkbox"]:checked+label:hover{
+background: #67b0d1;
+}
+</style>
+
+<iframe src="/people.html" style="display:none;"></iframe>
+<center>
+<div style="width:100%;">
+<div id = "after_submission">
+
+<form onsubmit="saveFile(); after_submission()">
+<div>
+<!--Add few elements to the form-->
+<center><h3><b>Research Flashcard</b></h3></center>
+<div>
+    <input type="text" id="topic" placeholder="Enter Topic" required="required"/>
+</div>
+<div>
+    <input type="text" id="description" placeholder="Enter a brief description" required="required" />
+</div>
+<center><hr/><br>
+<h3><b>Research Project</b></h3>
+</center>
+<div>
+
+<div><input type="text" id="subheading" placeholder="Enter a brief Subheading"  required="required"/></div>
+
+
+<br>
+<div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
+<center><h5>Choose People related to this Project</h5></center><div id="peoples" class="hiddenCB"></div><input type="text" id="new_person" placeholder="Enter a new Person" style="width:50%"> &nbsp; <input type="button" onclick="add_new();" value="Add Person" style="width:10%"> &nbsp; OR  &nbsp;
+<input type="button" onclick="window.open('\/people_form.html')" value="Add to Organization"><br />
+<ul id="new_people_added" style="font-weight: normal; text-align: left; padding: 10px;"><LH><b>Added external People:</b></LH></ul>
+</div>
+
+<br/>
+<div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">  
+    <h5>Post Content</h5>
+    <small style="text-align:left">Write your blog post in the space below.</small>
+    <small style="text-align:left">By default, the excerpt that will be displayed on the blog page is the post's first paragraph. If you wish to customize the length of the excerpt, insert <code>&lt;!--end--&gt;</code> where you want the excerpt to end.</small>
+    <div><iframe src="../edit.html" style="border:0px; width:100%; min-height:50vh;"></iframe></div>
+</div><br>  
+
+<center>
+<div>
+    <input type="submit" value="Generate MD File" class="sectionbutton"/>
+</div>
+</center>
+</div>
+</div>
+</form>
+</div>
+<script>
+window.onload = function() {
+if(!window.location.hash) {
+window.location = window.location + '#loaded';
+window.location.reload();
+}
+}
+let saveFile = () => {
+
+// Get the data from each element on the form.
+const topic = document.getElementById('topic').value;
+const description = document.getElementById('description').value;
+const subheading = document.getElementById('subheading').value;
+var msg = String(localStorage.getItem("saved_research_html"));
+add_new()
+
+// This variable stores all the data.
+let data = 
+    "---"+"\n"+
+    "layout: research_project"+"\n"+
+    "title: "+topic+"\n"+
+    "description: "+description+"\n"+
+    "tagged_people: "+people.toString()+"\n"+
+    "key: "+topic+"\n"+
+    "---"+"\n\n"+
+    "# "+subheading+"\n"+msg
+
+
+
+// Convert the text to BLOB.
+const textToBLOB = new Blob([data], { type: 'text/plain' });
+const sFileName = topic+'.md';	   // The file to save the data.
+
+let newLink = document.createElement("a");
+newLink.download = sFileName;
+
+if (window.webkitURL != null) {
+    newLink.href = window.webkitURL.createObjectURL(textToBLOB);
+}
+else {
+    newLink.href = window.URL.createObjectURL(textToBLOB);
+    newLink.style.display = "none";
+    document.body.appendChild(newLink);
+}
+
+newLink.click(); 
+}
+
+function after_submission(){
+document.getElementById("after_submission").innerHTML = "<br><br><center><table width='80%'><h2>Thank you for submitting your research paper.</h2><br><br> To add it to the CS4SG Research Section, just upload the file to the <b>_research_projects<b> folder. Here is the link for the folder <br><a href = 'https://github.com/CS4SG/CS4SG.github.io/tree/master/_research_projects' target='_blank'>https://github.com/CS4SG/CS4SG.github.io/tree/master/_research_projects</a></table></center>"
+}
+
+function create(){
+document.getElementById("method").innerHTML = ''
+}
+
+function up(){
+document.getElementById("method").innerHTML = '<div><input type="text" id="subheading" placeholder="Enter a brief Subheading"  required="required"/></div><div><input type="url" id="research_doc" placeholder="Link to external research website/ paper." onchange="check()"  required="required"/></div><div id="status"></div>'
+}
+
+
+function tagger(t, inside, samp_func){
+var people_checked = []
+var people_arr = t.split(",")
+
+var i=0;
+function add(ids, parent){
+i++;
+var node = document.createElement('div');        
+node.innerHTML = '<input type="checkbox" id="' + ids + '" onChange="'+samp_func+'(this)" name="check' + i + '"><label for="' + ids + '">'+ ids +'</label>&nbsp; &nbsp;';
+document.getElementById(parent).appendChild(node);
+}
+
+for (e of people_arr) {
+add(e, inside)
+}
+
+function remove(array, element) {
+const index = array.indexOf(element);
+array.splice(index, 1);
+}
+
+window[samp_func] = function(item){
+if(people_checked.includes(item.id)){
+remove(people_checked,item)
+}
+else{
+people_checked.push(String(item.id))
+}
+console.log(people_checked)
+}
+return people_checked
+}
+function add_new(){
+var n = document.getElementById("new_person").value
+if(n != ""){
+people.push(n);
+var node = document.createElement("li");
+node.onclick = function() {this.parentNode.removeChild(this);};
+var textnode = document.createTextNode(n);
+node.appendChild(textnode);
+document.getElementById("new_people_added").appendChild(node);
+document.getElementById("new_person").value = "";
+}
+else{
+
+}
+}
+
+var people = tagger(localStorage.getItem("people_list"), 'peoples', "v")
+
+</script>

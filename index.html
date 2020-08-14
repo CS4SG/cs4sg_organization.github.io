@@ -1,0 +1,69 @@
+---
+layout: default
+---
+
+<nav id="navbar">
+  <header>CS4SG Organization</header>
+  <ul>
+    <li><a class="nav-link" href="#Introduction">Introduction</a></li>
+    <li><a class="nav-link" href="#add_info">Adding information to the website</a></li>
+    <li><a class="nav-link" href="https://cs4sg.github.io/resources.html">Resources</a></li>
+  </ul>
+</nav>
+<main id="main-doc">
+  <section class="main-section" id="Introduction">
+    <header>Introduction</header>
+    <article>
+      <p>
+        Welcome to CS4SG. This guidebook will walk through different aspects of the 
+        organization's website. For example- adding information or uploading data, how each section
+        is build up, website's architecture, and how to make changes in the code.
+      </p>
+    </article>
+  </section>
+  <section class="main-section" id="add_info">
+    <header>Adding information to the website</header>
+    <article>
+      <p>
+        You might want to enter information to the website. For example, adding research projects or
+        information about a new grant that CS4SG just received! Please follow the following steps to add
+        those inforation to the website...
+        <ul>
+          <li>
+            <h3>Select the form according to the catagory of information</h3>
+            <p>There are the list of all the forms you can fill. Please select the suitable catagory of form and fill it out.</p>
+            <ol>
+              {% for form in site.forms %}
+                <li><a href="{{ form.url }}" target="_blank">{{ form.title }}</a></li>
+              {% endfor %}
+            </ol>
+          </li>
+          <li>
+            <h3>Fill out the form and click on "Generate MD File"</h3>
+            <p>
+              Once you have filled out the form correctly, please recheck it and click on "Generate MD File".
+              This will download a <strong>Markdown</strong> format file on your local device.
+            </p>
+            <center><a href="./assets/images/help_img1.jpg" target="_blank"><img src="./assets/images/help_img1.jpg" alt="Generate MD File Button Click" class="help_img"></a></center>
+          </li>
+          <li>
+            <h3>Follow the prompts after form submission.</h3>
+            <p>After you submit the form, a prompt will appear giving directions on "where to upload the file" you just downloaded.</p>
+            <p>If the propmpt doesn't appear or you accidently refresh the page, here is a list of all the forms and their corresponding upload destinations:</p>
+            <ol>
+              {% for form in site.forms %}
+                <li>{{ form.title }}: <a href="{{ form.upload }}" target="_blank">{{ form.upload }}</a></li>
+              {% endfor %}
+            </ol>
+            <p>If you do not have access to upload the file to the destination folder, please contact <a href="mailto:cse-dept@buffalo.edu">cse-dept@buffalo.edu</a></p>
+            <center><a href="./assets/images/help_img2.jpg" target="_blank"><img src="./assets/images/help_img2.jpg" alt="Steps after submitting the form" class="help_img"></a></center>
+          </li>
+          <li>
+            <h3>You are all set!</h3>
+            <p>Congrats! Your changes has been published on the CS4SG website.</p>
+          </li>
+        </ul>
+      </p>
+    </article>
+  </section>
+</main>
