@@ -129,13 +129,13 @@ content: "";
       <input type="button" onclick="add_new('new_person','people', 'new_people_added');" value="Add Person" style="width:10%"> &nbsp; OR  &nbsp;
       <input type="button" onclick="window.open('\/people_form.html')" value="Add to Organization">
       <br /><br />
-      <ul id="new_people_added" style="font-weight: normal; text-align: left;"><LH><b>Added non-organization Authors:</b></LH></ul>
+      <ul id="new_people_added" style="font-weight: normal; text-align: left; padding: 10px;"><LH><b>Added non-organization Authors:</b></LH></ul>
       </div><br/>
   
       <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">  
           <h5>Post Content</h5>
-          <small style="text-align:left">Write your blog post in the space below.</small>
-          <small style="text-align:left">By default, the excerpt that will be displayed on the blog page is the post's first paragraph. If you wish to customize the length of the excerpt, insert <code>&lt;!--end--&gt;</code> where you want the excerpt to end.</small>
+          <small style="text-align:left">Write in the space below.</small>
+          <small style="text-align:left">By default, the excerpt that will be displayed on the Funding Page is the first paragraph. If you wish to customize the length of the excerpt, insert <code>&lt;!--end--&gt;</code> where you want the excerpt to end.</small>
           <div><iframe src="../edit.html" style="border:0px; width:100%; min-height:50vh;"></iframe></div>
       </div><br>    
           <div>
@@ -147,7 +147,6 @@ content: "";
       </div>
     </div>
     </div>
-  </center>
   <script>
   window.onload = function() {
     if(!window.location.hash) {
