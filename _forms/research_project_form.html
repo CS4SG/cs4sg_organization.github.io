@@ -83,7 +83,6 @@ background: #67b0d1;
 }
 </style>
 
-<iframe src="/people.html" style="display:none;"></iframe>
 <center>
 <div style="width:100%;">
 <div id = "after_submission">
@@ -134,6 +133,7 @@ background: #67b0d1;
 window.onload = function() {
 if(!window.location.hash) {
 window.location = window.location + '#loaded';
+window.location.reload();
 window.location.reload();
 }
 }
@@ -239,6 +239,21 @@ else{
 }
 }
 
-var people = tagger(localStorage.getItem("people_list"), 'peoples', "v")
+// /people.html
+var people = tagger(getdata("https://cs4sg.github.io/people.html"), 'peoples', "v")
+
+function getdata(file){
+  $.get(file, function(result){
+      var obj = $(result).find('script');
+      var page1X = $(result).find('div.myData').data('x');
+      if(page1X != null){
+        sessionStorage.setItem(file, page1X);
+      }
+      else{
+        window.location.reload();
+      }
+  });
+  return(String(sessionStorage.getItem(file)));
+}
 
 </script>
