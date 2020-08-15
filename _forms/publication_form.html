@@ -85,47 +85,47 @@ background: #67b0d1;
 </style>
 
 <center>
-    <div style="width:90%;">
+    <div style="width:100%;">
     <div id = "after_submission">          
   
         <div><input type="text" id="topic" placeholder="Enter Title" required="required"/></div>
 
         <div><input type="text" id="publishers" placeholder="Published in" /></div>
         
-        <div><input type="date" id="dts" placeholder="Enter date" /></div><br/>
+        <div><input type="date" id="dts" placeholder="Enter date" /></div>
         
-        <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
+        <div><div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
         <center><h5>Choose Authors</h5></center><div id="peoples" class="hiddenCB"></div><input type="text" id="new_person" placeholder="Enter a new Person" style="width:50%"> &nbsp; 
         <input type="button" onclick="add_new('new_person','people', 'new_people_added');" value="Add Person" style="width:10%"> &nbsp; OR  &nbsp;
         <input type="button" onclick="window.open('\/people_form.html')" value="Add to Organization">
         <br /><br />
         <ul id="new_people_added" style="font-weight: normal; text-align: left;"><LH><b>Added non-organization Authors:</b></LH></ul>
-        </div><br>
+        </div></div>
   
-        <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
+        <div><div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
         <center><h5>Choose Related People</h5></center><div id="tagged_people" class="hiddenCB"></div><input type="text" id="tag_person" placeholder="Enter a new Person" style="width:50%"> &nbsp; 
         <input type="button" onclick="add_new('tag_person','people', 'external_people');" value="Add Person" style="width:10%"> &nbsp; OR  &nbsp;
         <input type="button" onclick="window.open('\/people_form.html')" value="Add to Organization">
         <br /><br />
         <ul id="external_people" style="font-weight: normal; text-align: left;"><LH><b>Added non-organization Authors:</b></LH></ul>
-        </div><br>
+        </div></div>
   
-        <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;"><input type="text" id="links" placeholder="Enter links" style="width: 70%;"/>&nbsp;<input type="button" value="Add another link" onclick="save_link()">
-        <br /><br /><ul id="link_status" style="text-align: left;"><LH><b>Added Links:</b></LH></ul><font color="red">*</font>Click on a link to remove it.</div>
+        <div><div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;"><input type="text" id="links" placeholder="Enter links" style="width: 70%;"/>&nbsp;<input type="button" value="Add another link" onclick="save_link()">
+        <br /><br /><ul id="link_status" style="text-align: left;"><LH><b>Added Links:</b></LH></ul><font color="red">*</font>Click on a link to remove it.</div></div>
         
-      <br>
+      <div>
       <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
         <center><h5>Choose Related Projects</h5></center><div id="tagged" class="hiddenCB"></div>
-      </div><br>  
+      </div></div>
   
-      <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
+      <div><div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
         <center><h5>Choose Related Courses</h5></center><div id="tag_courses" class="hiddenCB"></div>
-      </div><br>
+      </div></div>
         
-      <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">  
+      <div><div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">  
         <h5>Publication Abstract</h5>
         <div><iframe src="../edit.html" style="border:0px; width:100%; min-height:50vh;"></iframe></div>
-      </div>
+      </div></div>
   
           <center>
           <div>
@@ -288,5 +288,5 @@ background: #67b0d1;
         }
     });
     return(String(sessionStorage.getItem(file)));
-}
+  }
 </script>

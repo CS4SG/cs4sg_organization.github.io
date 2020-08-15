@@ -1,0 +1,303 @@
+---
+layout: form
+title: Talks Form
+upload: https://github.com/CS4SG/CS4SG.github.io/tree/master/_talks
+---
+
+<style>
+    * {
+    box-sizing: border-box;
+}
+div {
+    padding: 10px;
+    background-color: transparent;
+    overflow: hidden;
+}
+input[type=text], textarea, select {
+    font: 17px Calibri;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+input[type=url], [type=datetime-local]{
+    font: 17px Calibri;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+input[type=button], button{ 
+    font: 17px Calibri;
+    width: auto;
+    float: center;
+    cursor: pointer;
+    padding: 7px;
+}
+</style>
+
+
+<style>
+iframe{
+width: 100%;
+border: 2px solid #ccc;
+}
+</style>
+
+
+<style>
+label {
+padding: 4px 6px;
+line-height: 190%;
+outline-style: none;
+transition: all .3s;
+}
+
+.hiddenCB div {
+display: inline;
+margin: 0;
+padding: 0;
+list-style: none;
+}
+
+.hiddenCB input[type="checkbox"],
+.hiddenCB input[type="radio"] {
+display: none;
+
+}
+
+.hiddenCB label {
+
+cursor: pointer;
+}
+
+.hiddenCB input[type="checkbox"]+label:hover{
+background: #67b0d1;
+}
+
+.hiddenCB input[type="checkbox"]:checked+label {
+background: #67b0d1;
+}
+
+.hiddenCB input[type="checkbox"]:checked+label:hover{
+background: #67b0d1;
+}
+
+input[type="datetime-local"]:before {
+content: attr(placeholder) !important;
+color: #aaa;
+margin-right: 0.5em;
+}
+input[type="datetime-local"]:focus:before,
+input[type="datetime-local"]:valid:before {
+content: "";
+}
+</style>
+
+<center>
+    <div style="width:100%;">
+    <div id = "after_submission">
+
+      <div><input type="text" id="topic" placeholder="Enter Talk Title" required="required"/></div>
+
+      <div><input type="text" id="locus" placeholder="Enter talk location" required="required"/></div>
+
+      <div>
+      <select id="category">
+        <option selected value="">-- Select Talk Category --</option>
+        <option selected value="Internal">-- Internal --</option>
+        <option selected value="External">-- External --</option>
+      </select></div>
+
+      <div>
+      <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;"><center><h5>Choose Speaker</h5></center><div id="orator"></div>
+      <input type="text" id="new_orator" placeholder="Enter a new Speaker" style="width:50%"> &nbsp; <input type="button" onclick="add_new_orator();" value="Add Orator" style="width:10%"> &nbsp; OR  &nbsp;
+      <input type="button" onclick="window.open('\/people.html')" value="Add to Organization"><br />
+        <b>Added non-organization Speaker:</b>
+        <label id="new_orator_added" style="font-weight: normal;"></label>
+      </div></div>
+      
+
+    <div><input type="datetime-local" id="dts" placeholder="Enter Talk Date and Time" /></div>
+      
+    <div>
+    <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
+      <center><h5>Choose related Projects</h5></center><div id="tagged" class="hiddenCB"></div>
+    </div></div>
+
+    <div><div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
+      <center><h5>Choose related Resources</h5></center><div id="resource" class="hiddenCB"></div>
+    </div></div>
+      
+    <div><div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">  
+        <h5>Talk Description</h5>
+        <div><iframe src="../edit.html" style="border:0px; width:100%; min-height:50vh;"></iframe></div>
+    </div></div>
+
+
+        <center>
+        <div>
+            <input type="button" value="Generate MD File" onclick="saveFile(); after_submission()" class="sectionbutton"/>
+        </div>
+        </center>
+    </div>
+  </div>
+</center>
+<script>
+  window.onload = function() {
+    if(!window.location.hash) {
+        window.location = window.location + '#loaded';
+        window.location.reload();
+    }
+  }
+  
+
+    let saveFile = () => {
+    	
+        // Get the data from each element on the form.
+    	const topic = document.getElementById('topic').value;
+      const category = document.getElementById('category').value;
+      var dates = document.getElementById("dts").value;
+      
+      var msg = String(localStorage.getItem("saved_research_html"));
+      var t = talker();
+      if(t === ""){
+        t = document.getElementById("new_orator").value
+      }
+      var locus = document.getElementById("locus").value
+        
+        // This variable stores all the data.
+      let data = 
+          "---"+"\n"+
+          "layout: talk"+"\n"+
+          "title: "+topic+"\n"+
+          "category: "+category+"\n"+
+          "locus: "+locus+"\n"+
+          "resource_links: "+resources.toString()+"\n"+
+          "talk_by: "+t+"\n"+
+          "date: "+dates+"\n"+
+          "tagged_projects: "+res_topics.toString()+"\n"+
+          "key: "+topic+"\n"+
+          "---"+"\n\n"+msg
+
+
+        
+        // Convert the text to BLOB.
+        const textToBLOB = new Blob([data], { type: 'text/plain' });
+        const sFileName = topic+'.md';	   // The file to save the data.
+
+        let newLink = document.createElement("a");
+        newLink.download = sFileName;
+
+        if (window.webkitURL != null) {
+            newLink.href = window.webkitURL.createObjectURL(textToBLOB);
+        }
+        else {
+            newLink.href = window.URL.createObjectURL(textToBLOB);
+            newLink.style.display = "none";
+            document.body.appendChild(newLink);
+        }
+
+        newLink.click(); 
+    }
+
+    function after_submission(){
+      document.getElementById("after_submission").innerHTML = "<br><br><center><table width='80%'><h2>Thank you for submitting your talks.</h2><br><br> To add it to the CS4SG Talks Section, just upload the file to the <b>_talks<b> folder. Here is the link for the folder <br><a href = 'https://github.com/CS4SG/CS4SG.github.io/tree/master/_talks' target='_blank'>https://github.com/CS4SG/CS4SG.github.io/tree/master/_talks</a></table></center>"
+    }
+
+  var p = getdata("/people.html")
+  var people_array = p.split(",")
+  function add_talk(ids){
+    var node = document.createElement('label');        
+      node.innerHTML = '<input type="radio" name="talkss" value="'+String(ids)+'" onchange="talker()">'+String(ids);
+      document.getElementById("orator").appendChild(node);
+  }
+
+  for (let e of people_array){
+    add_talk(e)
+  }
+
+function talker(){
+  var checked = ""
+  var radios = document.getElementsByName('talkss');
+
+  for (var i = 0, length = radios.length; i < length; i++) {
+    if (radios[i].checked) {
+      checked = radios[i].value
+      break;
+    }
+  }
+  return checked
+}
+
+  var res_topics = tagger(getdata("/research_project.html"), 'tagged', "t");
+  var resources = tagger(getdata("/resourceLinks.html"), 'resource', "reso");
+
+  function tagger(t, inside, samp_func){
+    var people_checked = []
+    var people_arr = t.split(",")
+    
+    var i=0;
+    function add(ids, parent){
+      i++;
+      var node = document.createElement('div');        
+      node.innerHTML = '<input type="checkbox" id="' + ids + '" onChange="'+samp_func+'(this)" name="check' + i + '"><label for="' + ids + '">'+ ids +'</label>&nbsp; &nbsp;';
+      document.getElementById(parent).appendChild(node);
+    }
+
+    for (e of people_arr) {
+      add(e, inside)
+    }
+
+    function remove(array, element) {
+      const index = array.indexOf(element);
+      array.splice(index, 1);
+    }
+
+    window[samp_func] = function(item){
+      if(people_checked.includes(item.id)){
+        remove(people_checked,item)
+      }
+      else{
+        people_checked.push(String(item.id))
+      }
+      console.log(people_checked)
+    }
+    return people_checked
+  }
+
+  function add_new(){
+    var n = document.getElementById("new_person").value
+    if(n != ""){
+      people.push(n);
+        var node = document.createElement("li");
+        node.onclick = function() {this.parentNode.removeChild(this);};
+        var textnode = document.createTextNode(n);
+        node.appendChild(textnode);
+        document.getElementById("new_people_added").appendChild(node);
+      document.getElementById("new_person").value = "";
+    }
+    else{
+
+    }
+  }
+
+  function add_new_orator(){
+    document.getElementById("new_orator_added").innerHTML = document.getElementById("new_orator").value
+  }
+
+  function getdata(file){
+    $.get(file, function(result){
+        var obj = $(result).find('script');
+        var page1X = $(result).find('div.myData').data('x');
+        if(page1X != null){
+          sessionStorage.setItem(file, page1X);
+        }
+        else{
+          window.location.reload();
+        }
+    });
+    return(String(sessionStorage.getItem(file)));
+  }
+
+</script>
