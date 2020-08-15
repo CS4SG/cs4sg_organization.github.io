@@ -230,7 +230,7 @@ function talker(){
   return checked
 }
 
-  var res_topics = tagger(getdata("/research_project.html"), 'tagged', "t");
+  var res_topics = tagger(getdata("/projects.html"), 'tagged', "t");
   var resources = tagger(getdata("/resourceLinks.html"), 'resource', "reso");
 
   function tagger(t, inside, samp_func){
