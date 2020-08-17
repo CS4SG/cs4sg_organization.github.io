@@ -230,7 +230,7 @@ background: #67b0d1;
     var funding = tagger(getdata("/funding.html"), 'funded', "funds");
     
   
-    var temporary = localStorage.getItem("people_list").split(",").map(i => '#' + i).join(",")
+    var temporary = getdata("/people.html").split(",").map(i => '#' + i).join(",")
     var tagged_people = tagger(temporary, 'tagged_people', "g");
   
     function tagger(t, inside, samp_func){
