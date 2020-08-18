@@ -10,6 +10,7 @@ layout: default
     <li><a class="nav-link" href="#forms">Forms</a></li>
     <li><a class="nav-link" href="https://cs4sg.github.io/resources.html" target="_blank">Resources</a></li>
     <li><a class="nav-link" href="https://docs.google.com/document/d/1_oJGjgSufz_YQ7Z0g6GItEA46z9770ZcZO6dj3ZuDnA/edit?usp=sharing" target="_blank">Website Architecture</a></li>
+    <li><a class="nav-link" href="#creating_form">How to create a Form?</a></li>
     <li><a class="nav-link" href="#help">Help&nbsp;<i class="fa fa-question-circle"></i></a></li>
   </ul>
 </nav>
@@ -76,6 +77,107 @@ layout: default
           <li><a href="./{{ form.url }}" target="_blank">{{ form.title }}</a></li>
         {% endfor %}
       </ol>
+    </article>
+  </section>
+  <section class="main-section" id="creating_form">
+    <header>How to create a Form?</header>
+    <article>
+      <p>
+        To create a form, please download the following template and follow the directions given below.<br/>
+        <a href="form_template.html" download>Download Form Template&nbsp;<i class="fa fa-download" aria-hidden="true"></i></a>
+        <ul>
+          <li>
+            <h3>Entering Basic information about the form.</h3>
+            <p>The top of form template contains the 3 basic information of the website.
+              <code>
+                ---
+                <b>layout:</b>&nbsp;form&nbsp;<font style="color:white">&#8592;&nbsp;The layout type is form</font>
+                <b>title:</b>&nbsp;<font style="color:white">&#8592;&nbsp;Enter the title of the form</font>
+                <b>upload:</b>&nbsp;<font style="color:white">&#8592;&nbsp;Enter the url of the destination folder where completed form should be uploaded</font>
+                ---
+              </code>
+            </p>
+          </li>
+          <li>
+            <h3>Writing the HTML</h3>
+            <p>
+              <ol>
+                <li>
+                  <h4>Sorround your whole HTML code between &#60;div id="after_submission"&#62;&nbsp;...&nbsp;&#60;/div&#62;</h4>
+              <code>
+                &#60;div id="after_submission"&#62;
+                .
+                .
+                .
+                &#60;/div&#62;
+              </code>
+              </li>
+              
+              <li>
+                <h4>HTML code to add a text / number / date / time / file etc. input</h4>
+                <code>
+                  &#60;div&#62;
+                    &#60;input type="<font style="color:white">text / number / date / time / file etc.</font>" 
+                    id="<font style="color:white">The ID you want to provide</font>" 
+                    placeholder="<font style="color:white">The placeholder text</font>" 
+                    required= <font style="color:white">Use this attribute only if you want the field to be required. Type <b><i>"required"</i></b></font>
+                    /&#62;
+                  &#60;/div&#62;
+                </code><br/>
+                <b>Output:</b><br/><br/>
+                <input type="text" id="sample" placeholder="some sample placeholder" required="required"/>
+              </li>
+
+              <li>
+                <h4>HTML code to add a Select input</h4>
+                <code>
+                  &#60;div&#62;
+                    &#60;select id="<font style="color:white">The ID you want to provide</font>"&#62;
+                      &#60;option selected value=""&#62;-- Select --&#60;/option&#62;
+                      &#60;option value="Option 1"&#62;Option 1&#60;/option&#62;
+                      &#60;option value="Option 2"&#62;Option 2&#60;/option&#62;
+                    &#60;/select&#62;
+                  &#60;/div&#62;
+                </code><br/>
+                <b>Output:</b><br/>
+                <div>
+                  <select id="sample_category">
+                      <option selected value="">-- Select --</option>
+                      <option value="Option 1">Option 1</option>
+                      <option value="Option 2">Option 2</option>
+                  </select>
+              </div>
+              </li>
+              </ol>
+            </p>
+          </li>
+          <li>
+            <h3>Writing the JavaScript</h3>
+            <p>here are some of the javascript functions that are used frequently in the forms. 
+              Please tweak some of the information to make them functional in the form.</p>
+              <p><font style="color:red">*</font>All JavaScript code should come between the <b><i>&#60;script&#62;&nbsp;...&nbsp;&#60;/script&#62;</i></b> Tags.</p>
+                <ol>
+                  <li>
+                    <h4>The Window Reload Function</h4>
+                    <p>Particularly used when you have <a href="#tags">tags</a> to display in your form.<br/>
+                    <b>Use:&nbsp;</b>Reloads the page.
+                    </p>
+                    <code>
+                      window.onload = function() {
+                        if(!window.location.hash) {
+                            window.location = window.location + '#loaded';
+                            window.location.reload();
+                        }
+                      }
+                    </code>
+
+                    <!-- Start from here -->
+
+                  </li>
+                </ol>
+          </li>
+        </ul>
+      </p>
     </article>
   </section>
   <section class="main-section" id="help">
