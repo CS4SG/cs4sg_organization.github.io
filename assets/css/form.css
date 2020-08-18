@@ -6,7 +6,7 @@ div {
     background-color: transparent;
     overflow: hidden;
 }
-input[type=text], input[type=date], input[type=number], textarea, select {
+input[type=text], input[type=date], input[type=number], input[type=datetime-local], textarea, select {
     font: 17px Calibri;
     width: 100%;
     padding: 12px;
