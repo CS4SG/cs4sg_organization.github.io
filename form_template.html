@@ -3,4 +3,62 @@ layout: form
 title: 
 upload: 
 ---
+<center>
+    <div id = "after_submission">
 
+        <div><input type="text" id="topic" placeholder="Enter Title" required="required"/></div>
+
+        <div>
+            <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">  
+                <h5>Description</h5>
+                <div><iframe src="../edit.html" style="border:0px; width:100%; min-height:50vh;"></iframe></div>
+            </div>
+        </div>
+
+        <center>
+            <div>
+                <input type="button" value="Generate MD File" onclick="saveFile(); after_submission()" class="sectionbutton"/>
+            </div>
+        </center>
+
+    </div>
+</center>
+
+<script>
+    let saveFile = () => {
+          // Get the data from each element on the form.
+          const topic = document.getElementById('topic').value;
+          var msg = String(localStorage.getItem("saved_research_html"));
+          
+          // This variable stores all the data.
+          let data = 
+              "---"+"\n"+
+              "layout: default"+"\n"+
+              "title: "+topic+"\n"+
+              
+              "key: "+topic+"\n"+
+              "description: "+msg+"\n"+"---"
+  
+          // Convert the text to BLOB.
+          const textToBLOB = new Blob([data], { type: 'text/plain' });
+          const sFileName = topic+'.md';	   // The file to save the data.
+  
+          let newLink = document.createElement("a");
+          newLink.download = sFileName;
+  
+          if (window.webkitURL != null) {
+              newLink.href = window.webkitURL.createObjectURL(textToBLOB);
+          }
+          else {
+              newLink.href = window.URL.createObjectURL(textToBLOB);
+              newLink.style.display = "none";
+              document.body.appendChild(newLink);
+          }
+  
+          newLink.click(); 
+    }
+
+    function after_submission(){
+        document.getElementById("after_submission").innerHTML = "<br><br><center><table width='80%'><h2>Thank you for submitting your Code.</h2><br><br> To add it to the CS4SG Code Section, just upload the file to the destination folder. Here is the link for the folder <br><a href = '{{ page.upload }}' target='_blank'>{{ page.upload }}</a></table></center>"
+    }
+</script>
