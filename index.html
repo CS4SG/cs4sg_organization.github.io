@@ -172,8 +172,55 @@ layout: default
                     </code>
                   </li>
 
-                    <!-- Start from here -->
+                  <li>
+                    <h4>Adding new external people</h4>
+                    <code>
+                      <font style="color:white">
+                      // First define a new List. 
+                      // If you have an existing list where you want to add new people, 
+                      //you do not need to define a new one.
 
+                      var sample_list = []
+
+                      </font>
+                      function add_new(id, list_name, ul_name){
+                        var n = document.getElementById(id).value
+                        if(n != ""){
+                          eval(String(list_name)+".push('"+n+"')");
+                            var node = document.createElement("li");
+                            node.onclick = function() {this.parentNode.removeChild(this);};
+                            var textnode = document.createTextNode(n);
+                            node.appendChild(textnode);
+                            document.getElementById(ul_name).appendChild(node);
+                          document.getElementById(id).value = "";
+                        }
+                        else{
+                    
+                        }
+                      }
+
+                      <font style="color:white">
+                      // Calling the function: The function can be called inside the HTML.</font>
+                      &#60;input type="text" 
+                      id="<font style="color:white">SampleId_text</font>" 
+                      placeholder="Enter a new Person" 
+                      style="width:50%"&#62;
+
+                      &#60;input type="button" 
+                      onclick="add_new('<font style="color:white">The ID of input text element (SampleId_text)</font>',
+                      '<font style="color:white">The name of the list variable defines in JavaScript between "..." (sample_list)</font>', 
+                      '<font style="color:white">The ID of UL element (id_ul)</font>');" 
+                      value="<font style="color:white"></font>" style="width:10%"&#62;
+                      
+                      &#60;ul id="<font style="color:white">id_ul</font>" 
+                      style="font-weight: normal; text-align: left; padding:10px;"&#62;
+                      &#60;LH&#62;&#60;b&#62;Added non-organization People:&#60;/b&#62;&#60;/LH&#62;&#60;/ul&#62;
+                    </code>
+                  </li>
+
+                  <li>
+                    <h4>Adding Tags</h4>
+                  </li>
                 </ol>
           </li>
         </ul>
