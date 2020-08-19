@@ -222,11 +222,107 @@ layout: default
                     <h4 id="tags">Adding Tags</h4>
                     <p>This is a 2-part functionality.
                       <ol type="I">
-                      <li>Changes in the individual section of the main <a href="\" target="_blank">CS4SG website</a></li>
-                      <li>Fetching the data from the official website page into the form.</li>
+                        <li>Changes in the individual section of the <a href="\" target="_blank">CS4SG website</a></li>
+                        <li>Fetching the data from the official website page into the form.</li>
                       </ol>
                     </p>
-                    
+                    <center><a href="./assets/images/tags.jpg" target="_blank"><img src="./assets/images/tags.jpg" alt="Generate MD File Button Click" class="help_img"></a></center>
+                    <b>Step-I. Changes in the individual section of the CS4SG Website</b>
+                    <p>In order to fetch the data from the page, we need to get a string like "item #1,item #2,item #3,...". In order to do that,
+                      we can loop through the data, and append whatever information we need, in the string.
+                    </p>
+                    <p>We can do that using Jekyll for loop.</p>
+                    <code>
+  <font style="color:white">// Assign a string to which data will be appended.</font>
+  {&#37; assign title_string = ""	&#37;}
+
+  <font style="color:white">// Loop through the data.</font>
+  {&#37; for <font style="color:white">variable_name</font> in site.<font style="color:white">page_name</font> &#37;}
+    {&#37; capture title_string &#37;}&#123;&#123; title_string | append: <font style="color:white">variable_name</font>.name &#125;&#125;{&#37; endcapture &#37;}
+    {&#37; if forloop.last == false &#37;}
+        {&#37; capture title_string &#37;}&#123;&#123; title_string | append: "," &#125;&#125;{&#37; endcapture &#37;}
+    {&#37; endif &#37;}
+    .
+    .
+    .
+  {&#37; endfor &#37;}
+
+  <font style="color:white">// Save all the data in a div.</font>
+  &#60;div class="myData" data-x='&#123;&#123; title_string &#125;&#125;'&#62;&#60;/div&#62;
+                    </code><br/>
+                    <b>Step-II. Fetching the data from the official website page into the form.</b>
+                    <p>We can do this using jQuery GET request</p>
+                    <code>
+  <font style="color:white">// Inside the <b><i>&#60;script&#62;&nbsp;...&nbsp;&#60;/script&#62;</i></b> Tags, add the following.</font>
+  <font style="color:white">// getdata function returns the string of items seperated by ","</font>
+  function getdata(file){
+    $.get(file, function(result){
+        var obj = $(result).find('script');
+        var page1X = $(result).find('div.myData').data('x');
+        if(page1X != null){
+            sessionStorage.setItem(file, page1X);
+        }
+        else{
+            window.location.reload();
+        }
+    });
+    return(String(sessionStorage.getItem(file)));
+  }
+
+  <font style="color:white">// tagger function returns the List of all the items and also displays the tags on the form.</font>
+  function tagger(t, inside, samp_func){
+    var people_checked = []
+    var people_arr = t.split(",")
+    
+    var i=0;
+    function add(ids, parent){
+      i++;
+      var node = document.createElement('div');        
+      node.innerHTML = '&#60;input type="checkbox" id="' + ids +
+       '" onChange="'+samp_func+'(this)" name="check' + i + '">
+      &#60;label for="' + ids + '">'+ ids +'&#60;/label>';
+      document.getElementById(parent).appendChild(node);
+    }
+
+    for (e of people_arr) {
+      add(e, inside)
+    }
+
+    function remove(array, element) {
+      const index = array.indexOf(element);
+      array.splice(index, 1);
+    }
+
+    window[samp_func] = function(item){
+      if(people_checked.includes(item.id)){
+        remove(people_checked,item)
+      }
+      else{
+        people_checked.push(String(item.id))
+      }
+      console.log(people_checked)
+    }
+    return people_checked
+  }
+
+  <font style="color:white">// List of all the items fetched and display on the form.</font>
+  var variable_name = tagger(
+    getdata("/<font style="color:white">page_name</font>.html"), 
+    '<font style="color:white">ID of div you want to show the tags inside (sample_tag)</font>', 
+    "<font style="color:white">Unique variable name as String</font>"
+  );
+
+  <font style="color:white">// Displaying tags on the form (HTML).</font>
+  &#60;div&#62;
+  &#60;div 
+  style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;"&#62;
+
+    &#60;center&#62;
+      &#60;h5&#62;Choose Related Tag&#60;/h5&#62;
+    &#60;/center&#62;
+  &#60;div id="sample_tag" class="hiddenCB"&#62;&#60;/div&#62;
+  &#60;/div&#62;&#60;/div&#62;
+                    </code>
                   </li>
                 </ol>
           </li>
