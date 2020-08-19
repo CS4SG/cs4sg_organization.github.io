@@ -90,11 +90,11 @@ layout: default
             <h3>Entering Basic information about the form.</h3>
             <p>The top of form template contains the 3 basic information of the website.
               <code>
-                ---
-                <b>layout:</b>&nbsp;form&nbsp;<font style="color:white">&#8592;&nbsp;The layout type is form</font>
-                <b>title:</b>&nbsp;<font style="color:white">&#8592;&nbsp;Enter the title of the form</font>
-                <b>upload:</b>&nbsp;<font style="color:white">&#8592;&nbsp;Enter the url of the destination folder where completed form should be uploaded</font>
-                ---
+  ---
+  <b>layout:</b>&nbsp;form&nbsp;<font style="color:white">&#8592;&nbsp;The layout type is form</font>
+  <b>title:</b>&nbsp;<font style="color:white">&#8592;&nbsp;Enter the title of the form</font>
+  <b>upload:</b>&nbsp;<font style="color:white">&#8592;&nbsp;Enter the url of the destination folder where completed form should be uploaded</font>
+  ---
               </code>
             </p>
           </li>
@@ -105,24 +105,24 @@ layout: default
                 <li>
                   <h4>Sorround your whole HTML code between &#60;div id="after_submission"&#62;&nbsp;...&nbsp;&#60;/div&#62;</h4>
               <code>
-                &#60;div id="after_submission"&#62;
-                .
-                .
-                .
-                &#60;/div&#62;
+  &#60;div id="after_submission"&#62;
+  .
+  .
+  .
+  &#60;/div&#62;
               </code>
               </li>
               
               <li>
                 <h4>HTML code to add a text / number / date / time / datetime-local / file etc. input</h4>
                 <code>
-                  &#60;div&#62;
-                    &#60;input type="<font style="color:white">text / number / date / time / datetime-local / file etc.</font>" 
-                    id="<font style="color:white">The ID you want to provide</font>" 
-                    placeholder="<font style="color:white">The placeholder text</font>" 
-                    required= <font style="color:white">Use this attribute only if you want the field to be required. Type <b><i>"required"</i></b></font>
-                    /&#62;
-                  &#60;/div&#62;
+  &#60;div&#62;
+    &#60;input type="<font style="color:white">text / number / date / time / datetime-local / file etc.</font>" 
+    id="<font style="color:white">The ID you want to provide</font>" 
+    placeholder="<font style="color:white">The placeholder text</font>" 
+    required= <font style="color:white">Use this attribute only if you want the field to be required. Type <b><i>"required"</i></b></font>
+    /&#62;
+  &#60;/div&#62;
                 </code><br/>
                 <b>Output:</b><br/><br/>
                 <input type="text" id="sample" placeholder="some sample placeholder" required="required"/>
@@ -131,13 +131,13 @@ layout: default
               <li>
                 <h4>HTML code to add a Select input</h4>
                 <code>
-                  &#60;div&#62;
-                    &#60;select id="<font style="color:white">The ID you want to provide</font>"&#62;
-                      &#60;option selected value=""&#62;-- Select --&#60;/option&#62;
-                      &#60;option value="Option 1"&#62;Option 1&#60;/option&#62;
-                      &#60;option value="Option 2"&#62;Option 2&#60;/option&#62;
-                    &#60;/select&#62;
-                  &#60;/div&#62;
+  &#60;div&#62;
+    &#60;select id="<font style="color:white">The ID you want to provide</font>"&#62;
+      &#60;option selected value=""&#62;-- Select --&#60;/option&#62;
+      &#60;option value="Option 1"&#62;Option 1&#60;/option&#62;
+      &#60;option value="Option 2"&#62;Option 2&#60;/option&#62;
+    &#60;/select&#62;
+  &#60;/div&#62;
                 </code><br/>
                 <b>Output:</b><br/>
                 <div>
@@ -163,59 +163,59 @@ layout: default
                     <b>Use:&nbsp;</b>Reloads the page.
                     </p>
                     <code>
-                      window.onload = function() {
-                        if(!window.location.hash) {
-                            window.location = window.location + '#loaded';
-                            window.location.reload();
-                        }
-                      }
+  window.onload = function() {
+    if(!window.location.hash) {
+        window.location = window.location + '#loaded';
+        window.location.reload();
+    }
+  }
                     </code>
                   </li>
 
                   <li>
                     <h4>Adding new external people</h4>
                     <code>
-                      <font style="color:white">
-                      // First define a new List. 
-                      // If you have an existing list where you want to add new people, 
-                      //you do not need to define a new one.
+  <font style="color:white">
+  // First define a new List. 
+  // If you have an existing list where you want to add new people, 
+  //you do not need to define a new one.
 
-                      var sample_list = []
+  var sample_list = []
 
-                      </font>
-                      function add_new(id, list_name, ul_name){
-                        var n = document.getElementById(id).value
-                        if(n != ""){
-                          eval(String(list_name)+".push('"+n+"')");
-                            var node = document.createElement("li");
-                            node.onclick = function() {this.parentNode.removeChild(this);};
-                            var textnode = document.createTextNode(n);
-                            node.appendChild(textnode);
-                            document.getElementById(ul_name).appendChild(node);
-                          document.getElementById(id).value = "";
-                        }
-                        else{
-                    
-                        }
-                      }
+  </font>
+  function add_new(id, list_name, ul_name){
+    var n = document.getElementById(id).value
+    if(n != ""){
+      eval(String(list_name)+".push('"+n+"')");
+        var node = document.createElement("li");
+        node.onclick = function() {this.parentNode.removeChild(this);};
+        var textnode = document.createTextNode(n);
+        node.appendChild(textnode);
+        document.getElementById(ul_name).appendChild(node);
+      document.getElementById(id).value = "";
+    }
+    else{
 
-                      <font style="color:white">
-                      // Calling the function: The function can be called inside the HTML.</font>
-                      &#60;input type="text" 
-                      id="<font style="color:white">SampleId_text</font>" 
-                      placeholder="Enter a new Person" 
-                      style="width:50%"&#62;
+    }
+  }
 
-                      &#60;input type="button" 
-                      onclick="add_new('<font style="color:white">The ID of input text element (SampleId_text)</font>',
-                      '<font style="color:white">The name of the list variable defines in JavaScript between "..." (sample_list)</font>', 
-                      '<font style="color:white">The ID of UL element (id_ul)</font>');" 
-                      value="<font style="color:white"></font>" style="width:10%"&#62;
-                      
-                      &#60;ul id="<font style="color:white">id_ul</font>" 
-                      style="font-weight: normal; text-align: left; padding:10px;"&#62;
-                      &#60;LH&#62;&#60;b&#62;Added non-organization People:&#60;/b&#62;&#60;/LH&#62;&#60;/ul&#62;
-                    </code>
+  <font style="color:white">
+  // Calling the function: The function can be called inside the HTML.</font>
+  &#60;input type="text" 
+  id="<font style="color:white">SampleId_text</font>" 
+  placeholder="Enter a new Person" 
+  style="width:50%"&#62;
+
+  &#60;input type="button" 
+  onclick="add_new('<font style="color:white">The ID of input text element (SampleId_text)</font>',
+  '<font style="color:white">The name of the list variable defines in JavaScript between "..." (sample_list)</font>', 
+  '<font style="color:white">The ID of UL element (id_ul)</font>');" 
+  value="<font style="color:white"></font>" style="width:10%"&#62;
+  
+  &#60;ul id="<font style="color:white">id_ul</font>" 
+  style="font-weight: normal; text-align: left; padding:10px;"&#62;
+  &#60;LH&#62;&#60;b&#62;Added non-organization People:&#60;/b&#62;&#60;/LH&#62;&#60;/ul&#62;
+</code>
                   </li>
 
                   <li>
