@@ -2,6 +2,7 @@
 layout: form
 title: Funding Form
 upload: https://github.com/CS4SG/CS4SG.github.io/tree/master/_funding
+destination_layout: funds
 ---
 
 
@@ -89,7 +90,7 @@ upload: https://github.com/CS4SG/CS4SG.github.io/tree/master/_funding
           let data = 
               "---"+"\n"+
               "grant_title: "+title+"\n"+
-              "layout: funds"+"\n"+
+              "layout: {{ page.destination_layout }}"+"\n"+
               "organization: "+org_name+"\n"+
               "org_link: "+org_link+"\n"+
               "grant_notice: "+grant_notice+"\n"+

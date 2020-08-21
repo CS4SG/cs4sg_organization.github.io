@@ -2,6 +2,7 @@
 layout: form
 title: Code Form
 upload: https://github.com/CS4SG/CS4SG.github.io/tree/master/_code
+destination_layout: default
 ---
 
 
@@ -90,7 +91,7 @@ upload: https://github.com/CS4SG/CS4SG.github.io/tree/master/_code
           // This variable stores all the data.
           let data = 
               "---"+"\n"+
-              "layout: default"+"\n"+
+              "layout: {{ page.destination_layout }}"+"\n"+
               "code_title: "+topic+"\n"+
               "code_authors: "+people.toString()+"\n"+
               "tagged_projects: "+res_topics.toString()+"\n"+

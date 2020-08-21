@@ -94,6 +94,7 @@ layout: default
   <b>layout:</b>&nbsp;form&nbsp;<font style="color:white">&#8592;&nbsp;The layout type is form</font>
   <b>title:</b>&nbsp;<font style="color:white">&#8592;&nbsp;Enter the title of the form</font>
   <b>upload:</b>&nbsp;<font style="color:white">&#8592;&nbsp;Enter the url of the destination folder where completed form should be uploaded</font>
+  <b>destination_layout: </b>&nbsp;<font style="color:white">&#8592;&nbsp;Enter the layout type for the generated file from this form.</font>
   ---
               </code>
             </p>
@@ -147,6 +148,20 @@ layout: default
                       <option value="Option 2">Option 2</option>
                   </select>
               </div>
+              </li>
+              <li>
+                <h4>HTML code to add a Rich Text Edtor</h4>
+                <p>The JavaScript part of Rich Text Editor can be found <a href="#RTE">here</a>.</p>
+                <code>
+  &#60;div&#62;
+    &#60;div style="padding: 12px; font: 17px Calibri; 
+    width: 100%; border: 1px solid #ccc; border-radius: 4px;"&#62;  
+      &#60;h5&#62;Description&#60;/h5&#62;
+        &#60;div&#62;&#60;iframe src="../edit.html" style="border:0px; width:100%; min-height:50vh;"&#62;&#60;/iframe&#62;&#60;/div&#62;
+    &#60;/div&#62;
+  &#60;/div&#62;
+                </code>
+                <center><a href="./assets/images/Rich_Text.jpg" target="_blank"><img src="./assets/images/Rich_Text.jpg" alt="Rich text Editor" class="help_img"></a></center>
               </li>
               </ol>
             </p>
@@ -226,7 +241,7 @@ layout: default
                         <li>Fetching the data from the official website page into the form.</li>
                       </ol>
                     </p>
-                    <center><a href="./assets/images/tags.jpg" target="_blank"><img src="./assets/images/tags.jpg" alt="Generate MD File Button Click" class="help_img"></a></center>
+                    <center><a href="./assets/images/tags.jpg" target="_blank"><img src="./assets/images/tags.jpg" alt="Generate Tags" class="help_img"></a></center>
                     <b>Step-I. Changes in the individual section of the CS4SG Website</b>
                     <p>In order to fetch the data from the page, we need to get a string like "item #1,item #2,item #3,...". In order to do that,
                       we can loop through the data, and append whatever information we need, in the string.
@@ -322,6 +337,74 @@ layout: default
     &#60;/center&#62;
   &#60;div id="sample_tag" class="hiddenCB"&#62;&#60;/div&#62;
   &#60;/div&#62;&#60;/div&#62;
+                    </code>
+                  </li>
+                  <li>
+                    <h4>Converting inputs to Markdown</h4>
+                    <p>The following function converts the user inputs to Markdown format and downloads it to the device.</p>
+                    <code>
+  let saveFile = () => {
+
+    <font style="color:white">// Get the data from each element on the form.</font>
+    const topic = document.getElementById('topic').value;
+
+    <font style="color:white" id="RTE">// Get the data from the Rich Text Editor.</font>
+    var msg = String(localStorage.getItem("saved_research_html"));
+    
+    <font style="color:white">// This variable stores all the data.</font>
+    let data = 
+        "---"+"\n"+
+        "layout: {{ page.destination_layout }}"+"\n"+
+        "title: "+topic+"\n"+<font style="color:white">
+        .
+        .
+        .</font>
+        "key: "+topic+"\n"+
+        "---"+"\n\n"+
+        +msg
+    
+    
+    
+    <font style="color:white">// Convert the text to BLOB.</font>
+    const textToBLOB = new Blob([data], { type: 'text/plain' });
+    const sFileName = topic+'.md';	   // The file to save the data.
+    
+    let newLink = document.createElement("a");
+    newLink.download = sFileName;
+    
+    if (window.webkitURL != null) {
+        newLink.href = window.webkitURL.createObjectURL(textToBLOB);
+    }
+    else {
+        newLink.href = window.URL.createObjectURL(textToBLOB);
+        newLink.style.display = "none";
+        document.body.appendChild(newLink);
+    }
+    
+    newLink.click(); 
+  }
+                    </code>
+                    <p>Here are all the types of layouts:</p>
+                    <ul>
+                      {% for form in site.forms %}
+                      <li>{{ form.destination_layout }}</li>
+                      {% endfor %}
+                    </ul>
+                  </li>
+                  <li>
+                    <h4>Displaying steps after form submission</h4>
+                    <p>To display the after form submission text, just copy and paste the following code.</p>
+                    <code>
+  function after_submission(){
+    document.getElementById("after_submission").innerHTML = "&#60;br&#62;&#60;br&#62;
+    &#60;center&#62;&#60;table width='80%'&#62;&#60;h2&#62;
+    Thank you for submitting your publication.&#60;/h2&#62;
+    &#60;br&#62;&#60;br&#62;
+     To add it to the CS4SG website, just upload the file to the destination folder.
+      Here is the link for the folder
+      &#60;br&#62;&#60;a href = '{{ page.upload }}' target='_blank'>{{ page.upload }}
+      &#60;/a&#62;&#60;/table&#62;&#60;/center&#62;"
+  }
                     </code>
                   </li>
                 </ol>

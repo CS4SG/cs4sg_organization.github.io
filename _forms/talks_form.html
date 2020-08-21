@@ -2,6 +2,7 @@
 layout: form
 title: Talks Form
 upload: https://github.com/CS4SG/CS4SG.github.io/tree/master/_talks
+destination_layout: talk
 ---
 
 <center>
@@ -79,7 +80,7 @@ upload: https://github.com/CS4SG/CS4SG.github.io/tree/master/_talks
         // This variable stores all the data.
       let data = 
           "---"+"\n"+
-          "layout: talk"+"\n"+
+          "layout: {{ page.destination_layout }}"+"\n"+
           "title: "+topic+"\n"+
           "category: "+category+"\n"+
           "locus: "+locus+"\n"+

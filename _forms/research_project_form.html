@@ -2,6 +2,7 @@
 layout: form
 title: Research Project Form
 upload: https://github.com/CS4SG/CS4SG.github.io/tree/master/_projects
+destination_layout: project
 ---
 
 <center>
@@ -70,7 +71,7 @@ add_new()
 // This variable stores all the data.
 let data = 
     "---"+"\n"+
-    "layout: research_project"+"\n"+
+    "layout: {{ page.destination_layout }}"+"\n"+
     "title: "+topic+"\n"+
     "description: "+description+"\n"+
     "tagged_people: "+people.toString()+"\n"+

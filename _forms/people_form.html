@@ -2,6 +2,7 @@
 layout: form
 title: People Form
 upload: https://github.com/CS4SG/CS4SG.github.io/tree/master/_people
+destination_layout: people
 ---
 
 
@@ -117,7 +118,7 @@ upload: https://github.com/CS4SG/CS4SG.github.io/tree/master/_people
         // This variable stores all the data.
         let data = 
             "---"+"\n"+
-            "layout: people"+"\n"+
+            "layout: {{ page.destination_layout }}"+"\n"+
             "name: "+fname+" "+lname+"\n"+
             "category: "+category+"\n"+
             "designation: "+designation+"\n"+
