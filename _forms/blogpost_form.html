@@ -9,6 +9,8 @@ destination_layout: post
     <div id = "after_submission">          
   
     <div><input type="text" id="topic" placeholder="Enter post title" required="required"/></div>
+        
+    <div><input type="date" id="dts" placeholder="Enter date" /></div>
     
     <div>
     <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
@@ -94,6 +96,7 @@ destination_layout: post
           
           // Get the data from each element on the form.
           const topic = document.getElementById('topic').value;
+          const dates = document.getElementById("dts").value;
           const image = document.getElementById('image').value;
           const imagedesc = document.getElementById('imagedesc').value;
           var msg = String(localStorage.getItem("saved_research_html"));
@@ -120,7 +123,7 @@ destination_layout: post
   
           // Convert the text to BLOB.
           const textToBLOB = new Blob([data], { type: 'text/plain' });
-          const sFileName = topic+'.md';	   // The file to save the data.
+          const sFileName = dates+topic.replace(/ /g, '-');+'.md';	   // The file to save the data.
   
           let newLink = document.createElement("a");
           newLink.download = sFileName;
