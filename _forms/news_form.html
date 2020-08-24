@@ -1,0 +1,243 @@
+---
+layout: form
+title: News Form
+upload: https://github.com/CS4SG/CS4SG.github.io/tree/master/_event
+destination_layout: news
+---
+
+<center>
+<div id = "after_submission">
+        <iframe src="/people.html" style="display:none;"></iframe>
+        <iframe src="/research_project.html" style="display:none;"></iframe>
+        <iframe src="/education.html" style="display:none;"></iframe>
+        <iframe src="/courses.html" style="display:none;"></iframe>
+        <iframe src="/talks.html" style="display:none;"></iframe>
+        
+
+    <div><input type="text" id="topic" placeholder="Enter Title" required="required"/></div>
+
+    <div>
+        <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
+        <center><h5>Featured Image (Optional)</h5></center>
+        <br>
+        
+        <p style="text-align:left">If you would like to use your own featured image, please upload it to the <a href="https://github.com/CS4SG/CS4SG.github.io/tree/master/assets/img/news_images" target="_blank">assets/img/news_images/</a> folder in the main website and enter the image's filename below. If you don't include an image, a default one will be shown on the blog page and no image will be shown on the individual news page.</p>
+    
+        <div><input type="text" id="image" placeholder="Enter featured image filename e.g. sample.jpg"/></div>
+    </div></div>
+
+    <div><input type="text" id="article_url" placeholder="Enter Article URL" required="required"/></div>
+
+    <div>
+        <input type="date" id="event_date" placeholder="Enter event date" required="required"/><br/>
+    </div>
+
+    <div><input type="text" id="location" placeholder="Enter Location"/></div>
+    
+    <div>
+    <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
+    <center><h5>Choose Related People</h5></center><div id="peoples" class="hiddenCB"></div><input type="text" id="new_person" placeholder="Enter a new Person" style="width:50%"> &nbsp; 
+    <input type="button" onclick="add_new('new_person','people', 'new_people_added');" value="Add Person" style="width:10%"> &nbsp; OR  &nbsp;
+    <input type="button" onclick="window.open('\/people_form.html')" value="Add to Organization">
+    <br /><br />
+    <ul id="new_people_added" style="font-weight: normal; text-align: left; padding: 10px;"><LH><b>Added non-organization Authors:</b></LH></ul>
+    </div></div>
+
+    
+    <div>
+    <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
+    <center><h5>Choose Related Research Projects</h5></center><div id="tagged" class="hiddenCB"></div>
+    </div></div>
+
+    <div>
+    <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
+    <center><h5>Choose Related Publications</h5></center><div id="publish" class="hiddenCB"></div>
+    </div></div>
+
+    <div>
+    <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
+    <center><h5>Choose Related Education Items</h5></center><div id="tag_edu" class="hiddenCB"></div>
+    </div></div>    
+
+    <div>
+    <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
+    <center><h5>Choose Related Courses</h5></center><div id="tag_courses" class="hiddenCB"></div>
+    </div></div>  
+
+    <div>
+    <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
+    <center><h5>Choose Related Internal Talks</h5></center><div id="talks" class="hiddenCB"></div>
+    </div></div>
+
+    <div>
+    <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
+    <center><h5>Choose Related External Talks</h5></center><div id="speech" class="hiddenCB"></div>
+    </div></div>
+    
+    <div>
+    <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
+    <center><h5>Choose Related Fundings</h5></center><div id="funded" class="hiddenCB"></div>
+    </div></div>
+    
+    <div>
+    <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">  
+        <h5>News Description</h5>
+        <div><iframe src="../edit.html" style="border:0px; width:100%; min-height:50vh;"></iframe></div>
+    </div></div>  
+
+        <center>
+        <div>
+            <input type="button" value="Generate MD File" onclick="saveFile(); after_submission()"/>
+        </div>
+        </center>
+</div>
+</center>
+
+
+<script>
+    window.onload = function() {
+      if(!window.location.hash) {
+          window.location = window.location + '#loaded';
+          window.location.reload();
+      }
+    }
+    
+    
+      let saveFile = () => {
+          
+          // Get the data from each element on the form.
+          const topic = document.getElementById('topic').value;
+          const image = document.getElementById('image').value;
+          var article_url = document.getElementById('article_url').value;
+          var event_date = document.getElementById('event_date').value;
+          var location = document.getElementById('location').value;
+          var msg = String(localStorage.getItem("saved_research_html"));
+          var mixed_talks = talks.concat(speech)
+          
+          // This variable stores all the data.
+          let data = 
+              "---"+"\n"+
+              "layout: news"+"\n"+
+              "title: "+topic+"\n"+
+              "date: "+event_date+"\n"+
+              "location: "+location+"\n"+
+              "tagged_people: "+people.toString()+"\n"+
+              "tagged_projects: "+res_topics.toString()+"\n"+
+              "tagged_publications: "+publications.toString()+"\n"+
+              "image: "+"https://cs4sg.github.io/assets/img/news_images/"+image+"\n"+
+              "article_url: "+article_url+"\n"+
+              "tagged_education: "+education.toString()+"\n"+
+              "tagged_courses: "+courses.toString()+"\n"+
+              "tagged_funding: "+funding.toString()+"\n"+
+              "tagged_talks: "+mixed_talks.toString()+"\n"+
+              "key: "+topic+"\n"+
+              "description: "+msg+"\n"+"---"
+  
+  
+  
+          // Convert the text to BLOB.
+          const textToBLOB = new Blob([data], { type: 'text/plain' });
+          const sFileName = topic+'.md';	   // The file to save the data.
+  
+          let newLink = document.createElement("a");
+          newLink.download = sFileName;
+  
+          if (window.webkitURL != null) {
+              newLink.href = window.webkitURL.createObjectURL(textToBLOB);
+          }
+          else {
+              newLink.href = window.URL.createObjectURL(textToBLOB);
+              newLink.style.display = "none";
+              document.body.appendChild(newLink);
+          }
+  
+          newLink.click(); 
+      }
+  
+      function after_submission(){
+        document.getElementById("after_submission").innerHTML = "<br><br><center><table width='80%'><h2>Thank you for submitting your publication.</h2><br><br> To add it to the CS4SG Research Section, just upload the file to the <b>_publications<b> folder. Here is the link for the folder <br><a href = 'https://github.com/CS4SG/CS4SG.github.io/tree/master/_event' target='_blank'>https://github.com/CS4SG/CS4SG.github.io/tree/master/_event</a></table></center>"
+      }
+  
+    var res_topics = tagger(getdata("/projects.html"), 'tagged', "t");
+    var people = tagger(getdata("/people.html"), 'peoples', "v");
+    var courses = tagger(getdata("/courses.html"), 'tag_courses', "c");
+    var talks = tagger(getdata("/talks.html"), 'talks', "talk");
+    var publications = tagger(getdata("/publications.html"), 'publish', "publ");
+    var funding = tagger(getdata("/funding.html"), 'funded', "funds");
+    var speech = tagger(getdata("/speech.html"), 'speech', "speak");
+    
+  
+    function tagger(t, inside, samp_func){
+      var people_checked = []
+      var people_arr = t.split(",")
+      
+      var i=0;
+      function add(ids, parent){
+        i++;
+        var node = document.createElement('div');        
+        node.innerHTML = '<input type="checkbox" id="' + ids + '" onChange="'+samp_func+'(this)" name="check' + i + '"><label for="' + ids + '">'+ ids +'</label>&nbsp; &nbsp;';
+        document.getElementById(parent).appendChild(node);
+      }
+  
+      for (e of people_arr) {
+        add(e, inside)
+      }
+  
+      function remove(array, element) {
+        const index = array.indexOf(element);
+        array.splice(index, 1);
+      }
+  
+      window[samp_func] = function(item){
+        if(people_checked.includes(item.id)){
+          remove(people_checked,item)
+        }
+        else{
+          people_checked.push(String(item.id))
+        }
+        console.log(people_checked)
+      }
+      return people_checked
+    }
+  
+    function add_new(id, list_name, ul_name){
+      var n = document.getElementById(id).value
+      if(n != ""){
+        eval(String(list_name)+".push('"+n+"')");
+          var node = document.createElement("li");
+          node.onclick = function() {this.parentNode.removeChild(this);};
+          var textnode = document.createTextNode(n);
+          node.appendChild(textnode);
+          document.getElementById(ul_name).appendChild(node);
+        document.getElementById(id).value = "";
+      }
+      else{
+  
+      }
+    }
+  
+    function add_tag(){
+        s2 = String(document.getElementById('topic').value)
+        if(res_topics.includes(s2)){
+        }
+        else{
+          res_topics.push(s2);
+        }
+      }
+
+    function getdata(file){
+        $.get(file, function(result){
+            var obj = $(result).find('script');
+            var page1X = $(result).find('div.myData').data('x');
+            if(page1X != null){
+                sessionStorage.setItem(file, page1X);
+            }
+            else{
+                window.location.reload();
+            }
+        });
+        return(String(sessionStorage.getItem(file)));
+    }
+</script>
+  
+
