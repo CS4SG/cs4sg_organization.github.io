@@ -11,6 +11,7 @@ layout: default
     <li><a class="nav-link" href="https://cs4sg.github.io/resources.html" target="_blank">Resources</a></li>
     <li><a class="nav-link" href="https://docs.google.com/document/d/1_oJGjgSufz_YQ7Z0g6GItEA46z9770ZcZO6dj3ZuDnA/edit?usp=sharing" target="_blank">Website Architecture</a></li>
     <li><a class="nav-link" href="#creating_form">How to create a Form?</a></li>
+    <li><a class="nav-link" href="#creating_section">How to create a new section in the website?</a></li>
     <li><a class="nav-link" href="#help">Help&nbsp;<i class="fa fa-question-circle"></i></a></li>
   </ul>
 </nav>
@@ -413,6 +414,46 @@ layout: default
       </p>
     </article>
   </section>
+
+  <section class="main-section" id="creating_section">
+    <header>How to create a new section in the website?</header>
+    <article>
+      <p>There are 2 types of sections:</p>
+      <ol>
+        <li>With Individual Page: Requires 2 extra steps to set up.</li>
+        <li>Without Individual Page</li>
+      </ol>
+      <h3>Common steps for both types of sections</h3>
+      <p style="font-style: italic;">Step 1: Creating the <b>_sectionname</b> folder- This folder will have all the data of every page. Will be populated by
+      MD files generated through the forms.</p>
+      <p style="font-style: italic;">Step 2: Creating the <b>sectionname.html</b> file- This page loops through all the data about a particular section and displays it.</p>
+      <code>
+  &#123;&#37; for <font style="color:white">variable_name</font> in site.<font style="color:white">section_folder</font> &#37;&#125;
+    <font style="color:white">// To display any field value, use <b>&#123;&#123; variable_name.field_name &#125;&#125;</b></font>
+    <font style="color:white">// To link to the individual page, use <b>&#123;&#123; variable_name.url &#125;&#125;</b></font>
+  &#123;&#37; endfor &#37;&#125;
+      </code>
+      <h3>Extra steps for sections with individual pages</h3>
+      <p style="font-style: italic;">Step 3: Setting up the <b>_config.yml</b> file- This means that the page has an individual part as well.</p>
+      <code>
+  <font style="color:white">Section_name</font>:
+    output: true
+      </code>
+      <p style="font-style: italic;">Step 4: Creating the <b>layout</b> file- In order to display the individial pages.</p>
+      <code>     
+  ---
+  layout: <font style="color:white">Section layout type</font>
+  ---
+  .
+  .
+  <font style="color:white">HTML Code</font>
+  <font style="color:white">Use &#123;&#123; page.field_name &#125;&#125; to display the value of any field.</font>
+  .
+  .
+      </code>
+    </article>
+  </section>
+
   <section class="main-section" id="help">
     <header>Help</header>
     <article>
