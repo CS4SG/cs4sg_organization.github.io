@@ -8,7 +8,7 @@ destination_layout: news
 <center>
 <div id = "after_submission">
 
-    <div><input type="text" id="topic" placeholder="Enter Title" required="required"/></div>
+    <div><input type="text" id="topic" placeholder="Enter Title" required="required"  onchange='check_existence("/news.html", "topic")'/></div>
 
     <div>
         <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
@@ -225,6 +225,19 @@ destination_layout: news
             }
         });
         return(String(sessionStorage.getItem(file)));
+    }
+    
+
+    function check_existence(page_link, id){
+      let s = getdata(page_link)
+      let titles = s.split(",");
+      if(titles.includes(document.getElementById(id).value)){
+        alert("Title already exist! please choose another title.")
+        document.getElementById(id).value = '';
+      }
+      else if(document.getElementById(id).value == null){
+        alert("Please enter a Title.")
+      }
     }
 </script>
   
