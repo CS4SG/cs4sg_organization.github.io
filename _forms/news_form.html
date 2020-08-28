@@ -96,7 +96,6 @@ destination_layout: news
           
           // Get the data from each element on the form.
           const topic = document.getElementById('topic').value;
-          check_existence('/news.html', 'topic')
           const image = document.getElementById('image').value;
           var article_url = document.getElementById('article_url').value;
           var event_date = document.getElementById('event_date').value;
@@ -126,7 +125,7 @@ destination_layout: news
   
           // Convert the text to BLOB.
           const textToBLOB = new Blob([data], { type: 'text/plain' });
-          const sFileName = topic+'.md';	   // The file to save the data.
+          const sFileName = ztopic+'.md';	   // The file to save the data.
   
           let newLink = document.createElement("a");
           newLink.download = sFileName;
@@ -227,16 +226,5 @@ destination_layout: news
         });
         return(String(sessionStorage.getItem(file)));
     }
-
-
-    function check_existence(page_link, id){
-      let s = getdata(page_link)
-      let titles = s.split(",");
-      if(titles.includes(document.getElementById(id).value)){
-        alert("Title already exist! please choose another title.")
-        document.getElementById(id).value = '';
-      }
-    }
 </script>
   
-
