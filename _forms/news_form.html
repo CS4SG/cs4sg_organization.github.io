@@ -8,7 +8,7 @@ destination_layout: news
 <center>
 <div id = "after_submission">
 
-    <div><input type="text" id="topic" placeholder="Enter Title" required="required" onchange="check_existence('/news.html', 'topic')"/></div>
+    <div><input type="text" id="topic" placeholder="Enter Title" required="required"/></div>
 
     <div>
         <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
@@ -96,6 +96,7 @@ destination_layout: news
           
           // Get the data from each element on the form.
           const topic = document.getElementById('topic').value;
+          check_existence('/news.html', 'topic')
           const image = document.getElementById('image').value;
           var article_url = document.getElementById('article_url').value;
           var event_date = document.getElementById('event_date').value;
