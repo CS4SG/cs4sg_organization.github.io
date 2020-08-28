@@ -225,4 +225,16 @@ destination_layout: default
         });
         return(String(sessionStorage.getItem(file)));
     }
+
+    function check_existence(page_link, id){
+      let s = getdata(page_link)
+      let titles = s.split(",");
+      if(titles.includes(document.getElementById(id).value)){
+        alert("Title already exist! please choose another title.")
+        document.getElementById(id).value = '';
+      }
+      else if(document.getElementById(id).value == null){
+        alert("Please enter a Title.")
+      }
+    }
   </script>
