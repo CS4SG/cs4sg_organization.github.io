@@ -7,14 +7,13 @@ destination_layout: funds
 
 
 <center>
-    <div style="width:100%;">
-    <div id = "after_submission">
-
+  <div id = "after_submission">
+    <form onsubmit="saveFile(); after_submission();">
       <div>
           <!--Add few elements to the form-->
   
           <div>
-              <input type="text" id="title" placeholder="Enter Grant Title" required="required"/>
+              <input type="text" id="title" placeholder="Enter Grant Title" required="required" onchange="check_existence('title')"/>
           </div>
   
           <div>
@@ -58,11 +57,11 @@ destination_layout: funds
           <div><iframe src="../edit.html" style="border:0px; width:100%; min-height:50vh;"></iframe></div>
       </div></div>  
           <center>
-          <div>
-              <input type="button" value="Generate MD File" onclick="saveFile(); after_submission();" class="sectionbutton"/>
+            <div>
+              <input type="submit" value="Generate MD File" class="sectionbutton"/>
           </div>
           </center>
-    </div>
+      </form>
     </div>
   <script>
   window.onload = function() {
@@ -192,4 +191,12 @@ destination_layout: funds
         return(String(sessionStorage.getItem(file)));
     }
   
+  let title_string = getdata("/funding.html");
+  function check_existence(id){
+      titles = title_string.split(",")
+      if(titles.includes(document.getElementById(id).value)){
+        alert("Title already exist! please choose another title.")
+        document.getElementById(id).value = '';
+      }
+  }
   </script>
