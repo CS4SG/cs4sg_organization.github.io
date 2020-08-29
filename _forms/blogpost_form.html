@@ -7,8 +7,8 @@ destination_layout: post
 
 <center>
     <div id = "after_submission">          
-  
-    <div><input type="text" id="topic" placeholder="Enter post title" required="required"/></div>
+    <form onsubmit="saveFile(); after_submission();">
+    <div><input type="text" id="topic" placeholder="Enter post title" required="required" onchange="check_existence('topic')"/></div>
         
     <div><input type="date" id="dts" placeholder="Enter date" required="required"/></div>
     
@@ -75,11 +75,12 @@ destination_layout: post
       </div></div>
   
   
-          <center>
-          <div>
-              <input type="button" value="Generate MD File" onclick="saveFile(); after_submission()" class="sectionbutton"/>
-          </div>
-          </center>
+      <center>
+        <div>
+            <input type="submit" value="Generate MD File" class="sectionbutton"/>
+        </div>
+      </center>
+      </form>
       </div>
   </center>
   <script>
@@ -225,4 +226,13 @@ destination_layout: post
         });
         return(String(sessionStorage.getItem(file)));
     }
+
+  let title_string = getdata("/blog.html");
+  function check_existence(id){
+      titles = title_string.split(",")
+      if(titles.includes(document.getElementById(id).value)){
+        alert("Title already exist! please choose another title.")
+        document.getElementById(id).value = '';
+      }
+  }
   </script>
