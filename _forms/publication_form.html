@@ -209,7 +209,7 @@ destination_layout: publication
     return(String(sessionStorage.getItem(file)));
   }
 
-  let title_string = getdata(page_link);
+  let title_string = getdata("/publications.html");
   function check_existence(id){
       titles = title_string.split(",")
       if(titles.includes(document.getElementById(id).value)){
