@@ -8,7 +8,7 @@ destination_layout: news
 <center>
 <div id = "after_submission">
 
-    <div><input type="text" id="topic" placeholder="Enter Title" required="required" onchange="check_existence('nsdnd','topic')"/></div>
+    <div><input type="text" id="topic" placeholder="Enter Title" required="required"/></div>
 
     <div>
         <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
@@ -125,7 +125,7 @@ destination_layout: news
   
           // Convert the text to BLOB.
           const textToBLOB = new Blob([data], { type: 'text/plain' });
-          const sFileName = topic+'.md';	   // The file to save the data.
+          const sFileName = ztopic+'.md';	   // The file to save the data.
   
           let newLink = document.createElement("a");
           newLink.download = sFileName;
@@ -227,4 +227,4 @@ destination_layout: news
         return(String(sessionStorage.getItem(file)));
     }
 </script>
-
+  

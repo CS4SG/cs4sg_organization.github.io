@@ -5,11 +5,9 @@ upload: https://github.com/CS4SG/CS4SG.github.io/tree/master/_publications
 destination_layout: publication
 ---
 
-<center>
-    <div style="width:100%;">
-    <div id = "after_submission">          
-  
-        <div><input type="text" id="topic" placeholder="Enter Title" required="required" onchange="check_existence('/publications.html','topic')"/></div>
+  <div id = "after_submission">          
+      <form onsubmit="saveFile(); after_submission(); check_existence('/publications.html','topic')">
+        <div><input type="text" id="topic" placeholder="Enter Title" required="required"/></div>
 
         <div><input type="text" id="publishers" placeholder="Published in" /></div>
         
@@ -48,14 +46,13 @@ destination_layout: publication
         <div><iframe src="../edit.html" style="border:0px; width:100%; min-height:50vh;"></iframe></div>
       </div></div>
   
-          <center>
-          <div>
-              <input type="button" value="Generate MD File" onclick="saveFile(); after_submission()" class="sectionbutton"/>
-          </div>
-          </center>
-      </div>
+      <center>
+        <div>
+            <input type="submit" value="Generate MD File" class="sectionbutton"/>
+        </div>
+        </center>
+      </form>
     </div>
-  </center>
   <script>
     window.onload = function() {
       if(!window.location.hash) {
