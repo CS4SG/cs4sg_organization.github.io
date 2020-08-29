@@ -14,7 +14,7 @@ destination_layout: project
 <!--Add few elements to the form-->
 <center><h3><b>Project Flashcard</b></h3></center>
 <div>
-    <input type="text" id="topic" placeholder="Enter Topic" required="required"/>
+    <input type="text" id="topic" placeholder="Enter Topic" required="required" onchange="check_existence('topic')"/>
 </div>
 <div>
     <input type="text" id="description" placeholder="Enter a brief description" required="required" />
@@ -178,4 +178,12 @@ function getdata(file){
   return(String(sessionStorage.getItem(file)));
 }
 
+let title_string = getdata("/projects.html");
+  function check_existence(id){
+      titles = title_string.split(",")
+      if(titles.includes(document.getElementById(id).value)){
+        alert("Title already exist! please choose another title.")
+        document.getElementById(id).value = '';
+      }
+}
 </script>
