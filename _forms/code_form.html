@@ -227,6 +227,7 @@ destination_layout: default
     }
 
   let title_string = getdata("/code.html");
+  console.log(title_string)
   function check_existence(id){
       titles = title_string.split(",")
       if(titles.includes(document.getElementById(id).value)){
