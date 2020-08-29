@@ -6,10 +6,9 @@ destination_layout: talk
 ---
 
 <center>
-    <div style="width:100%;">
     <div id = "after_submission">
-
-      <div><input type="text" id="topic" placeholder="Enter Talk Title" required="required"/></div>
+      <form onsubmit="saveFile(); after_submission();">
+      <div><input type="text" id="topic" placeholder="Enter Talk Title" required="required" onchange="check_existence('topic')"/></div>
 
       <div><input type="text" id="locus" placeholder="Enter talk location" required="required"/></div>
 
@@ -51,8 +50,8 @@ destination_layout: talk
             <input type="button" value="Generate MD File" onclick="saveFile(); after_submission()" class="sectionbutton"/>
         </div>
         </center>
+      </form>
     </div>
-  </div>
 </center>
 <script>
   window.onload = function() {
@@ -209,6 +208,15 @@ function talker(){
         }
     });
     return(String(sessionStorage.getItem(file)));
+  }
+
+  let title_string = ((getdata("/talks.html")).concat(",")).concat(getdata("/speech.html"));
+  function check_existence(id){
+      titles = title_string.split(",")
+      if(titles.includes(document.getElementById(id).value)){
+        alert("Title already exist! please choose another title.")
+        document.getElementById(id).value = '';
+      }
   }
 
 </script>
