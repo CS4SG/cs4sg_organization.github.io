@@ -4,7 +4,7 @@ title: Publication Form
 upload: https://github.com/CS4SG/CS4SG.github.io/tree/master/_publications
 destination_layout: publication
 ---
-
+<center>
   <div id = "after_submission">          
       <form onsubmit="saveFile(); after_submission(); check_existence('/publications.html','topic')">
         <div><input type="text" id="topic" placeholder="Enter Title" required="required"/></div>
@@ -53,6 +53,7 @@ destination_layout: publication
         </center>
       </form>
     </div>
+  </center>
   <script>
     window.onload = function() {
       if(!window.location.hash) {
