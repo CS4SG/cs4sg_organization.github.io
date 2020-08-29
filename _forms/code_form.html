@@ -7,10 +7,9 @@ destination_layout: default
 
 
 <center>
-    <div id = "after_submission">
-        
-
-    <div><input type="text" id="topic" placeholder="Enter Title" required="required"/></div>
+  <div id = "after_submission">
+    <form onsubmit="saveFile(); after_submission();">
+    <div><input type="text" id="topic" placeholder="Enter Title" required="required" onchange="check_existence('topic')"/></div>
     
     <div>
     <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
@@ -64,11 +63,12 @@ destination_layout: default
         </div>
       </div> 
   
-          <center>
-          <div>
-              <input type="button" value="Generate MD File" onclick="saveFile(); after_submission()" class="sectionbutton"/>
-          </div>
-          </center>
+      <center>
+        <div>
+            <input type="submit" value="Generate MD File" class="sectionbutton"/>
+        </div>
+      </center>
+      </form>
       </div>
   </center>
   <script>
@@ -226,17 +226,14 @@ destination_layout: default
         return(String(sessionStorage.getItem(file)));
     }
 
-    function check_existence(page_link, id){
-      let s = getdata(page_link)
-      let titles = s.split(",");
+  let title_string = getdata("/code.html");
+  function check_existence(id){
+      titles = title_string.split(",")
       if(titles.includes(document.getElementById(id).value)){
         alert("Title already exist! please choose another title.")
         document.getElementById(id).value = '';
       }
-      else if(document.getElementById(id).value == null){
-        alert("Please enter a Title.")
-      }
-    }
+  }
 
     
   </script>
