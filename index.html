@@ -408,6 +408,34 @@ layout: default
   }
                     </code>
                   </li>
+                  <li>
+                    <h4>Checking if the <b>Title</b> is unique</h4>
+                    <p>The title of every Markdown file generated should be unique, otherwise it will cause 
+                      problems and errors during display on the website. To resove this problem, here is a javascript function and corresponding implementation 
+                      implementation in the HTML part that shows an <i>error</i> alert and clears the title field if it is unique.</p>
+                    <p>If you would like to implement the feature in any other field, you can simply make some minor changes in the function and calling the function in the text field.</p>
+                    <p>Here is the javascript code explaining the working of the function.</p>
+                    <code>
+  <font style="color:white">// <b>title_string</b> fetches all the page titles from the url provided as of comma-sepeated string.</font>
+  let title_string = getdata("/<font style="color:white">Page url</font>");
+
+  <font style="color:white">// <b>check_existence</b> function checks if the string entered by user 
+  is already in the list of all the titles.</font>
+  function check_existence(id){
+    titles = title_string.split(",")
+    if(titles.includes(document.getElementById(id).value)){
+      alert("Title already exist! please choose another title.")
+      document.getElementById(id).value = '';
+    }
+  }
+                    </code>
+                    <p>Now call the <b>check_existence</b> function in the HTML part. The parameter is the ID of input field.</p>
+                    <code>
+  &#60;div&#62;&#60;input type="text" id="topic" 
+  placeholder="Enter Title" required="required" 
+  <font style="color:white">onchange="check_existence('topic')"</font>/&#62;&#60;/div&#62;
+                    </code>
+                  </li>
                 </ol>
           </li>
         </ul>
