@@ -71,6 +71,12 @@ destination_layout: people
 </div>
 </center></div>
 <script>
+window.onload = function() {
+  if(!window.location.hash) {
+      window.location = window.location + '#loaded';
+      window.location.reload();
+  }
+}
   var degrees_str = ""
   var courses_str = ""
     let saveFile = () => {
@@ -217,7 +223,7 @@ function getdata(file){
         return(String(sessionStorage.getItem(file)));
 }
 
-let title_string = getdata("/people.html");
+let title_string = getdata("https://cs4sg.github.io/people.html");
   function check_existence(){
     firstname = document.getElementById("fname").value
     lastname = document.getElementById("lname").value
