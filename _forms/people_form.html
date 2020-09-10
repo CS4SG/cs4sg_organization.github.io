@@ -217,16 +217,16 @@ function getdata(file){
         return(String(sessionStorage.getItem(file)));
 }
 
-let title_string = getdata("https://cs4sg.github.io/people.html");
+let title_string = getdata("/people.html");
   function check_existence(){
     firstname = document.getElementById("fname").value
     lastname = document.getElementById("lname").value
     if(firstname != "" && lastname != ""){
       titles = title_string.split(",")
       if(titles.includes(firstname+" "+lastname)){
-        alert("Title already exist! please choose another title.")
-        firstname = '';
-        lastname = '';
+        alert("You are already added to CS4SG. Please try using another name if not.")
+        document.getElementById("fname").value = '';
+        document.getElementById("lname").value = '';
     }
     }
 }
