@@ -156,7 +156,7 @@ var m = document.getElementById("last_name").value
 var link = document.getElementById("person_url").value
 if(n != "" && m != ""){
   titles = title_string.split(",")
-  if(titles.includes(firstname+" "+lastname)){
+  if(titles.includes(n+" "+m)){
     alert("You are already added to CS4SG Organization. Please select the name from above")
     document.getElementById("first_name").value = '';
     document.getElementById("last_name").value = '';
