@@ -163,7 +163,7 @@ if(n != "" && m != ""){
     document.getElementById("last_name").value = '';
   }
   else{
-    people.push((link != "") ? "&nbsp;&nbsp;<a href = '"+ link +"' target='_blank'>"+n+" "+m+"</a>" : n+" "+m);
+    people.push((link != "") ? "<a href = '"+ link +"' target='_blank'>"+n+" "+m+"</a>" : n+" "+m);
     var node = document.createElement("li");
     node.onclick = function() {this.parentNode.removeChild(this);};
     node.innerHTML = (link != "") ? n+" "+m+"&nbsp;&nbsp;("+ link+")" : n+" "+m;
