@@ -35,7 +35,7 @@ destination_layout: project
 <div><input type="text" id="first_name" placeholder="First Name" style="width:45%">&nbsp;<input type="text" id="last_name" placeholder="Last Name" style="width:45%"></div>
 <div><input type="text" id="person_url" placeholder="Enter website URL (if any)" style="width:90%"></div>
 <input type="button" onclick="add_new();" value="Add Person"> &nbsp; OR  &nbsp;
-<input type="button" onclick="window.open('forms/people_form.html')" value="Add to Organization"><br />
+<input type="button" onclick="window.open('/people_form.html')" value="Add to Organization"><br />
 <ul id="new_people_added" style="font-weight: normal; text-align: left; padding: 10px;"><LH><b>Added external People:</b></LH></ul>
 <small style="text-align:left"><font color="red">*</font>&nbsp;Click on the names that appear below "Added external People" to remove them from the list.</small><br/>
 <small style="text-align:left">If the tags doesn't show up, try refreshing the page. If the problem still persist, please contact <a href="mailto:prakshal@buffalo.edu">here</a>.</small>
@@ -150,12 +150,13 @@ console.log(people_checked)
 return people_checked
 }
 
+var peop = getdata("/people.html")
 function add_new(){
 var n = document.getElementById("first_name").value
 var m = document.getElementById("last_name").value
 var link = document.getElementById("person_url").value
 if(n != "" && m != ""){
-  titles = title_string.split(",")
+  titles = peop.split(",")
   if(titles.includes(n+" "+m)){
     alert("You are already added to CS4SG Organization. Please select the name from above")
     document.getElementById("first_name").value = '';
@@ -164,6 +165,7 @@ if(n != "" && m != ""){
   else{
     people.push(n+" "+m+(link != "") ? "&nbsp;&nbsp;<a href = '"+ link +"' target='_blank'><i class='bx bx-link-external'></i></a>" : "");
     var node = document.createElement("li");
+    node.onclick = function() {this.parentNode.removeChild(this);};
     node.innerHTML = (link != "") ? n+" "+m+"&nbsp;&nbsp;("+ link+")" : n+" "+m;
     document.getElementById("new_people_added").appendChild(node);
     document.getElementById("first_name").value = "";
@@ -177,7 +179,6 @@ alert("Please enter a firstname and / or lastname")
 }
 
 // /people.html
-var peop = getdata("https://cs4sg.github.io/people.html")
 var people = tagger(peop, 'peoples', "v")
 
 function getdata(file){
