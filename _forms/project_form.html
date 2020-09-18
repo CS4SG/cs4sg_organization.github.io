@@ -161,6 +161,7 @@ if(n != "" && m != ""){
     alert("You are already added to CS4SG Organization. Please select the name from above")
     document.getElementById("first_name").value = '';
     document.getElementById("last_name").value = '';
+    document.getElementById("person_url").value = "";
   }
   else{
     people.push((link != "") ? "<a href = '"+ link +"' target='_blank'>"+n+" "+m+"</a>" : n+" "+m);
