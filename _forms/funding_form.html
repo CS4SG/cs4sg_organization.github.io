@@ -29,11 +29,17 @@ destination_layout: funds
           </div>
         
           <div>
-              <input type="date" id="start" placeholder="Enter grant start date" required="required"/><br/>
+            <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
+              <h5>Grant Start Date</h5>
+              <input type="date" id="start" required="required"/><br/>
+            </div>
           </div>
   
           <div>
-              <input type="date" id="valid" placeholder="Enter grant end date" required="required"/><br/>
+            <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
+              <h5>Grant End Date</h5>
+              <input type="date" id="valid" required="required"/><br/>
+            </div>
           </div>
   
           <div>
@@ -41,6 +47,15 @@ destination_layout: funds
           <center><h5>Choose related research projects</h5></center><div id="tagged" class="hiddenCB"></div>
       </div></div>
   
+      <div>
+        <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
+          <h5>Principal Investigator</h5>
+          <input type="text" id="fprincipal" placeholder="Principal Investigator first name" style="width:45%"/>
+          <input type="text" id="lprincipal" placeholder="Principal Investigator first name" style="width:45%"/>
+          <div><input type="text" id="pi_url" placeholder="Enter website URL (if any)" style="width:90%"></div>
+        </div>
+      </div>
+
       <div>
         <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
         <center><h5>Choose People related to this Project</h5></center><div id="peoples" class="hiddenCB"></div>
@@ -79,6 +94,7 @@ destination_layout: funds
     }
   }
   
+  function arrayRemove(arr, value) { return arr.filter(function(ele){ return ele != value; });}
       let saveFile = () => {
           
           // Get the data from each element on the form.
@@ -89,6 +105,18 @@ destination_layout: funds
           const grant_notice = document.getElementById('grant_notice').value;
           const duration = document.getElementById('valid').value
           const start = document.getElementById('start').value
+          const fn = document.getElementById('fprincipal').value
+          const ln = document.getElementById('lprincipall').value
+          if(fn != "" && ln != ""){
+            const lin  = document.getElementById('pi_url').value
+            if(!people.contains(fn +" "+ ln)){
+              people = people.push((link != "") ? "<a href = '"+lin+"' target='_blank'>"+fn +" "+ ln+'</a>&nbsp;(<i>Principal Investigator</i>)' : fn +" "+ ln+'&nbsp;(<i>Principal Investigator</i>)')
+            }
+            else{
+              arrayRemove(people, fn +" "+ ln)
+              alert("Person added both as Principal Investigator and Related People. Assigned person as Principal investigator.")
+            }
+          }
           const tagged = res_topics.toString();
           const tagged_people = people.toString();
           var msg = String(localStorage.getItem("saved_research_html"));
@@ -174,7 +202,7 @@ destination_layout: funds
   if(n != "" && m != ""){
     titles = peop.split(",")
     if(titles.includes(n+" "+m)){
-      alert("You are already added to CS4SG Organization. Please select the name from above")
+      alert("You are already added to CS4SG Organization. Please select the name from above.")
       document.getElementById("first_name").value = '';
       document.getElementById("last_name").value = '';
       document.getElementById("person_url").value = "";
