@@ -109,12 +109,7 @@ destination_layout: funds
           const ln = document.getElementById('lprincipal').value
           if(fn != "" && ln != ""){
             const lin  = document.getElementById('pi_url').value
-            if(!(people.contains(fn +" "+ ln))){
-              people = people.push((link != "") ? "<a href = '"+lin+"' target='_blank'>"+fn +" "+ ln+'</a>&nbsp;(<i>Principal Investigator</i>)' : fn +" "+ ln+'&nbsp;(<i>Principal Investigator</i>)')
-            }
-            else{
-              arrayRemove(people, fn +" "+ ln)
-              alert("Person added both as Principal Investigator and Related People. Assigned person as Principal investigator.")
+            people = people.push((link != "") ? "<a href = '"+lin+"' target='_blank'>"+fn +" "+ ln+'</a>&nbsp;(<i>Principal Investigator</i>)' : fn +" "+ ln+'&nbsp;(<i>Principal Investigator</i>)')
             }
           }
           const tagged = res_topics.toString();
