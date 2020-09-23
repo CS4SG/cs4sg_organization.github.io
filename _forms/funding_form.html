@@ -101,7 +101,7 @@ destination_layout: funds
           const title = document.getElementById('title').value;
           const org_name = document.getElementById('org_name').value;
           const org_link = document.getElementById('org_link').value;
-          const grants = document.getElementById('grants').value;
+          const grants = numberWithCommas(document.getElementById('grants').value);
           const grant_notice = document.getElementById('grant_notice').value;
           const duration = document.getElementById('valid').value
           const start = document.getElementById('start').value
@@ -243,6 +243,10 @@ destination_layout: funds
         alert("Title already exist! please choose another title.")
         document.getElementById(id).value = '';
       }
+  }
+
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 </script>
 
