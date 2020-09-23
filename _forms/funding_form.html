@@ -74,7 +74,11 @@ destination_layout: funds
       <div>
       <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">  
           <h5>Funding Description</h5>
-          <div><iframe src="../edit.html" style="border:0px; width:100%; min-height:50vh;"></iframe></div>
+          <div>
+            <div><textarea id="descrip" style="width:100%;" rows=12></textarea></div>
+            <small style="text-align:left"><font color="red">*</font>&nbsp;If you want to add some special formatting, please use Markdown formats.</small><br/>
+            <small style="text-align:left"><a href="../writing_md.html" target="_blank">Click here are most of the MD formattings you can use.</a></small>
+          </div>
       </div></div>  
           <center>
           <div>
@@ -113,7 +117,7 @@ destination_layout: funds
           }
           const tagged = res_topics.toString();
           const tagged_people = people.toString();
-          var msg = String(localStorage.getItem("saved_research_html"));
+          const msg = document.getElementById('descrip').value;
           
           // This variable stores all the data.
           let data = 
