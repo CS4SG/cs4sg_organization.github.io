@@ -20,11 +20,15 @@ destination_layout: talk
       </select></div>
 
       <div>
-      <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;"><center><h5>Choose Speaker</h5></center><div id="orator"></div>
-      <input type="text" id="new_orator" placeholder="Enter a new Speaker" style="width:50%"> &nbsp; <input type="button" onclick="add_new_orator();" value="Add Orator" style="width:10%"> &nbsp; OR  &nbsp;
+      <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;"><center><h5>Choose Speaker</h5></center><div id="orator"></div><hr/>
+      <div><input type="text" id="first_name" placeholder="Enter a new Speaker" style="width:45%">&nbsp;<input type="text" id="last_name" placeholder="Last Name" style="width:45%"></div>
+      <div><input type="text" id="person_url" placeholder="Enter website URL (if any)" style="width:90%"></div>
+      <input type="button" onclick="add_new_orator();" value="Add Speaker" style="width:10%"> &nbsp; OR  &nbsp;
       <input type="button" onclick="window.open('/people_form.html')" value="Add to Organization"><br />
+      <div style="font-weight: normal; text-align: left; padding: 10px;">
         <b>Added non-organization Speaker:</b>
         <label id="new_orator_added" style="font-weight: normal;"></label>
+      </div>
       </div></div>
       
 
@@ -119,8 +123,8 @@ destination_layout: talk
       document.getElementById("after_submission").innerHTML = "<br><br><center><table width='80%'><h2>Thank you for submitting your talks.</h2><br><br> To add it to the CS4SG Talks Section, just upload the file to the <b>_talks<b> folder. Here is the link for the folder <br><a href = 'https://github.com/CS4SG/CS4SG.github.io/tree/master/_talks' target='_blank'>https://github.com/CS4SG/CS4SG.github.io/tree/master/_talks</a></table></center>"
     }
 
-  var p = getdata("/people.html")
-  var people_array = p.split(",")
+  var peop = getdata("/people.html")
+  var people_array = peop.split(",")
   function add_talk(ids){
     var node = document.createElement('label');        
       node.innerHTML = '<input type="radio" name="talkss" value="'+String(ids)+'" onchange="talker()">'+String(ids);
@@ -197,7 +201,14 @@ function talker(){
   }
 
   function add_new_orator(){
-    document.getElementById("new_orator_added").innerHTML = document.getElementById("new_orator").value
+    const n = document.getElementById("first_name").value;
+    const m = document.getElementById("last_name").value;
+    if(titles.includes(n+" "+m)){
+      alert("You are already in the CS4SG Organization. Please select the name from above")
+    }
+    else{
+      document.getElementById("new_orator_added").innerHTML = n+" "+m
+    }
   }
 
   function getdata(file){
