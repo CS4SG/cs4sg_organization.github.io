@@ -63,6 +63,8 @@ destination_layout: talk
     </div>
 </center>
 <script>
+  var n;
+  var m;
   window.onload = function() {
     if(!window.location.hash) {
         window.location = window.location + '#loaded';
@@ -81,7 +83,7 @@ destination_layout: talk
       const msg = document.getElementById('descrip').value;
       var t = talker();
       if(t === ""){
-        t = document.getElementById("new_orator").value
+        t = n+" "+m;
       }
       var locus = document.getElementById("locus").value
         
@@ -202,13 +204,14 @@ function talker(){
   }
 
   function add_new_orator(){
-    const n = document.getElementById("first_name").value;
-    const m = document.getElementById("last_name").value;
+    n = document.getElementById("first_name").value;
+    m = document.getElementById("last_name").value;
     if(titles.includes(n+" "+m)){
       alert("You are already in the CS4SG Organization. Please select the name from above")
     }
     else{
       document.getElementById("new_orator_added").innerHTML = n+" "+m
+      t = n+" "+m;
     }
   }
 
