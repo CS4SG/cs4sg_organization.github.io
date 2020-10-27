@@ -1,0 +1,247 @@
+---
+layout: form
+title: Courses Form
+upload: https://github.com/CS4SG/CS4SG.github.io/tree/master/_courses
+destination_layout: default
+---
+
+<center>
+    <div id = "after_submission">          
+        <form onsubmit="saveFile(); after_submission();">
+          <div><input type="text" id="topic" placeholder="Enter Title" required="required" onchange="check_existence('topic')"/></div>
+  
+          <div><input type="text" id="prefix_number" placeholder="Prefix Number" /></div>
+
+          <div><input type="text" id="catalog_link" placeholder="Catalog Link" /></div>
+
+          <div>
+            <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
+                <center><h5>Choose Semesters offered</h5></center>
+                <div class="hiddenCB">
+                    <input type="checkbox" id = "spring" name="semesters" value = "spring"/><label for="spring">Spring</label>&nbsp;&nbsp;
+                    <input type="checkbox" id = "fall" name="semesters" value = "fall" /><label for="fall">Fall</label>&nbsp;&nbsp;
+                    <input type="checkbox" id = "summer" name="semesters" value = "summer" /><label for="summer">Summer</label>&nbsp;&nbsp;
+                    <input type="checkbox" id = "winter" name="semesters" value = "winter" /><label for="winter">Winter</label>
+                </div>
+            </div>
+          </div>
+          
+          <div><div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
+          <center><h5>Choose Instructors</h5></center><div id="peoples" class="hiddenCB"></div>
+          <hr/>
+          <center><h5>Enter external Instructors</h5></center>
+          <div><input type="text" id="fn" placeholder="First Name" style="width:45%">&nbsp;<input type="text" id="ln" placeholder="Last Name" style="width:45%"></div>
+          <div><input type="text" id="pu" placeholder="Enter website URL (if any)" style="width:90%"></div>
+          <input type="button" onclick="add_new2();" value="Add Person"> &nbsp; OR  &nbsp;
+          <input type="button" onclick="window.open('/people_form.html')" value="Add to Organization"><br />
+          <ul id="new_author_added" style="font-weight: normal; text-align: left; padding: 10px;"><LH><b>Added external instructors:</b></LH></ul>
+          <small style="text-align:left"><font color="red">*</font>&nbsp;Click on the names that appear below "Added external People" to remove them from the list.</small><br/>
+          <small style="text-align:left">If the tags doesn't show up, try refreshing the page. If the problem still persist, please contact <a href="mailto:prakshal@buffalo.edu">here</a>.</small>
+          </div></div>
+    
+          <div><div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;"><input type="text" id="links" placeholder="Enter course webpages links" style="width: 70%;"/>&nbsp;<input type="button" value="Add another link" onclick="save_link()">
+          <br /><br /><ul id="link_status" style="text-align: left;"><LH><b>Added Links:</b></LH></ul><font color="red">*</font>Click on a link to remove it.</div></div>
+          
+        <div>
+        <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
+          <center><h5>Choose Related Projects</h5></center><div id="tagged" class="hiddenCB"></div>
+          <small style="text-align:left">If the tags doesn't show up, try refreshing the page. If the problem still persist, please contact <a href="mailto:prakshal@buffalo.edu">here</a>.</small>
+        </div></div>
+          
+        <div><div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">  
+          <h5>Course Description</h5>
+          <div>
+            <div><textarea id="descrip" style="width:100%;" rows=12></textarea></div>
+            <small style="text-align:left"><font color="red">*</font>&nbsp;If you want to add some special formatting, please use Markdown formats.</small><br/>
+            <small style="text-align:left"><a href="https://www.markdownguide.org/basic-syntax/" target="_blank">Basic Markdown Syntax</a></small>
+          </div>
+        </div></div>
+    
+        <center>
+          <div>
+              <input type="submit" value="Generate MD File" class="sectionbutton"/>
+          </div>
+          </center>
+        </form>
+      </div>
+</center>
+<script>
+    window.onload = function() {
+    if(!window.location.hash) {
+        window.location = window.location + '#loaded';
+        window.location.reload();
+    }
+    }
+    
+    
+    var link_str = ""
+    var sems = [];
+    let saveFile = () => {
+        
+        // Get the data from each element on the form.
+        const topic = document.getElementById('topic').value;
+        const prefix_number = document.getElementById("prefix_number").value
+        const catalog_link = document.getElementById("catalog_link").value
+        save_link()
+        sem_checkbox()
+        const links = link_str.slice(2)
+        const msg = document.getElementById('descrip').value;
+        
+        // This variable stores all the data.
+        let data = 
+            "---"+"\n"+
+            "layout: {{ page.destination_layout }}"+"\n"+
+            "title: "+topic+"\n"+
+            "prefix_number: "+prefix_number+"\n"+
+            "instructors: "+people.toString()+"\n"+
+            "semesters: "+sems.toString()+"\n"+
+            "catalog_link: "+catalog_link+"\n"+
+            "tagged_projects: "+res_topics.toString()+"\n"+
+            "tagged_people: "+tagged_people.map(i => i.substr(1)).join(",")+"\n"+
+            "course_webpages: "+links+"\n"+
+            "key: "+topic+"\n"+
+            "abstract: "+msg+"\n"+"---"
+
+
+
+        // Convert the text to BLOB.
+        const textToBLOB = new Blob([data], { type: 'text/plain' });
+        const sFileName = topic+'.md';	   // The file to save the data.
+
+        let newLink = document.createElement("a");
+        newLink.download = sFileName;
+
+        if (window.webkitURL != null) {
+            newLink.href = window.webkitURL.createObjectURL(textToBLOB);
+        }
+        else {
+            newLink.href = window.URL.createObjectURL(textToBLOB);
+            newLink.style.display = "none";
+            document.body.appendChild(newLink);
+        }
+
+        newLink.click(); 
+    }
+
+    function after_submission(){
+        document.getElementById("after_submission").innerHTML = "<br><br><center><table width='80%'><h2>Thank you for submitting your publication.</h2><br><br> To add it to the CS4SG website, just upload the file to the destination folder. Here is the link for the folder <br><a href = '{{ page.upload }}' target='_blank'>{{ page.upload }}</a></table></center>"
+    }
+
+    function save_link(){
+        s = document.getElementById("links").value;
+        if(s == ""){
+        }
+        else{
+        link_str = link_str.concat(", "+s);
+        var node = document.createElement("LI");
+        node.onclick = function() {this.parentNode.removeChild(this);};
+        var textnode = document.createTextNode(s);
+        node.appendChild(textnode);
+        document.getElementById("link_status").appendChild(node);
+        document.getElementById("links").value = "";
+        }
+    }
+    
+    var peop = getdata("/people.html")
+    var people = tagger(peop, 'peoples', "v");
+    var res_topics = tagger(getdata("/projects.html"), 'tagged', "t");
+
+    function tagger(t, inside, samp_func){
+    var people_checked = []
+    var people_arr = t.split(",")
+    
+    var i=0;
+    function add(ids, parent){
+        i++;
+        var node = document.createElement('div');        
+        node.innerHTML = '<input type="checkbox" id="' + ids + '" onChange="'+samp_func+'(this)" name="check' + i + '"><label for="' + ids + '">'+ ids +'</label>&nbsp; &nbsp;';
+        document.getElementById(parent).appendChild(node);
+    }
+
+    for (e of people_arr) {
+        add(e, inside)
+    }
+
+    function remove(array, element) {
+        const index = array.indexOf(element);
+        array.splice(index, 1);
+    }
+
+    window[samp_func] = function(item){
+        if(people_checked.includes(item.id)){
+        remove(people_checked,item)
+        }
+        else{
+        people_checked.push(String(item.id))
+        }
+        console.log(people_checked)
+    }
+    return people_checked
+    }
+
+    function arrayRemove(arr, value) { return arr.filter(function(ele){ return ele != value; });}
+
+
+function add_new2(){
+var n = document.getElementById("fn").value
+var m = document.getElementById("ln").value
+var link = document.getElementById("pu").value
+if(n != "" && m != ""){
+titles = peop.split(",")
+if(titles.includes(n+" "+m)){
+    alert("You are already added to CS4SG Organization. Please select the name from above")
+    document.getElementById("fn").value = '';
+    document.getElementById("ln").value = '';
+    document.getElementById("pu").value = "";
+}
+else{
+    var toadd = (link != "") ? "<a href = '"+ link +"' target='_blank'>"+n+" "+m+"</a>" : n+" "+m
+    people.push(toadd);
+    var node = document.createElement("li");
+    node.onclick = function() {this.parentNode.removeChild(this); people = arrayRemove(people, toadd);};
+    console.log(people);
+    node.innerHTML = (link != "") ? n+" "+m+"&nbsp;&nbsp;("+ link+")" : n+" "+m;
+    document.getElementById("new_author_added").appendChild(node);
+    document.getElementById("fn").value = "";
+    document.getElementById("ln").value = "";
+    document.getElementById("pu").value = "";
+}
+}
+else{
+alert("Please enter a firstname and / or lastname")
+}
+}
+
+function getdata(file){
+    $.get(file, function(result){
+        var obj = $(result).find('script');
+        var page1X = $(result).find('div.myData').data('x');
+        if(page1X != null){
+        sessionStorage.setItem(file, page1X);
+        }
+        else{
+        window.location.reload();
+        }
+    });
+    return(String(sessionStorage.getItem(file)));
+}
+
+let title_string = getdata("/courses.html");
+function check_existence(id){
+    titles = title_string.split(",")
+    if(titles.includes(document.getElementById(id).value)){
+        alert("Title already exist! please choose another title.")
+        document.getElementById(id).value = '';
+    }
+}
+
+function sem_checkbox(){
+    var checkboxes = document.getElementsByName('semesters');
+    for (var checkbox of checkboxes) {
+    if (checkbox.checked)
+      sems.concat(checkbox.value);
+  }
+}
+</script>
+
+<!-- Developer: Prakshal Jain || Contact: prakshal@buffalo.edu -->
