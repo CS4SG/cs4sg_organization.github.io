@@ -238,7 +238,7 @@ function sem_checkbox(){
     var checkboxes = document.getElementsByName('semesters');
     for (var checkbox of checkboxes) {
     if (checkbox.checked)
-      sems.concat(checkbox.value);
+      sems = sems.concat(checkbox.value);
   }
 }
 </script>
