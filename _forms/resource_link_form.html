@@ -123,7 +123,7 @@ destination_layout: default
 
         // Convert the text to BLOB.
         const textToBLOB = new Blob([data], { type: 'text/plain' });
-        const sFileName = topic+'.md';	   // The file to save the data.
+        const sFileName = encodeURIComponent(topic)+'.md';	   // The file to save the data.
 
         let newLink = document.createElement("a");
         newLink.download = sFileName;
