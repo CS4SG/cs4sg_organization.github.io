@@ -7,8 +7,8 @@ destination_layout: talk
 
 <center>
     <div id = "after_submission">
-      <form onsubmit="saveFile(); after_submission();">
-      <div><input type="text" id="topic" placeholder="Enter Talk Title" required="required" onchange="check_existence('topic')"/></div>
+      <form onsubmit = "saveFile(); after_submission();">
+      <div><input type = "text" id="topic" placeholder="Enter Talk Title" required="required" onchange="check_existence('topic')"/></div>
 
       <div><input type="text" id="locus" placeholder="Enter talk location" required="required"/></div>
 
@@ -121,7 +121,7 @@ destination_layout: talk
             document.body.appendChild(newLink);
         }
 
-        newLink.click(); 
+        newLink.click();
     }
 
     function after_submission(){
@@ -160,7 +160,7 @@ function talker(){
     var people_checked = []
     var people_arr = t.split(",")
     
-    var i=0;
+    var i = 0;
     function add(ids, parent){
       i++;
       var node = document.createElement('div');        
