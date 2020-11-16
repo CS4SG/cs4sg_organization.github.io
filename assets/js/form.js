@@ -6,7 +6,6 @@ function collapse(id){
       coll[i].addEventListener("click", function() {
         this.classList.toggle("active");
         var content = this.nextElementSibling;
-        console.log(this.nextElementSibling)
         if (content.style.display === "block") {
           content.style.display = "none";
         } else {
