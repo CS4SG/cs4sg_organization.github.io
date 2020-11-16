@@ -110,7 +110,7 @@ destination_layout: talk
           "title: "+topic+"\n"+
           "category: "+category+"\n"+
           "locus: "+locus+"\n"+
-          "resource_links: "+((resources.concat(resources_slides)).concat(resources_papers)).toString()+"\n"+
+          "resource_links: "+((resources.concat(resources_slides))).toString()+"\n"+
           "talk_by: "+t+"\n"+
           "date: "+dates+"\n"+
           "tagged_projects: "+res_topics.toString()+"\n"+
@@ -170,7 +170,7 @@ function talker(){
   var res_topics = tagger(getdata("/projects.html",'x'), 'tagged', "t");
   var resources = tagger(getdata("/resourceLinks.html", 'x'), 'resource', "reso");
   var resources_slides = tagger(getdata("/resource.html", 'x'), 'slide_res', "sl_res");
-  var resources_papers = tagger(getdata("/resource.html", 'y'), 'paper_res', "pap_res");
+  // var resources_papers = tagger(getdata("/resource.html", 'y'), 'paper_res', "pap_res");
 
   function tagger(t, inside, samp_func){
     var people_checked = []
