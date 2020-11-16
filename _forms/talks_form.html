@@ -5,6 +5,7 @@ upload: https://github.com/CS4SG/CS4SG.github.io/tree/master/_talks
 destination_layout: talk
 ---
 
+
 <center>
     <div id = "after_submission">
       <form onsubmit = "saveFile(); after_submission();">
@@ -42,7 +43,20 @@ destination_layout: talk
     </div></div>
 
     <div><div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
-      <center><h5>Choose related Resources</h5></center><div id="resource" class="hiddenCB"></div>
+      <center><h5>Choose related Resources</h5></center>
+      <button type="button" class="collapsible_slides">Slides <i class='bx bxs-chevron-down' ></i></button>
+      <div class="content_slides">
+        <div id="slide_res" class="hiddenCB"></div>
+      </div>
+      <button type="button" class="collapsible_links">Links <i class='bx bxs-chevron-down' ></i></button>
+      <div class="content_links">
+        <div id="resource" class="hiddenCB"></div>
+      </div>
+      <button type="button" class="collapsible_papers">Papers <i class='bx bxs-chevron-down' ></i></button>
+      <div class="content_papers">
+        <div id="paper_res" class="hiddenCB"></div>
+      </div>
+
       <small style="text-align:left">If the tags doesn't show up, try refreshing the page. If the problem still persist, please contact <a href="mailto:prakshal@buffalo.edu">here</a>.</small>
     </div></div>
       
@@ -96,7 +110,7 @@ destination_layout: talk
           "title: "+topic+"\n"+
           "category: "+category+"\n"+
           "locus: "+locus+"\n"+
-          "resource_links: "+resources.toString()+"\n"+
+          "resource_links: "+((resources.concat(resources_slides)).concat(resources_papers)).toString()+"\n"+
           "talk_by: "+t+"\n"+
           "date: "+dates+"\n"+
           "tagged_projects: "+res_topics.toString()+"\n"+
@@ -128,7 +142,7 @@ destination_layout: talk
       document.getElementById("after_submission").innerHTML = "<br><br><center><table width='80%'><h2>Thank you for submitting your talks.</h2><br><br> To add it to the CS4SG Talks Section, just upload the file to the <b>_talks<b> folder. Here is the link for the folder <br><a href = 'https://github.com/CS4SG/CS4SG.github.io/tree/master/_talks' target='_blank'>https://github.com/CS4SG/CS4SG.github.io/tree/master/_talks</a></table></center>"
     }
 
-  var peop = getdata("/people.html")
+  var peop = getdata("/people.html",'x')
   var people_array = peop.split(",")
   function add_talk(ids){
     var node = document.createElement('label');        
@@ -153,8 +167,10 @@ function talker(){
   return checked
 }
 
-  var res_topics = tagger(getdata("/projects.html"), 'tagged', "t");
-  var resources = tagger(getdata("/resourceLinks.html"), 'resource', "reso");
+  var res_topics = tagger(getdata("/projects.html",'x'), 'tagged', "t");
+  var resources = tagger(getdata("/resourceLinks.html", 'x'), 'resource', "reso");
+  var resources_slides = tagger(getdata("/resource.html", 'x'), 'slide_res', "sl_res");
+  var resources_papers = tagger(getdata("/resource.html", 'y'), 'paper_res', "pap_res");
 
   function tagger(t, inside, samp_func){
     var people_checked = []
@@ -217,10 +233,10 @@ function talker(){
     }
   }
 
-  function getdata(file){
+  function getdata(file, variables){
     $.get(file, function(result){
         var obj = $(result).find('script');
-        var page1X = $(result).find('div.myData').data('x');
+        var page1X = $(result).find('div.myData').data(variables);
         if(page1X != null){
           sessionStorage.setItem(file, page1X);
         }
@@ -231,7 +247,7 @@ function talker(){
     return(String(sessionStorage.getItem(file)));
   }
 
-  let title_string = ((getdata("/talks.html")).concat(",")).concat(getdata("/speech.html"));
+  let title_string = ((getdata("/talks.html", 'x')).concat(",")).concat(getdata("/speech.html", 'x'));
   function check_existence(id){
       titles = title_string.split(",")
       if(titles.includes(document.getElementById(id).value)){

@@ -94,3 +94,28 @@ content: "";
     border: 2px solid #67b0d1;
     color: #67b0d1;
 }
+
+
+/* For Collapsible Resources */
+.collapsible_slides, .collapsible_links, .collapsible_papers {
+  background-color: transparent;
+  color: #999999;
+  cursor: pointer;
+  padding: 3px;
+  width: 100%;
+  border: none;
+  text-align: center;
+  outline: none;
+}
+
+.active, .collapsible_slides:hover {
+  color: #000000;
+  outline: none;
+}
+
+.content_slides, .content_links, .content_papers {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: transparent;
+}
