@@ -18,4 +18,3 @@ function collapse(id){
 
 collapse("collapsible_slides")
 collapse("collapsible_links")
-collapse("collapsible_papers")

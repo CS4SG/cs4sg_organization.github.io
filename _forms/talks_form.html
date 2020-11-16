@@ -44,17 +44,13 @@ destination_layout: talk
 
     <div><div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
       <center><h5>Choose related Resources</h5></center>
-      <button type="button" class="collapsible_slides">Slides <i class='bx bxs-chevron-down' ></i></button>
+      <button type="button" class="collapsible_slides">Slides & Papers <i class='bx bxs-chevron-down' ></i></button>
       <div class="content_slides">
         <div id="slide_res" class="hiddenCB"></div>
       </div>
       <button type="button" class="collapsible_links">Links <i class='bx bxs-chevron-down' ></i></button>
       <div class="content_links">
         <div id="resource" class="hiddenCB"></div>
-      </div>
-      <button type="button" class="collapsible_papers">Papers <i class='bx bxs-chevron-down' ></i></button>
-      <div class="content_papers">
-        <div id="paper_res" class="hiddenCB"></div>
       </div>
 
       <small style="text-align:left">If the tags doesn't show up, try refreshing the page. If the problem still persist, please contact <a href="mailto:prakshal@buffalo.edu">here</a>.</small>
@@ -110,7 +106,7 @@ destination_layout: talk
           "title: "+topic+"\n"+
           "category: "+category+"\n"+
           "locus: "+locus+"\n"+
-          "resource_links: "+((resources.concat(resources_slides))).toString()+"\n"+
+          "resource_links: "+((resources.concat(resources_slides)).concat(resources_papers)).toString()+"\n"+
           "talk_by: "+t+"\n"+
           "date: "+dates+"\n"+
           "tagged_projects: "+res_topics.toString()+"\n"+
@@ -170,7 +166,6 @@ function talker(){
   var res_topics = tagger(getdata("/projects.html",'x'), 'tagged', "t");
   var resources = tagger(getdata("/resourceLinks.html", 'x'), 'resource', "reso");
   var resources_slides = tagger(getdata("/resource.html", 'x'), 'slide_res', "sl_res");
-  // var resources_papers = tagger(getdata("/resource.html", 'y'), 'paper_res', "pap_res");
 
   function tagger(t, inside, samp_func){
     var people_checked = []

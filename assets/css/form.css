@@ -97,7 +97,7 @@ content: "";
 
 
 /* For Collapsible Resources */
-.collapsible_slides, .collapsible_links, .collapsible_papers {
+.collapsible_slides, .collapsible_links {
   background-color: transparent;
   color: #999999;
   cursor: pointer;
