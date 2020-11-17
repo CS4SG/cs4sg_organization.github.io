@@ -40,8 +40,25 @@ destination_layout: publication
           <small style="text-align:left">If the tags doesn't show up, try refreshing the page. If the problem still persist, please contact <a href="mailto:prakshal@buffalo.edu">here</a>.</small>
         </div></div>
   
-        <div><div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;"><input type="text" id="links" placeholder="Enter links" style="width: 70%;"/>&nbsp;<input type="button" value="Add another link" onclick="save_link()">
-        <br /><br /><ul id="link_status" style="text-align: left;"><LH><b>Added Links:</b></LH></ul><font color="red">*</font>Click on a link to remove it.</div></div>
+        <div><div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
+          <center><h5>Choose related Resources</h5></center>
+          <button type="button" class="collapsible_slides">Slides & Papers <i class='bx bxs-chevron-down' ></i></button>
+          <div class="content_slides">
+            <div id="slide_res" class="hiddenCB"></div>
+          </div>
+          <button type="button" class="collapsible_links">Links <i class='bx bxs-chevron-down' ></i></button>
+          <div class="content_links">
+            <div id="resource" class="hiddenCB"></div>
+          </div>
+          <hr/>
+          <center><h6>Enter External Resources</h6></center>
+          <input type="text" id="links" placeholder="Enter links" style="width: 70%;"/>&nbsp;<input type="button" value="Add another link" onclick="save_link()">
+          <br /><br /><ul id="link_status" style="text-align: left; padding:15px;"><LH><b>Added Links:</b></LH></ul><font color="red">*</font>Click on a link to remove it.<br>
+          <small style="text-align:left">To upload any files, visit <a href="https://github.com/CS4SG/CS4SG.github.io/tree/master/_resources" target="_blank">Resources</a><br>
+            To upload any resource link, visit <a href="https://github.com/CS4SG/CS4SG.github.io/tree/master/_resource_links" target="_blank">Resource Links</a>
+          </small><br>
+          <small style="text-align:left">If the tags doesn't show up, try refreshing the page. If the problem still persist, please contact <a href="mailto:prakshal@buffalo.edu">here</a>.</small>
+        </div></div>
         
       <div>
       <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
@@ -154,6 +171,8 @@ destination_layout: publication
   
     var temporary = getdata("/people.html").split(",").map(i => '#' + i).join(",")
     var tagged_people = tagger(temporary, 'tagged_people', "g");
+    var resources = tagger(getdata("/resourceLinks.html", 'x'), 'resource', "reso");
+  var resources_slides = tagger(getdata("/resource.html", 'x'), 'slide_res', "sl_res");
   
     function tagger(t, inside, samp_func){
       var people_checked = []
@@ -282,6 +301,21 @@ alert("Please enter a firstname and / or lastname")
         alert("Title already exist! please choose another title.")
         document.getElementById(id).value = '';
       }
+  }
+
+  function save_link(){
+        s = document.getElementById("links").value;
+        if(s == ""){
+        }
+        else{
+          link_str = link_str.concat(", "+s);
+          var node = document.createElement("LI");
+          node.onclick = function() {this.parentNode.removeChild(this);};
+          var textnode = document.createTextNode(s);
+          node.appendChild(textnode);
+          document.getElementById("link_status").appendChild(node);
+          document.getElementById("links").value = "";
+        }
   }
 </script>
 
