@@ -105,7 +105,7 @@ destination_layout: publication
           const publishers = document.getElementById("publishers").value
           const dates = document.getElementById("dts").value
           save_link()
-          const links = link_str.slice(2)
+          const links = (link_str.slice(2)).split(",")
           const msg = document.getElementById('descrip').value;
           
           // This variable stores all the data.
@@ -118,7 +118,7 @@ destination_layout: publication
               "tagged_projects: "+res_topics.toString()+"\n"+
               "tagged_people: "+tagged_people.map(i => i.substr(1)).join(",")+"\n"+
               "date: "+dates+"\n"+
-              "links: "+links+"\n"+
+              "links: "+((resources.concat(resources_slides).concat(links)).toString(","))+"\n"+
               "tagged_courses: "+courses.toString()+"\n"+
               "key: "+topic+"\n"+
               "abstract: "+msg+"\n"+"---"
@@ -172,7 +172,7 @@ destination_layout: publication
     var temporary = getdata("/people.html").split(",").map(i => '#' + i).join(",")
     var tagged_people = tagger(temporary, 'tagged_people', "g");
     var resources = tagger(getdata("/resourceLinks.html", 'x'), 'resource', "reso");
-  var resources_slides = tagger(getdata("/resource.html", 'x'), 'slide_res', "sl_res");
+    var resources_slides = tagger(getdata("/resource.html", 'x'), 'slide_res', "sl_res");
   
     function tagger(t, inside, samp_func){
       var people_checked = []
