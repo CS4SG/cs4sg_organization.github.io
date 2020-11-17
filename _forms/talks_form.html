@@ -52,7 +52,13 @@ destination_layout: talk
       <div class="content_links">
         <div id="resource" class="hiddenCB"></div>
       </div>
-
+      <hr/>
+      <center><h6>Enter External Resources</h6></center>
+      <input type="text" id="links" placeholder="Enter links" style="width: 70%;"/>&nbsp;<input type="button" value="Add another link" onclick="save_link()">
+      <br /><br /><ul id="link_status" style="text-align: left; padding:15px;"><LH><b>Added Links:</b></LH></ul><font color="red">*</font>Click on a link to remove it.<br>
+      <small style="text-align:left">To upload any files, visit <a href="https://github.com/CS4SG/CS4SG.github.io/tree/master/_resources">Resources</a><br>
+        To upload any resource link, visit <a href="https://github.com/CS4SG/CS4SG.github.io/tree/master/_resource_links">Resource Links</a>
+      </small><br>
       <small style="text-align:left">If the tags doesn't show up, try refreshing the page. If the problem still persist, please contact <a href="mailto:prakshal@buffalo.edu">here</a>.</small>
     </div></div>
       
@@ -75,22 +81,24 @@ destination_layout: talk
     </div>
 </center>
 <script>
-  var n;
-  var m;
-  window.onload = function() {
-    if(!window.location.hash) {
-        window.location = window.location + '#loaded';
-        window.location.reload();
+    var n;
+    var m;
+    window.onload = function() {
+      if(!window.location.hash) {
+          window.location = window.location + '#loaded';
+          window.location.reload();
+      }
     }
-  }
   
-
+  var link_str = ""
     let saveFile = () => {
     	
         // Get the data from each element on the form.
     	const topic = document.getElementById('topic').value;
       const category = document.getElementById('category').value;
       var dates = document.getElementById("dts").value;
+      save_link()
+      const links = (link_str.slice(2)).split(",")
       
       const msg = document.getElementById('descrip').value;
       var t = talker();
@@ -106,7 +114,7 @@ destination_layout: talk
           "title: "+topic+"\n"+
           "category: "+category+"\n"+
           "locus: "+locus+"\n"+
-          "resource_links: "+(resources.concat(resources_slides)).toString()+"\n"+
+          "resource_links: "+((resources.concat(resources_slides).concat(links)).toString(","))+"\n"+
           "talk_by: "+t+"\n"+
           "date: "+dates+"\n"+
           "tagged_projects: "+res_topics.toString()+"\n"+
@@ -195,7 +203,6 @@ function talker(){
       else{
         people_checked.push(String(item.id))
       }
-      console.log(people_checked)
     }
     return people_checked
   }
@@ -249,6 +256,21 @@ function talker(){
         alert("Title already exist! please choose another title.")
         document.getElementById(id).value = '';
       }
+  }
+
+  function save_link(){
+        s = document.getElementById("links").value;
+        if(s == ""){
+        }
+        else{
+          link_str = link_str.concat(", "+s);
+          var node = document.createElement("LI");
+          node.onclick = function() {this.parentNode.removeChild(this);};
+          var textnode = document.createTextNode(s);
+          node.appendChild(textnode);
+          document.getElementById("link_status").appendChild(node);
+          document.getElementById("links").value = "";
+        }
   }
 
 </script>
