@@ -54,6 +54,7 @@ layout: default
               {% for form in site.forms %}
                 <li>{{ form.title }}: <a href="{{ form.upload }}" target="_blank">{{ form.upload }}</a></li>
               {% endfor %}
+              <li>To add any file(s) resources, please upload it here: <a href="https://github.com/CS4SG/CS4SG.github.io/tree/master/_resources" target="_blank">https://github.com/CS4SG/CS4SG.github.io/tree/master/_resources</a></li>
             </ol>
             <p>If you do not have access to upload the file to the destination folder, please contact <a href="mailto:kjoseph@buffalo.edu">kjoseph@buffalo.edu</a></p>
             <center><a href="./assets/images/help_img2.jpg" target="_blank"><img src="./assets/images/help_img2.jpg" alt="Steps after submitting the form" class="help_img"></a></center>
@@ -77,7 +78,6 @@ layout: default
         {% for form in site.forms %}
           <li><a href="./{{ form.url }}" target="_blank">{{ form.title }}</a></li>
         {% endfor %}
-        <li>To add any file(s) resources, please upload it here: <a href="https://github.com/CS4SG/CS4SG.github.io/tree/master/_resources" target="_blank">https://github.com/CS4SG/CS4SG.github.io/tree/master/_resources</a></li>
       </ol>
     </article>
   </section>
