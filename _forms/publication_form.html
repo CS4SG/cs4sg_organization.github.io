@@ -4,7 +4,17 @@ title: Publication Form
 upload: https://github.com/CS4SG/CS4SG.github.io/tree/master/_publications
 destination_layout: publication
 ---
+<script src = "https://citation.js.org/src/citation.min.js"></script>
+<script src = "https://requirejs.org/docs/release/2.3.6/comments/require.js"></script>
+<script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src = "https://citation.js.org/static/js/highlight.js"></script>
+
 <center>
+  <div>
+  <a href="javascript:fileUpload()" style="float:right;">Input data from BibTeX</a>
+  </div>
+  <div><div id="spawn"></div></div>
+  <div id = "bibx-in" style="display: none;"></div>
   <div id = "after_submission">          
       <form onsubmit="saveFile(); after_submission();">
         <div><input type="text" id="topic" placeholder="Enter Title" required="required" onchange="check_existence('topic')"/></div>
@@ -316,6 +326,50 @@ alert("Please enter a firstname and / or lastname")
           document.getElementById("link_status").appendChild(node);
           document.getElementById("links").value = "";
         }
+  }
+
+  var button = document.getElementById("send-file-button");
+
+  function loadInfo() {
+    var files = document.getElementById("myfileinput").files;
+    var reader = new FileReader();
+    reader.onload = function () {
+      document.getElementById("bibx-in").innerText = reader.result;
+      populateData()
+    };
+    if(files[0]) {
+      // This does not return the text. It just starts reading.
+      // The onload handler is triggered when it is done and the result is available.
+      reader.readAsText(files[0]);
+    }
+  };
+
+  function fileUpload(){
+    document.getElementById("spawn").innerHTML = "<input type='file' id='myfileinput'><button type='button' class='control-button' onclick='loadInfo()'>SUBMIT-FILE</button>"
+  }
+
+  function populateData(){
+    const Cite = require('citation-js')
+    var cite = new Cite()
+    var parseAsync = Cite.parse.input.async.chain
+    var opt = {
+      format: 'string'
+    }
+    var $bibx_in = $('#bibx-in');
+
+    // Make a factory for callback
+    var callbackFactory = function() {
+      return function (data) {
+        var info = JSON.parse(cite.set(data).get(opt))
+        for(let e of info){
+          
+        }
+      }
+    }
+
+    var bibxCb = callbackFactory()
+
+    parseAsync($bibx_in.text()).then(bibxCb)
   }
 </script>
 
