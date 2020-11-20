@@ -11,7 +11,7 @@ destination_layout: publication
 
 <center>
   <div>
-  <a href="javascript:fileUpload()" style="float:right;">Input data from BibTeX</a>
+  <a href="javascript:fileUpload()" style="float:right;">Import data from BibTeX</a>
   </div>
   <div id="spawn"></div>
   <div id = "bibx-in" style="display: none;"></div>
@@ -361,6 +361,7 @@ alert("Please enter a firstname and / or lastname")
     var callbackFactory = function() {
       return function (data) {
         var info = JSON.parse(cite.set(data).get(opt))
+        var importables = "";
         if(info.length == 1){
           let subInfo = info[0];
           var options = ["title", "institution", "organization", "publisher", "school", "issued", "author", "editor", "url"];
@@ -432,8 +433,13 @@ alert("Please enter a firstname and / or lastname")
               //Remaining must go to Publication abstract
             }
             else if(options.indexOf(key.toLowerCase()) < 0){
-              document.getElementById('descrip').innerHTML = key + ": " + JSON.stringify(subInfo[key]) + '\n\n';
+              importables = importables.concatkey + ": " + JSON.stringify(subInfo[key]) + '\n\n';
             }
+          }
+          if (confirm("You have some data remaining in the BibTeX file which was not imported. Please click OK to import data. Cancel to discard")){
+            document.getElementById('descrip').value = importables
+          }
+          else{
           }
         }
         else{
