@@ -13,7 +13,7 @@ destination_layout: publication
   <div>
   <a href="javascript:fileUpload()" style="float:right;">Input data from BibTeX</a>
   </div>
-  <div><div id="spawn"></div></div>
+  <div id="spawn"></div>
   <div id = "bibx-in" style="display: none;"></div>
   <div id = "after_submission">          
       <form onsubmit="saveFile(); after_submission();">
@@ -361,8 +361,83 @@ alert("Please enter a firstname and / or lastname")
     var callbackFactory = function() {
       return function (data) {
         var info = JSON.parse(cite.set(data).get(opt))
-        for(let e of info){
-          
+        if(info.length == 1){
+          let subInfo = info[0];
+          var options = ["title", "institution", "organization", "publisher", "school", "issued", "author", "editor", "url"];
+          for (var key of Object.keys(subInfo)) {
+            if(options.indexOf(String(key).toLowerCase()) >= 0){
+              //Get Title
+              if(key.toLowerCase() == "title"){
+                document.getElementById('topic').value = subInfo[key];
+              }
+              //Get Published In
+              if(key.toLowerCase() == "institution") {
+                document.getElementById("publishers").value += subInfo[key];
+              }
+              if(key.toLowerCase() == "organization"){
+                document.getElementById("publishers").value += subInfo[key];
+              }
+              if(key.toLowerCase() == "publisher"){
+                document.getElementById("publishers").value += subInfo[key];
+              }
+              if(key.toLowerCase() == "school"){
+                document.getElementById("publishers").value += subInfo[key];
+              }
+
+              //Get Date
+              var dates = ""
+              var dt = new Date();
+              if(key.toLowerCase() == "issued"){
+                dates = dates.concat(subInfo[key]["date-parts"][0][0]+ "-" + subInfo[key]["date-parts"][0][1] + "-" + "01");
+                document.getElementById("dts").value = dates;
+              }
+
+              //Get Authors
+              if(key.toLowerCase() == "author"){
+                for(let aut of subInfo[key]){
+                  let name = (aut["given"] !== undefined ? aut["given"] + " " : "") + (aut["literal"] !== undefined ? aut["literal"] + " " : "") + (aut["family"] !== undefined ? aut["family"] : "")
+                  var node = document.createElement("li");
+                  node.onclick = function() {this.parentNode.removeChild(this); people = arrayRemove(people, name);};
+                  node.innerHTML = name;
+                  document.getElementById("new_author_added").appendChild(node);
+                  people = people.concat(name)
+                }
+              }
+
+              //Get Editors & related People
+              if(key.toLowerCase() == "editor"){
+                for(let aut of subInfo[key]){
+                  let name = (aut["given"] !== undefined ? aut["given"] + " " : "") + (aut["literal"] !== undefined ? aut["literal"] + " " : "") + (aut["family"] !== undefined ? aut["family"] : "")
+                  var node = document.createElement("li");
+                  node.onclick = function() {this.parentNode.removeChild(this); tagged_people = arrayRemove(tagged_people, name);};
+                  node.innerHTML = name;
+                  document.getElementById("new_people_added").appendChild(node);
+                  tagged_people = tagged_people.concat(name)
+                }
+              }
+
+              //Get related Resources
+              if(key.toLowerCase() == "url"){
+                var arr = subInfo[key].split(",")
+                for(let s of arr){
+                  link_str = link_str.concat(", "+s);
+                  var node = document.createElement("LI");
+                  node.onclick = function() {this.parentNode.removeChild(this);};
+                  var textnode = document.createTextNode(s);
+                  node.appendChild(textnode);
+                  document.getElementById("link_status").appendChild(node);
+                }
+              }
+
+              //Remaining must go to Publication abstract
+            }
+            else if(options.indexOf(key.toLowerCase()) < 0){
+              document.getElementById('descrip').innerHTML = key + ": " + JSON.stringify(subInfo[key]) + '\n\n';
+            }
+          }
+        }
+        else{
+          alert("Please provide exactly one bib-entry at a time.");
         }
       }
     }
