@@ -401,7 +401,7 @@ alert("Please enter a firstname and / or lastname")
                   node.onclick = function() {this.parentNode.removeChild(this); people = arrayRemove(people, name);};
                   node.innerHTML = name;
                   document.getElementById("new_author_added").appendChild(node);
-                  people = people.concat(name)
+                  people.push(name);
                 }
               }
 
@@ -413,7 +413,7 @@ alert("Please enter a firstname and / or lastname")
                   node.onclick = function() {this.parentNode.removeChild(this); tagged_people = arrayRemove(tagged_people, name);};
                   node.innerHTML = name;
                   document.getElementById("new_people_added").appendChild(node);
-                  tagged_people = tagged_people.concat(name)
+                  tagged_people.push(name);
                 }
               }
 
