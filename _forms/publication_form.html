@@ -425,7 +425,9 @@ alert("Please enter a firstname and / or lastname")
               //Remaining must go to Publication abstract
             }
             else if(options.indexOf(key.toLowerCase()) < 0){
-              importables = importables.concatkey + ": " + JSON.stringify(subInfo[key]) + '\n\n';
+              if(key.toLowerCase() != "_graph"){
+                importables = importables.concat(key + ": " + JSON.stringify(subInfo[key]) + '\n\n');
+              }
             }
           }
           if (confirm("You have some data remaining in the BibTeX file which was not imported. Please click OK to import data. Cancel to discard")){
