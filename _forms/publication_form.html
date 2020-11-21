@@ -361,6 +361,7 @@ alert("Please enter a firstname and / or lastname")
     var callbackFactory = function() {
       return function (data) {
         var info = JSON.parse(cite.set(data).get(opt))
+        console.log(info);
         var importables = "";
         if(info.length == 1){
           let subInfo = info[0];
@@ -369,19 +370,10 @@ alert("Please enter a firstname and / or lastname")
             if(options.indexOf(String(key).toLowerCase()) >= 0){
               //Get Title
               if(key.toLowerCase() == "title"){
-                document.getElementById('topic').value = subInfo[key];
+                document.getElementById('topic').value = (subInfo[key]).replace( /(<([^>]+)>)/ig, '');;
               }
               //Get Published In
-              if(key.toLowerCase() == "institution") {
-                document.getElementById("publishers").value += subInfo[key];
-              }
-              if(key.toLowerCase() == "organization"){
-                document.getElementById("publishers").value += subInfo[key];
-              }
-              if(key.toLowerCase() == "publisher"){
-                document.getElementById("publishers").value += subInfo[key];
-              }
-              if(key.toLowerCase() == "school"){
+              if(key.toLowerCase() == "institution" || key.toLowerCase() == "organization" || key.toLowerCase() == "publisher" || key.toLowerCase() == "container-title" || key.toLowerCase() == "school") {
                 document.getElementById("publishers").value += subInfo[key];
               }
 
@@ -389,7 +381,7 @@ alert("Please enter a firstname and / or lastname")
               var dates = ""
               var dt = new Date();
               if(key.toLowerCase() == "issued"){
-                dates = dates.concat(subInfo[key]["date-parts"][0][0]+ "-" + subInfo[key]["date-parts"][0][1] + "-" + "01");
+                dates = dates.concat(subInfo[key]["date-parts"][0][0]+ "-" + (((subInfo[key]["date-parts"][0]).length > 2) ? subInfo[key]["date-parts"][0][1] : "01") + "-" + "01");
                 document.getElementById("dts").value = dates;
               }
 
@@ -418,7 +410,7 @@ alert("Please enter a firstname and / or lastname")
               }
 
               //Get related Resources
-              if(key.toLowerCase() == "url"){
+              if(key.toLowerCase() == "url" || key.toLowerCase() == "doi"){
                 var arr = subInfo[key].split(",")
                 for(let s of arr){
                   link_str = link_str.concat(", "+s);
