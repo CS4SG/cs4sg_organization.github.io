@@ -373,7 +373,7 @@ alert("Please enter a firstname and / or lastname")
                 document.getElementById('topic').value = (subInfo[key]).replace( /(<([^>]+)>)/ig, '');;
               }
               //Get Published In
-              if(key.toLowerCase() == "institution" || key.toLowerCase() == "organization" || key.toLowerCase() == "publisher" || key.toLowerCase() == "container-title" || key.toLowerCase() == "school") {
+              if(key.toLowerCase() == "institution" || key.toLowerCase() == "organization" || key.toLowerCase() == "publisher" || key.toLowerCase() == "container-title" || key.toLowerCase() == "school" || key.toLowerCase() == "publisher-place") {
                 document.getElementById("publishers").value += subInfo[key];
               }
 
