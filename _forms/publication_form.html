@@ -200,9 +200,14 @@ destination_layout: publication
         add(e, inside)
       }
   
+      function remove(array, element) {
+        const index = array.indexOf(element);
+        array.splice(index, 1);
+      }
+  
       window[samp_func] = function(item){
         if(people_checked.includes(item.id)){
-          arrayRemove(people_checked,item)
+          remove(people_checked,item)
         }
         else{
           people_checked.push(String(item.id))
