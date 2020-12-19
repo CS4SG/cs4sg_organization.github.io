@@ -107,7 +107,7 @@ destination_layout: publication
     //   }
     // }
     
-    
+    let title_string = getdata("/publications.html");
     var link_str = ""
       let saveFile = () => {
           
@@ -295,8 +295,8 @@ alert("Please enter a firstname and / or lastname")
     $.get(file, function(result){
         var obj = $(result).find('script');
         var page1X = $(result).find('div.myData').data('x');
+        console.log(page1X);
         if(page1X == null){
-          console.log(page1X);
           (document.getElementById("loading")).style.display = "block";
           (document.getElementById("after_submission")).style.display = "none";
           window.location.reload();
@@ -310,7 +310,6 @@ alert("Please enter a firstname and / or lastname")
     return(String(sessionStorage.getItem(file)));
   }
 
-  let title_string = getdata("/publications.html");
   function check_existence(id){
       titles = title_string.split(",")
       if(titles.includes(document.getElementById(id).value)){
