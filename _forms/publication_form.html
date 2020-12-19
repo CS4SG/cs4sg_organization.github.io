@@ -299,7 +299,7 @@ alert("Please enter a firstname and / or lastname")
     });
     var s = String(sessionStorage.getItem(file))
     while(s != "null"){
-      window.location.reload();
+      getdata(file);
     }
     return(s);
   }
