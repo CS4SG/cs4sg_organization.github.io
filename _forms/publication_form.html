@@ -182,8 +182,8 @@ destination_layout: publication
   
     var temporary = getdata("/people.html").split(",").map(i => '#' + i).join(",")
     var tagged_people = tagger(temporary, 'tagged_people', "g");
-    var resources = tagger(getdata("/resourceLinks.html", 'x'), 'resource', "reso");
-    var resources_slides = tagger(getdata("/resource.html", 'x'), 'slide_res', "sl_res");
+    var resources = tagger(getdata("/resourceLinks.html"), 'resource', "reso");
+    var resources_slides = tagger(getdata("/resource.html"), 'slide_res', "sl_res");
   
     function tagger(t, inside, samp_func){
       var people_checked = []
@@ -293,19 +293,15 @@ alert("Please enter a firstname and / or lastname")
 
   function getdata(file, isLoaded){
     $.get(file, function(result){
-        var obj = $(result).find('script');
-        var page1X = $(result).find('div.myData').data('x');
-        var ch = String(page1X);
-        while(ch == "null"){
-          (document.getElementById("loading")).style.display = "block";
-          (document.getElementById("after_submission")).style.display = "none";
-          window.location.reload();
-        }
-          (document.getElementById("loading")).style.display = "none";;
-          (document.getElementById("after_submission")).style.display = "show";
-          sessionStorage.setItem(file, page1X);
+      var obj = $(result).find('script');
+      var page1X = $(result).find('div.myData').data('x');
+      sessionStorage.setItem(file, page1X);
     });
-    return(String(sessionStorage.getItem(file)));
+    var s = String(sessionStorage.getItem(file))
+    while(s != "null"){
+      window.location.reload();
+    }
+    return(s);
   }
 
   function check_existence(id){
