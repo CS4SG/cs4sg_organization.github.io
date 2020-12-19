@@ -291,7 +291,7 @@ alert("Please enter a firstname and / or lastname")
       }
     }
 
-  function getdata(file, isLoaded){
+  function getdata(file){
     $.get(file, function(result){
       var obj = $(result).find('script');
       var page1X = $(result).find('div.myData').data('x');
