@@ -295,10 +295,10 @@ alert("Please enter a firstname and / or lastname")
     $.get(file, function(result){
         var obj = $(result).find('script');
         var page1X = $(result).find('div.myData').data('x');
-        while((page1X == null)){
+        if(page1X == null){
           $(document.getElementById("loading")).show();
           $(document.getElementById("after_submission")).hide();
-          window.location.reload();
+          getdata(file)
         }
         $(document.getElementById("loading")).hide();
         $(document.getElementById("after_submission")).show();
