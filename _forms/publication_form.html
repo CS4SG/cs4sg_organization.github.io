@@ -291,10 +291,14 @@ alert("Please enter a firstname and / or lastname")
       }
     }
 
-  function getdata(file, isLoaded){
+  function getdata(file, load){
+    var isLoaded = load
     $.get(file, function(result){
         var obj = $(result).find('script');
         var page1X = $(result).find('div.myData').data('x');
+        if(page1X != null){
+          isLoaded = true
+        }
         if(isLoaded == false){
           (document.getElementById("loading")).style.display = "block";
           (document.getElementById("after_submission")).style.display = "none";
