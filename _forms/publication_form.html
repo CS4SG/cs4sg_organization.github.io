@@ -11,7 +11,7 @@ destination_layout: publication
 
 <center>
   <div id="loading">Loading...</div>
-  <div id = "after_submission" style="display: none;">
+  <div id = "after_submission">
       <div>
         <a href="javascript:fileUpload()" style="float:right;">Import data from BibTeX</a>
       </div>
@@ -297,6 +297,7 @@ alert("Please enter a firstname and / or lastname")
         var page1X = $(result).find('div.myData').data('x');
         while((page1X == null)){
           $(document.getElementById("loading")).show();
+          $(document.getElementById("after_submission")).hide();
           window.location.reload();
         }
         $(document.getElementById("loading")).hide();
