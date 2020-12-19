@@ -6,8 +6,9 @@ destination_layout: funds
 ---
 
 <center>
-  <div id = "after_submission">
-    <form onsubmit="saveFile(); after_submission();">
+  <div id="loading">Loading...</div>
+  <div id = "after_submission" style="display: none;">
+  <form onsubmit="saveFile(); after_submission();">
       <div>
           <!--Add few elements to the form-->
   
@@ -227,19 +228,20 @@ destination_layout: funds
   var res_topics = tagger(getdata("/projects.html"), 'tagged', "t");
   var people = tagger(peop, 'peoples', "v");
 
-    function getdata(file){
-        $.get(file, function(result){
-            var obj = $(result).find('script');
-            var page1X = $(result).find('div.myData').data('x');
-            if(page1X != null){
-                sessionStorage.setItem(file, page1X);
-            }
-            else{
-                window.location.reload();
-            }
-        });
-        return(String(sessionStorage.getItem(file)));
+  function getdata(file){
+    $.get(file, function(result){
+      var obj = $(result).find('script');
+      var page1X = $(result).find('div.myData').data('x');
+      sessionStorage.setItem(file, page1X);
+    });
+    var s = String(sessionStorage.getItem(file))
+    if(s == "null"){
+      window.location.reload();
     }
+    (document.getElementById("loading")).style.display = "none";;
+    (document.getElementById("after_submission")).style.display = "block";
+    return(s);
+  }
   
   let title_string = getdata("/funding.html");
   function check_existence(id){

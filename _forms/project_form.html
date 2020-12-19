@@ -6,8 +6,9 @@ destination_layout: project
 ---
 
 <center>
+<div id="loading">Loading...</div>
 <div style="width:100%;">
-<div id = "after_submission">
+<div id = "after_submission" style="display: none;">
 
 <form onsubmit="saveFile(); after_submission()">
 <div>
@@ -189,17 +190,18 @@ alert("Please enter a firstname and / or lastname")
 var people = tagger(peop, 'peoples', "v")
 
 function getdata(file){
-  $.get(file, function(result){
+    $.get(file, function(result){
       var obj = $(result).find('script');
       var page1X = $(result).find('div.myData').data('x');
-      if(page1X != null){
-        sessionStorage.setItem(file, page1X);
-      }
-      else{
-        window.location.reload();
-      }
-  });
-  return(String(sessionStorage.getItem(file)));
+      sessionStorage.setItem(file, page1X);
+    });
+    var s = String(sessionStorage.getItem(file))
+    if(s == "null"){
+      window.location.reload();
+    }
+    (document.getElementById("loading")).style.display = "none";;
+    (document.getElementById("after_submission")).style.display = "block";
+    return(s);
 }
 
 let title_string = getdata("/projects.html");
