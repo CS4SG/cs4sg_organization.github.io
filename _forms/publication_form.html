@@ -295,16 +295,17 @@ alert("Please enter a firstname and / or lastname")
     $.get(file, function(result){
         var obj = $(result).find('script');
         var page1X = $(result).find('div.myData').data('x');
-        while(page1X == null){
+        if(page1X == null){
           console.log(page1X);
           $(document.getElementById("loading")).show();
           $(document.getElementById("after_submission")).hide();
           window.location.reload();
         }
-        $(document.getElementById("loading")).hide();
-        $(document.getElementById("after_submission")).show();
-
-        sessionStorage.setItem(file, page1X);
+        else{
+          $(document.getElementById("loading")).hide();
+          $(document.getElementById("after_submission")).show();
+          sessionStorage.setItem(file, page1X);
+        }
     });
     return(String(sessionStorage.getItem(file)));
   }
