@@ -93,12 +93,6 @@ destination_layout: funds
 </center>
 
 <script>
-  window.onload = function() {
-    if(!window.location.hash) {
-        window.location = window.location + '#loaded';
-        window.location.reload();
-    }
-  }
   
   function arrayRemove(arr, value) { return arr.filter(function(ele){ return ele != value; });}
       let saveFile = () => {
