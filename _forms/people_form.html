@@ -224,7 +224,7 @@ let title_string = getdata("https://cs4sg.github.io/people.html");
     firstname = document.getElementById("fname").value.toLowerCase()
     lastname = document.getElementById("lname").value.toLowerCase()
     if(firstname != "" && lastname != ""){
-      titles = title_string.toLowerCase.split(",")
+      titles = title_string.toLowerCase().split(",")
       if(titles.includes(firstname+" "+lastname)){
         alert("You are already added to CS4SG. Please try using another name if not.")
         document.getElementById("fname").value = '';
