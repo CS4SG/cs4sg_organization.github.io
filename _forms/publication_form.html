@@ -299,8 +299,6 @@ alert("Please enter a firstname and / or lastname")
     });
     var s = String(sessionStorage.getItem(file))
     if(s == "null"){
-    (document.getElementById("loading")).style.display = "none";;
-    (document.getElementById("after_submission")).style.display = "block";
       window.location.reload();
     }
     (document.getElementById("loading")).style.display = "none";;
