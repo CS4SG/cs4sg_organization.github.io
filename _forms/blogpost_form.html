@@ -223,8 +223,8 @@ destination_layout: post
 
   let title_string = getdata("/blog.html");
   function check_existence(id){
-      titles = title_string.split(",")
-      if(titles.includes(document.getElementById(id).value)){
+      titles = title_string.toLowerCase().split(",")
+      if(titles.includes(document.getElementById(id).value.toLowerCase())){
         alert("Title already exist! please choose another title.")
         document.getElementById(id).value = '';
       }

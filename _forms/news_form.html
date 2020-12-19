@@ -257,8 +257,8 @@ alert("Please enter a firstname and / or lastname")
 
     let title_string = getdata("/news.html");
     function check_existence(id){
-        titles = title_string.split(",")
-        if(titles.includes(document.getElementById(id).value)){
+        titles = title_string.toLowerCase().split(",")
+        if(titles.includes(document.getElementById(id).value.toLowerCase())){
           alert("Title already exist! please choose another title.")
           document.getElementById(id).value = '';
         }
