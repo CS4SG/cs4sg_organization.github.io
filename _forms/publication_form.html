@@ -11,7 +11,7 @@ destination_layout: publication
 
 <center>
   <div id="loading">Loading...</div>
-  <div id = "after_submission">
+  <div id = "after_submission" style="display: none;">
       <div>
         <a href="javascript:fileUpload()" style="float:right;">Import data from BibTeX</a>
       </div>
@@ -301,6 +301,8 @@ alert("Please enter a firstname and / or lastname")
     if(s == "null"){
       window.location.reload();
     }
+    (document.getElementById("loading")).style.display = "none";;
+    (document.getElementById("after_submission")).style.display = "show";
     return(s);
   }
 
