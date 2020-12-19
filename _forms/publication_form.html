@@ -10,7 +10,8 @@ destination_layout: publication
 <script src = "https://citation.js.org/static/js/highlight.js"></script>
 
 <center>
-  <div id = "after_submission">  
+  <div id="loading">Loading...</div>
+  <div id = "after_submission" style="display: none;">
       <div>
         <a href="javascript:fileUpload()" style="float:right;">Import data from BibTeX</a>
       </div>
@@ -99,12 +100,12 @@ destination_layout: publication
     </div>
   </center>
   <script>
-    window.onload = function() {
-      if(!window.location.hash) {
-          window.location = window.location + '#loaded';
-          window.location.reload();
-      }
-    }
+    // window.onload = function() {
+    //   if(!window.location.hash) {
+    //       window.location = window.location + '#loaded';
+    //       window.location.reload();
+    //   }
+    // }
     
     
     var link_str = ""
@@ -294,12 +295,14 @@ alert("Please enter a firstname and / or lastname")
     $.get(file, function(result){
         var obj = $(result).find('script');
         var page1X = $(result).find('div.myData').data('x');
-        if(page1X != null){
-          sessionStorage.setItem(file, page1X);
-        }
-        else{
+        while((page1X == null)){
+          $(document.getElementById("loading")).show();
           window.location.reload();
         }
+        $(document.getElementById("loading")).hide();
+        $(document.getElementById("after_submission")).show();
+
+        sessionStorage.setItem(file, page1X);
     });
     return(String(sessionStorage.getItem(file)));
   }
