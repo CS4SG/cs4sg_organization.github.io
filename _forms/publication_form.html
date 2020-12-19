@@ -174,16 +174,16 @@ destination_layout: publication
         }
       }
       
-    var peop = getdata("/people.html", false)
+    var peop = getdata("/people.html")
     var people = tagger(peop, 'peoples', "v");
-    var res_topics = tagger(getdata("/projects.html", false), 'tagged', "t");
-    var courses = tagger(getdata("/courses.html", false), 'tag_courses', "c");
+    var res_topics = tagger(getdata("/projects.html"), 'tagged', "t");
+    var courses = tagger(getdata("/courses.html"), 'tag_courses', "c");
     
   
-    var temporary = getdata("/people.html", false).split(",").map(i => '#' + i).join(",")
+    var temporary = getdata("/people.html").split(",").map(i => '#' + i).join(",")
     var tagged_people = tagger(temporary, 'tagged_people', "g");
-    var resources = tagger(getdata("/resourceLinks.html", false), 'resource', "reso");
-    var resources_slides = tagger(getdata("/resource.html", false), 'slide_res', "sl_res");
+    var resources = tagger(getdata("/resourceLinks.html", 'x'), 'resource', "reso");
+    var resources_slides = tagger(getdata("/resource.html", 'x'), 'slide_res', "sl_res");
   
     function tagger(t, inside, samp_func){
       var people_checked = []
@@ -291,24 +291,19 @@ alert("Please enter a firstname and / or lastname")
       }
     }
 
-  function getdata(file, load){
-    var isLoaded = load
+  function getdata(file, isLoaded){
     $.get(file, function(result){
         var obj = $(result).find('script');
         var page1X = $(result).find('div.myData').data('x');
-        if(page1X != null){
-          isLoaded = true
-        }
-        if(isLoaded == false){
+        var ch = String(page1X);
+        while(ch == "null"){
           (document.getElementById("loading")).style.display = "block";
           (document.getElementById("after_submission")).style.display = "none";
-          getdata(file, false)
+          window.location.reload();
         }
-        else{
           (document.getElementById("loading")).style.display = "none";;
           (document.getElementById("after_submission")).style.display = "show";
           sessionStorage.setItem(file, page1X);
-        }
     });
     return(String(sessionStorage.getItem(file)));
   }
