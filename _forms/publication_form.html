@@ -300,7 +300,9 @@ alert("Please enter a firstname and / or lastname")
           $(document.getElementById("after_submission")).hide();
           window.location.reload();
         }
-        window.location.reload();
+        if(page1X == null){
+          window.location.reload();
+        }
         $(document.getElementById("loading")).hide();
         $(document.getElementById("after_submission")).show();
 
