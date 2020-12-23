@@ -67,13 +67,14 @@ destination_layout: post
           <center><h5>Choose Related Fundings</h5></center><div id="funded" class="hiddenCB"></div>
         </div></div>
         
-      <div>
-      <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">  
-        <h5>Post Content</h5>
-        <p style="text-align:left">Write your blog post in the space below.</p>
-        <p style="text-align:left">By default, the excerpt that will be displayed on the blog page is the post's first paragraph. If you wish to customize the length of the excerpt, insert &lt;!--end--&gt; where you want the excerpt to end.</p>
-        <div><iframe src="../edit.html" style="border:0px; width:100%; min-height:50vh;"></iframe></div>
-      </div></div>
+        <div>
+          <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">  
+              <h5>Project Description</h5>
+              <div><textarea id="descrip" style="width:100%;" rows=12></textarea></div>
+              <small style="text-align:left"><font color="red">*</font>&nbsp;If you want to add some special formatting, please use Markdown formats.</small><br/>
+              <small style="text-align:left"><a href="https://www.markdownguide.org/basic-syntax/" target="_blank">Basic Markdown Syntax</a></small>
+          </div>
+        </div>
   
   
       <center>
@@ -94,7 +95,7 @@ destination_layout: post
           const dates = document.getElementById("dts").value;
           const image = document.getElementById('image').value;
           const imagedesc = document.getElementById('imagedesc').value;
-          var msg = String(localStorage.getItem("saved_research_html"));
+          const msg = document.getElementById('descrip').value;
           
           // This variable stores all the data.
           let data = 
