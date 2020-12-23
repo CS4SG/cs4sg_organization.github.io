@@ -119,3 +119,13 @@ content: "";
   overflow: hidden;
   background-color: transparent;
 }
+
+
+.currency {
+  padding-left:12px;
+}
+
+.currency-symbol {
+  position:absolute;
+  padding: 2px 5px;
+}
