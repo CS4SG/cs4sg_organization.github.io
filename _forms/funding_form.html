@@ -134,7 +134,7 @@ destination_layout: funds
           
       // Convert the text to BLOB.
       const textToBLOB = new Blob([data], { type: 'text/plain' });
-      const sFileName = encodeURIComponent(topic)+'.md';	   // The file to save the data.
+      const sFileName = encodeURIComponent(title)+'.md';	   // The file to save the data.
   
       let newLink = document.createElement("a");
       newLink.download = sFileName;
@@ -307,7 +307,7 @@ function formatCurrency(input, blur) {
     right_side = right_side.substring(0, 2);
 
     // join number by .
-    input_val = "$" + left_side + "." + right_side;
+    input_val = left_side + "." + right_side;
 
   } else {
     // no decimal entered
