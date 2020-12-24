@@ -153,13 +153,12 @@ destination_layout: post
   
     var res_topics = tagger(getdata("/projects.html"), 'tagged', "t");
     var people = tagger(peop, 'peoples', "v");
-    var rel_people = tagger(peop, 'tagged_people', "rel");
     var courses = tagger(getdata("/courses.html"), 'tag_courses', "c");
     var publications = tagger(getdata("/publications.html"), 'publish', "publ");
     var funding = tagger(getdata("/funding.html"), 'funded', "funds");
     
   
-    var temporary = getdata("/people.html").split(",").map(i => '#' + i).join(",")
+    var temporary = peop.split(",").map(i => '#' + i).join(",")
     var tagged_people = tagger(temporary, 'tagged_people', "g");
   
     function tagger(t, inside, samp_func){
@@ -209,10 +208,10 @@ function add_new(){
     }
     else{
       var toadd = (link != "") ? "<a href = '"+ link +"' target='_blank'>"+n+" "+m+"</a>" : n+" "+m
-      rel_people.push(toadd);
+      tagged_people.push(toadd);
       var node = document.createElement("li");
-      node.onclick = function() {this.parentNode.removeChild(this); rel_people = arrayRemove(rel_people, toadd);};
-      console.log(rel_people);
+      node.onclick = function() {this.parentNode.removeChild(this); tagged_people = arrayRemove(tagged_people, toadd);};
+      console.log(tagged_people);
       node.innerHTML = (link != "") ? n+" "+m+"&nbsp;&nbsp;("+ link+")" : n+" "+m;
       document.getElementById("new_people_added").appendChild(node);
       document.getElementById("first_name").value = "";

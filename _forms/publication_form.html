@@ -251,21 +251,6 @@ alert("Please enter a firstname and / or lastname")
 }
 }
 
-function add_new(id, list_name, ul_name){
-  var n = document.getElementById(id).value
-  if(n != ""){
-    eval(String(list_name)+".push('"+n+"')");
-      var node = document.createElement("li");
-      node.onclick = function() {this.parentNode.removeChild(this);};
-      var textnode = document.createTextNode(n);
-      node.appendChild(textnode);
-      document.getElementById(ul_name).appendChild(node);
-    document.getElementById(id).value = "";
-  }
-  else{
-  }
-}
-
 
 function add_new2(){
 var n = document.getElementById("fn").value
