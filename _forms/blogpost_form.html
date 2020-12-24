@@ -208,7 +208,7 @@ function add_new(){
     }
     else{
       var toadd = (link != "") ? "<a href = '"+ link +"' target='_blank'>"+n+" "+m+"</a>" : n+" "+m
-      tagged_people.push(toadd);
+      tagged_people.push("#"+toadd);
       var node = document.createElement("li");
       node.onclick = function() {this.parentNode.removeChild(this); tagged_people = arrayRemove(tagged_people, toadd);};
       console.log(tagged_people);
