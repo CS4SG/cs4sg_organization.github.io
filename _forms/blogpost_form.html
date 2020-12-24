@@ -193,6 +193,8 @@ destination_layout: post
       }
       return people_checked
     }
+
+function arrayRemove(arr, value) { return arr.filter(function(ele){ return ele != value; });}
   
 function add_new(){
   var n = document.getElementById("first_name").value
