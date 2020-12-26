@@ -221,6 +221,7 @@ function talker(){
   function add_new_orator(){
     n = document.getElementById("first_name").value;
     m = document.getElementById("last_name").value;
+    titles = peop.split(",")
     if(titles.includes(n+" "+m)){
       alert("You are already in the CS4SG Organization. Please select the name from above")
     }
