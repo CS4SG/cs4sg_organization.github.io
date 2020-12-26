@@ -224,6 +224,8 @@ function talker(){
     titles = peop.split(",")
     if(titles.includes(n+" "+m)){
       alert("You are already in the CS4SG Organization. Please select the name from above")
+      document.getElementById("first_name").value = "";
+      document.getElementById("last_name").value = "";
     }
     else{
       document.getElementById("new_orator_added").innerHTML = n+" "+m
