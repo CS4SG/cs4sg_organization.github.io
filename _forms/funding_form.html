@@ -48,6 +48,20 @@ destination_layout: funds
           <center><h5>Choose related research projects</h5></center><div id="tagged" class="hiddenCB"></div>
           <small style="text-align:left">If the tags doesn't show up, try refreshing the page. If the problem still persist, please contact <a href="mailto:prakshal@buffalo.edu">here</a>.</small>
       </div></div>
+
+      <div>
+        <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;"><center><h5>Choose Principal Investigator</h5></center><div id="orator"></div><hr/>
+        <center><h5>Principal Investigator</h5></center>
+        <div><input type="text" id="first_name" placeholder="Enter a new principal investigator" style="width:45%">&nbsp;<input type="text" id="last_name" placeholder="Last Name" style="width:45%"></div>
+        <div><input type="text" id="person_url" placeholder="Enter website URL (if any)" style="width:90%"></div>
+        <input type="button" onclick="add_new_PI();" value="Add principal investigator" style="width:10%"> &nbsp; OR  &nbsp;
+        <input type="button" onclick="window.open('_forms/people_form.html')" value="Add to Organization"><br />
+        <div style="font-weight: normal; text-align: left; padding: 10px;">
+          <b>Added non-organization Principal Investigator:</b>
+          <label id="new_PI_added" style="font-weight: normal;"></label>
+        </div>
+        </div>
+      </div>
   
       <div>
         <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
@@ -93,7 +107,7 @@ destination_layout: funds
 </center>
 
 <script>
-  
+  var ext_person;
   function arrayRemove(arr, value) { return arr.filter(function(ele){ return ele != value; });}
       let saveFile = () => {
           
@@ -114,7 +128,10 @@ destination_layout: funds
           const tagged = res_topics.toString();
           const tagged_people = people.toString();
           const msg = document.getElementById('descrip').value;
-          
+          var pi = talker();
+          if(pi === ""){
+            pi = ext_person
+          }
           // This variable stores all the data.
           let data = 
               "---"+"\n"+
@@ -126,6 +143,7 @@ destination_layout: funds
               "grants: "+grants+"\n"+
               "duration: "+duration+"\n"+
               "start: "+start+"\n"+
+              "principal investigator: "+pi+"\n"+
               "tagged_projects: "+tagged+"\n"+
               "tagged_people: "+tagged_people+"\n"+
               "key: "+title+"\n"+
@@ -217,6 +235,23 @@ destination_layout: funds
   else{
   alert("Please enter a firstname and / or lastname")
   }
+  }
+
+  function add_new_PI(){
+    var n = document.getElementById("first_name").value;
+    var m = document.getElementById("last_name").value;
+    var link = document.getElementById("person_url").value
+    titles = peop.split(",")
+    if(titles.includes(n+" "+m)){
+      alert("You are already in the CS4SG Organization. Please select the name from above")
+    }
+    else{
+      document.getElementById("new_PI_added").innerHTML = n+" "+m+" ("+link+")";
+      ext_person = (link != "") ? "<a href = '"+ link +"' target='_blank'>"+n+" "+m+"</a>" : n+" "+m;
+    }
+    document.getElementById("first_name").value = "";
+    document.getElementById("last_name").value = "";
+    document.getElementById("person_url").value = "";
   }
 
   var res_topics = tagger(getdata("/projects.html"), 'tagged', "t");
