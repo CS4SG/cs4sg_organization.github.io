@@ -209,6 +209,19 @@ destination_layout: funds
     add_talk(e)
   }
 
+  function talker(){
+  var checked = ""
+  var radios = document.getElementsByName('talkss');
+
+  for (var i = 0, length = radios.length; i < length; i++) {
+    if (radios[i].checked) {
+      checked = radios[i].value
+      break;
+    }
+  }
+  return checked
+  }
+
   function add_new(){
   var n = document.getElementById("first_name").value
   var m = document.getElementById("last_name").value
