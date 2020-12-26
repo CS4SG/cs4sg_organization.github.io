@@ -115,6 +115,9 @@ destination_layout: funds
             //Case for external PI.
             pi = ext_person;
           }
+          else{
+            pi = pi.substr(1);
+          }
           pi = pi + "==>>Principal_Investigator";
           people.push(pi);
 
