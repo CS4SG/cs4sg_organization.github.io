@@ -110,17 +110,13 @@ destination_layout: funds
           const grant_notice = document.getElementById('grant_notice').value;
           const duration = document.getElementById('valid').value
           const start = document.getElementById('start').value
-          const fn = document.getElementById('fprincipal').value
-          const ln = document.getElementById('lprincipal').value
-          if(ext_person != ""){
-            const lin  = document.getElementById('pi_url').value
-            var pi = talker();
-            if(pi === ""){
-              pi = ext_person;
-            }
-            pi = pi + "==>>Principal_Investigator";
-            people.push(pi);
+          var pi = talker();
+          if(pi === ""){
+            pi = ext_person;
           }
+          pi = pi + "==>>Principal_Investigator";
+          people.push(pi);
+
           const tagged = res_topics.toString();
           const tagged_people = people.toString();
           const msg = document.getElementById('descrip').value;
