@@ -130,8 +130,9 @@ destination_layout: funds
           const msg = document.getElementById('descrip').value;
           var pi = talker();
           if(pi === ""){
-            pi = ext_person
+            pi = ext_person;
           }
+          pi = pi + "==>>Principal_Investigator";
           // This variable stores all the data.
           let data = 
               "---"+"\n"+
@@ -207,6 +208,17 @@ destination_layout: funds
     }
     
   var peop = getdata("/people.html")
+  var people_array = peop.split(",").map(i => '#' + i).join(",")
+
+  function add_talk(ids){
+    var node = document.createElement('label');        
+      node.innerHTML = '<input type="radio" name="talkss" value="'+String(ids)+'" onchange="talker()">'+String(ids);
+      document.getElementById("orator").appendChild(node);
+  }
+  for (let e of people_array){
+    add_talk(e)
+  }
+
   function add_new(){
   var n = document.getElementById("first_name").value
   var m = document.getElementById("last_name").value
