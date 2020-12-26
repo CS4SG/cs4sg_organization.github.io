@@ -82,8 +82,7 @@ destination_layout: talk
     </div>
 </center>
 <script>
-    var n;
-    var m;
+  var ext_person;
 
   var link_str = ""
     let saveFile = () => {
@@ -98,7 +97,7 @@ destination_layout: talk
       const msg = document.getElementById('descrip').value;
       var t = talker();
       if(t === ""){
-        t = n+" "+m;
+        t = ext_person
       }
       var locus = document.getElementById("locus").value
         
@@ -219,8 +218,8 @@ function talker(){
   }
 
   function add_new_orator(){
-    n = document.getElementById("first_name").value;
-    m = document.getElementById("last_name").value;
+    var n = document.getElementById("first_name").value;
+    var m = document.getElementById("last_name").value;
     var link = document.getElementById("person_url").value
     titles = peop.split(",")
     if(titles.includes(n+" "+m)){
@@ -230,8 +229,8 @@ function talker(){
       document.getElementById("person_url").value = "";
     }
     else{
-      document.getElementById("new_orator_added").innerHTML = n+" "+m
-      t = (link != "") ? "<a href = '"+ link +"' target='_blank'>"+n+" "+m+"</a>" : n+" "+m;
+      document.getElementById("new_orator_added").innerHTML = n+" "+m+(link != "") ? " ("+link+")" : n+" "+m;
+      ext_person = (link != "") ? "<a href = '"+ link +"' target='_blank'>"+n+" "+m+"</a>" : n+" "+m;
     }
   }
 
