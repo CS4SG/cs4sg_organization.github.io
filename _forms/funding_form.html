@@ -117,6 +117,9 @@ destination_layout: funds
           }
           else{
             pi = pi.substr(1);
+            if(people.includes(pi)){
+              arrayRemove(people, pi);
+            }
           }
           pi = pi + "==>>Principal_Investigator";
           people.push(pi);
