@@ -229,7 +229,7 @@ function talker(){
       document.getElementById("person_url").value = "";
     }
     else{
-      document.getElementById("new_orator_added").innerHTML = n+" "+m+(link != "") ? " ("+link+")" : n+" "+m;
+      document.getElementById("new_orator_added").innerHTML = n+" "+m+(link != "") ? " ("+link+")" : "";
       ext_person = (link != "") ? "<a href = '"+ link +"' target='_blank'>"+n+" "+m+"</a>" : n+" "+m;
     }
   }
