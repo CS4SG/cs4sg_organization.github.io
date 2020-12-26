@@ -107,7 +107,7 @@ destination_layout: funds
 </center>
 
 <script>
-  var ext_person;
+  var ext_person = "";
   function arrayRemove(arr, value) { return arr.filter(function(ele){ return ele != value; });}
       let saveFile = () => {
           
@@ -121,18 +121,17 @@ destination_layout: funds
           const start = document.getElementById('start').value
           const fn = document.getElementById('fprincipal').value
           const ln = document.getElementById('lprincipal').value
-          if(fn != "" && ln != ""){
+          if(ext_person != ""){
             const lin  = document.getElementById('pi_url').value
-            people.push((lin != "") ? "<a href = '"+lin+"' target='_blank'>"+fn +" "+ ln+'</a>&nbsp;(<i>Principal Investigator</i>)' : fn +" "+ ln+'&nbsp;(<i>Principal Investigator</i>)')
+            var pi = talker();
+            if(pi === ""){
+              pi = ext_person;
+            }
+            pi = pi + "==>>Principal_Investigator";
           }
           const tagged = res_topics.toString();
           const tagged_people = people.toString();
           const msg = document.getElementById('descrip').value;
-          var pi = talker();
-          if(pi === ""){
-            pi = ext_person;
-          }
-          pi = pi + "==>>Principal_Investigator";
           // This variable stores all the data.
           let data = 
               "---"+"\n"+
