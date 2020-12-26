@@ -206,11 +206,11 @@ destination_layout: funds
       return people_checked
     }
     
-  var peop = getdata("/people.html")
-  var people_array = peop.split(",").map(i => '#' + i).join(",")
+  var peop = getdata("/people.html");
+  var people_array = peop.split(",").map(i => '#' + i);
 
   function add_talk(ids){
-    var node = document.createElement('label');        
+    var node = document.createElement('label');
       node.innerHTML = '<input type="radio" name="talkss" value="'+String(ids)+'" onchange="talker()">'+String(ids);
       document.getElementById("orator").appendChild(node);
   }
