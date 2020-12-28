@@ -251,7 +251,7 @@ function talker(){
       sessionStorage.setItem(file, page1X);
     });
     var s = String(sessionStorage.getItem(file))
-    if(s == "null"){
+    if(s == "null" && checkReload()){
       window.location.reload();
     }
     (document.getElementById("loading")).style.display = "none";;
