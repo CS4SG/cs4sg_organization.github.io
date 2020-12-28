@@ -276,31 +276,18 @@ function add_new2(){
     }
 
   function getdata(file){
-    $.ajax({
-      url: file, 
-      cache: false,
-      error: function(){
-        (document.getElementById("loading")).style.display = "none";
-        (document.getElementById("after_submission")).style.display = "block";
-        document.getElementById("after_submission").innerHTML = "<center>We are sorry! Cannot load form data. Please try using other browser or <a href = '../#help'>contact Support</a></center>"
-        console.log("Cannot fetch Data")
-      },
-      success: function(response) {
-        var parsed = $.parseHTML(response);
-        var page1X = $(parsed).find('div.myData').data('x');
-        (document.getElementById("loading")).style.display = "none";;
-        (document.getElementById("after_submission")).style.display = "block";
-        console.log("New Data: "+ page1X);
-        sessionStorage.setItem(file, page1X);
-      },
-      timeout: 10000,
-      complete: function(){
-        //Passed
-      }
+    $.get(file, function(result){
+      var obj = $(result).find('script');
+      var page1X = $(result).find('div.myData').data('x');
+      sessionStorage.setItem(file, page1X);
     });
     var s = String(sessionStorage.getItem(file))
-    console.log(s);
-    return s;
+    if(s == "null" && checkReload()){
+      window.location.reload();
+    }
+    (document.getElementById("loading")).style.display = "none";
+    (document.getElementById("after_submission")).style.display = "block";
+    return(s);
   }
 
   let title_string = getdata("/blog.html");
