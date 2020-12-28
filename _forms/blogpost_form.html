@@ -18,7 +18,7 @@ destination_layout: post
         <hr/>
         <center><h5>Enter external Authors</h5></center>
         <div><input type="text" id="fn" placeholder="First Name" style="width:45%">&nbsp;<input type="text" id="ln" placeholder="Last Name" style="width:45%"></div>
-        <div><input type="text" id="pu" placeholder="Enter website URL (if any)" style="width:90%"></div>
+        <div><input type="text" id="pu" placeholder="Enter website URL (if any)" style="width:90%" onchange="checkURL('pu')"></div>
         <input type="button" onclick="add_new2();" value="Add Person"> &nbsp; OR  &nbsp;
         <input type="button" onclick="window.open('/people_form.html')" value="Add to Organization"><br />
         <ul id="new_author_added" style="font-weight: normal; text-align: left; padding: 10px;"><LH><b>Added external Authors:</b></LH></ul>
@@ -48,7 +48,7 @@ destination_layout: post
         <hr/>
         <center><h5>Enter external people</h5></center>
         <div><input type="text" id="first_name" placeholder="First Name" style="width:45%">&nbsp;<input type="text" id="last_name" placeholder="Last Name" style="width:45%"></div>
-        <div><input type="text" id="person_url" placeholder="Enter website URL (if any)" style="width:90%"></div>
+        <div><input type="text" id="person_url" placeholder="Enter website URL (if any)" style="width:90%" onchange="checkURL('person_url')"></div>
         <input type="button" onclick="add_new();" value="Add Person"> &nbsp; OR  &nbsp;
         <input type="button" onclick="window.open('/people_form.html')" value="Add to Organization"><br />
         <ul id="new_people_added" style="font-weight: normal; text-align: left; padding: 10px;"><LH><b>Added external People:</b></LH></ul>
@@ -255,15 +255,25 @@ function add_new2(){
   alert("Please enter a firstname and / or lastname")
   }
 }
+
+  function checkURL(ids){
+    let url = document.getElementById(ids).value;
+    if (url.indexOf('://') > 0 || url.indexOf('//') === 0 ) {
+        // URL is absolute
+    } else {
+        alert("Please enter a valid absolute URL");
+        document.getElementById(ids).value = "";
+    }
+  }
   
-    function add_tag(){
-        s2 = String(document.getElementById('topic').value)
-        if(res_topics.includes(s2)){
-        }
-        else{
-          res_topics.push(s2);
-        }
+  function add_tag(){
+      s2 = String(document.getElementById('topic').value)
+      if(res_topics.includes(s2)){
       }
+      else{
+        res_topics.push(s2);
+      }
+    }
 
   function getdata(file){
     $.get(file, function(result){
