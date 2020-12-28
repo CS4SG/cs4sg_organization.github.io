@@ -280,7 +280,6 @@ function add_new2(){
     $.ajax({
       url: file, 
       cache: false,
-      timeout: 100000,
       error: function(){
         (document.getElementById("loading")).style.display = "none";
         (document.getElementById("after_submission")).style.display = "block";
@@ -291,6 +290,7 @@ function add_new2(){
         page1X = $(parsed).find('div.myData').data('x');
         console.log(page1X);
       },
+      timeout: 5000,
       complete: function(){
         (document.getElementById("loading")).style.display = "none";;
         (document.getElementById("after_submission")).style.display = "block";
