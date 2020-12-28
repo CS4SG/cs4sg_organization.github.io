@@ -276,6 +276,7 @@ function add_new2(){
     }
 
   function getdata(file){
+    var page1X = "";
     var isComplete = false;
     $.ajax({
       url: file, 
@@ -288,14 +289,19 @@ function add_new2(){
       },
       success: function(response) {
         var parsed = $.parseHTML(response);
-        var page1X = $(parsed).find('div.myData').data('x');
+        page1X = $(parsed).find('div.myData').data('x');
         (document.getElementById("loading")).style.display = "none";;
         (document.getElementById("after_submission")).style.display = "block";
         console.log(page1X);
-        return page1X;
       },
       timeout: 10000,
+      complete: function(){
+        page1X = true;
+      }
     });
+    if(page1X){
+      return page1X;
+    }
   }
 
   let title_string = getdata("/blog.html");
