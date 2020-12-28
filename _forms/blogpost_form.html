@@ -284,15 +284,17 @@ function add_new2(){
         (document.getElementById("loading")).style.display = "none";
         (document.getElementById("after_submission")).style.display = "block";
         document.getElementById("after_submission").innerHTML = "<center>We are sorry! Cannot load form data. Please try using other browser or <a href = '../#help'>contact Support</a></center>"
+        console.log("Cannot fetch Data")
       },
       success: function(response) {
         var parsed = $.parseHTML(response);
         var page1X = $(parsed).find('div.myData').data('x');
         (document.getElementById("loading")).style.display = "none";;
         (document.getElementById("after_submission")).style.display = "block";
+        console.log(page1X);
         return page1X;
       },
-      timeout: 5000,
+      timeout: 10000,
     });
   }
 
