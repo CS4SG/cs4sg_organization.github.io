@@ -276,7 +276,7 @@ function add_new2(){
     }
 
   function getdata(file){
-    var page1X = "";
+    var isComplete = false;
     $.ajax({
       url: file, 
       cache: false,
@@ -287,15 +287,14 @@ function add_new2(){
       },
       success: function(response) {
         var parsed = $.parseHTML(response);
-        page1X = $(parsed).find('div.myData').data('x');
-        console.log(page1X);
+        var page1X = $(parsed).find('div.myData').data('x');
+        return page1X;
       },
       timeout: 5000,
-      complete: function(){
-        (document.getElementById("loading")).style.display = "none";;
-        (document.getElementById("after_submission")).style.display = "block";
-        return(String(page1X));
-      }
+      // complete: function(){
+      //   (document.getElementById("loading")).style.display = "none";;
+      //   (document.getElementById("after_submission")).style.display = "block";
+      // }
     });
   }
 
