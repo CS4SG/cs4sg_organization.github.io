@@ -31,7 +31,7 @@ function checkReload(){
       reloadCount = 0;
       history.replaceState(state, null, document.URL);
   }
-  if (reloadCount > 30) {
+  if (reloadCount > 15) {
     console.log(reloadCount);
       //Unable to fetch tags
       (document.getElementById("loading")).style.display = "none";
