@@ -294,15 +294,11 @@ function add_new2(){
       },
       timeout: 10000,
       complete: function(){
-        if(page1X == undefined){
-          console.log("Failed page: "+file);
-        }
-        else{
-          console.log("Passed Page: "+file);
-        }
+        //Passed
       }
     });
-    return page1X;
+    console.log(String(page1X));
+    return String(page1X);
   }
 
   let title_string = getdata("/blog.html");
