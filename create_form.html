@@ -23,6 +23,7 @@ layout: default
       <p>
         To create a form, please download the following template and follow the directions given below.<br/>
         <a href="form_template.html" download>Download Form Template&nbsp;<i class="fa fa-download" aria-hidden="true"></i></a>
+        <center><a href = "#html_section">HTML</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href = "#js_section">JavaScript</a></center>
         <ul>
           <li>
             <h3>Entering Basic information about the form.</h3>
@@ -38,7 +39,7 @@ layout: default
             </p>
           </li>
           <li>
-            <h3>Writing the HTML</h3>
+            <h3 id = "html_section">Writing the HTML</h3>
             <p>
               <ol>
                 <li>
@@ -105,7 +106,7 @@ layout: default
             </p>
           </li>
           <li>
-            <h3>Writing the JavaScript</h3>
+            <h3 id="js_section">Writing the JavaScript</h3>
             <p>here are some of the javascript functions that are used frequently in the forms. 
               Please tweak some of the information to make them functional in the form.</p>
               <p><font style="color:red">*</font>All JavaScript code should come between the <b><i>&#60;script&#62;&nbsp;...&nbsp;&#60;/script&#62;</i></b> Tags.</p>
@@ -372,6 +373,22 @@ layout: default
   placeholder="Enter Title" required="required" 
   <font style="color:white">onchange="check_existence('topic')"</font>/&#62;&#60;/div&#62;
                     </code>
+                  </li>
+
+                  <li>
+                    <h4>Checking if the URL is absolute or relative</h4>
+                    <!-- Source: https://stackoverflow.com/questions/10687099/how-to-test-if-a-url-string-is-absolute-or-relative -->
+                  <code>
+  function checkURL(ids){
+    let url = document.getElementById(ids).value;
+    if (url.indexOf('://') > 0 || url.indexOf('//') === 0 ) {
+      <font style="color:white">// URL is absolute</font>
+    }
+    else {
+      <font style="color:white">// URL is relative</font>
+    }
+  }
+                  </code>
                   </li>
                 </ol>
           </li>
