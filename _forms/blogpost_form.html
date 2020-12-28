@@ -290,6 +290,7 @@ function add_new2(){
         var page1X = $(parsed).find('div.myData').data('x');
         (document.getElementById("loading")).style.display = "none";;
         (document.getElementById("after_submission")).style.display = "block";
+        console.log("New Data: "+ page1X);
         sessionStorage.setItem(file, page1X);
       },
       timeout: 10000,
