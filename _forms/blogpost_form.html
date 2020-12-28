@@ -97,6 +97,8 @@ destination_layout: post
   <script>
     
     var link_str = ""
+    var state = history.state || {};
+    var reloadCount = state.reloadCount || 0;
       let saveFile = () => {
           
           // Get the data from each element on the form.
@@ -282,7 +284,7 @@ function add_new2(){
       sessionStorage.setItem(file, page1X);
     });
     var s = String(sessionStorage.getItem(file))
-    if(s == "null"){
+    if(s == "null" && checkReload()){
       window.location.reload();
     }
     (document.getElementById("loading")).style.display = "none";;
@@ -297,6 +299,27 @@ function add_new2(){
         alert("Title already exist! please choose another title.")
         document.getElementById(id).value = '';
       }
+  }
+
+  function checkReload(){
+      if (performance.navigation.type === 1) { // Reload
+          state.reloadCount = ++reloadCount;
+          history.replaceState(state, null, document.URL);
+      } 
+      else if (reloadCount) {
+          delete state.reloadCount;
+          reloadCount = 0;
+          history.replaceState(state, null, document.URL);
+      }
+      if (reloadCount > 10) {
+        console.log(reloadCount);
+          //Unable to fetch tags
+          (document.getElementById("loading")).style.display = "none";
+          (document.getElementById("after_submission")).style.display = "block";
+          document.getElementById("after_submission").innerHTML = "<center>We are sorry! Cannot load data. Please try using other browser or <a href = '../#help'>contact Support</a></center>"
+          return false;
+      }
+      return true;
   }
   </script>
 
