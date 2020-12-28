@@ -276,6 +276,7 @@ function add_new2(){
     }
 
   function getdata(file){
+    var page1X = "";
     $.ajax({
       url: file, 
       cache: false,
@@ -287,12 +288,13 @@ function add_new2(){
       },
       success: function(response) {
         var parsed = $.parseHTML(response);
-        var page1X = $(parsed).find('div.myData').data('x');
-        return(page1X);
+        page1X = $(parsed).find('div.myData').data('x');
+        console.log(page1X);
       },
       complete: function(){
         (document.getElementById("loading")).style.display = "none";;
         (document.getElementById("after_submission")).style.display = "block";
+        return(page1X);
       }
     });
   }
