@@ -25,7 +25,7 @@ destination_layout: talk
       <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;"><center><h5>Choose Speaker</h5></center><div id="orator"></div><hr/>
       <center><h5>Enter external Speaker</h5></center>
       <div><input type="text" id="first_name" placeholder="Enter a new Speaker" style="width:45%">&nbsp;<input type="text" id="last_name" placeholder="Last Name" style="width:45%"></div>
-      <div><input type="text" id="person_url" placeholder="Enter website URL (if any)" style="width:90%"></div>
+      <div><input type="text" id="person_url" placeholder="Enter website URL (if any)" style="width:90%"  onchange="checkURL('person_url')"></div>
       <input type="button" onclick="add_new_orator();" value="Add Speaker" style="width:10%"> &nbsp; OR  &nbsp;
       <input type="button" onclick="window.open('_forms/people_form.html')" value="Add to Organization"><br />
       <div style="font-weight: normal; text-align: left; padding: 10px;">
@@ -232,6 +232,16 @@ function talker(){
     document.getElementById("first_name").value = "";
     document.getElementById("last_name").value = "";
     document.getElementById("person_url").value = "";
+  }
+
+  function checkURL(ids){
+      let url = document.getElementById(ids).value;
+      if (url.indexOf('://') > 0 || url.indexOf('//') === 0 ) {
+          // URL is absolute
+      } else {
+          alert("Please enter a valid absolute URL");
+          document.getElementById(ids).value = "";
+      }
   }
 
   function getdata(file){
