@@ -227,7 +227,7 @@ function talker(){
     }
     else{
       document.getElementById("new_orator_added").innerHTML = n+" "+m+" ("+link+")";
-      ext_person = (link != "") ? "<a href = '"+ link +"' target='_blank'>"+n+" "+m+"</a>" : n+" "+m;
+      ext_person = (link != "") ? "<a href = '"+ link +"' target='_blank' class='noDecor'>"+n+" "+m+"</a>" : n+" "+m;
     }
     document.getElementById("first_name").value = "";
     document.getElementById("last_name").value = "";
