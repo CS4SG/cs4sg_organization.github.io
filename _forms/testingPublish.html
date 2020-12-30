@@ -1,0 +1,546 @@
+---
+layout: form
+title: Publication Form
+upload: https://github.com/CS4SG/CS4SG.github.io/tree/master/_publications
+destination_layout: publication
+---
+<script src = "https://citation.js.org/src/citation.min.js"></script>
+<script src = "https://requirejs.org/docs/release/2.3.6/comments/require.js"></script>
+<script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src = "https://citation.js.org/static/js/highlight.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.min.css'>
+
+<center>
+  <div id="loading">Loading...</div>
+  <div id = "after_submission" style="display: none;">
+      <div>
+        <a href="javascript:fileUpload()" style="float:right;">Import data from BibTeX</a>
+      </div>
+      <div id="spawn"></div>
+      <div id = "bibx-in" style="display: none;"></div>        
+      <form onsubmit="saveFile(); after_submission();">
+        <div><input type="text" id="topic" placeholder="Enter Title" required="required" onchange="check_existence('topic')"/></div>
+
+        <div><input type="text" id="publishers" placeholder="Published in" /></div>
+        
+        <div><input type="date" id="dts" placeholder="Enter date" /></div>
+        
+        <div><div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
+        <center><h5>Choose Authors</h5></center><div id="peoples" class="hiddenCB"></div>
+        <hr/>
+        <center><h5>Enter external Authors</h5></center>
+        <div><input type="text" id="fn" placeholder="First Name" style="width:45%">&nbsp;<input type="text" id="ln" placeholder="Last Name" style="width:45%"></div>
+        <div><input type="text" id="pu" placeholder="Enter website URL (if any)" style="width:90%" onchange="checkURL('pu')"></div>
+        <input type="button" onclick="add_new2();" value="Add Person"> &nbsp; OR  &nbsp;
+        <input type="button" onclick="window.open('/people_form.html')" value="Add to Organization"><br />
+        <ul id="new_author_added" style="font-weight: normal; text-align: left; padding: 10px;"><LH><b>Added external Authors:</b></LH></ul>
+        <small style="text-align:left"><font color="red">*</font>&nbsp;Click on the names that appear below "Added external People" to remove them from the list.</small><br/>
+        <small style="text-align:left">If the tags doesn't show up, try refreshing the page. If the problem still persist, please contact <a href="mailto:prakshal@buffalo.edu">here</a>.</small>
+        </div></div>
+  
+        <div>
+          <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
+          <center><h5>Choose People related to this Publication</h5></center><div id="tagged_people" class="hiddenCB"></div>
+          <hr/>
+          <center><h5>Enter external people related to this Publication</h5></center>
+          <div><input type="text" id="first_name" placeholder="First Name" style="width:45%">&nbsp;<input type="text" id="last_name" placeholder="Last Name" style="width:45%"></div>
+          <div><input type="text" id="person_url" placeholder="Enter website URL (if any)" style="width:90%" onchange="checkURL('person_url')"></div>
+          <input type="button" onclick="add_new();" value="Add Person"> &nbsp; OR  &nbsp;
+          <input type="button" onclick="window.open('/people_form.html')" value="Add to Organization"><br />
+          <ul id="new_people_added" style="font-weight: normal; text-align: left; padding: 10px;"><LH><b>Added external People:</b></LH></ul>
+          <small style="text-align:left"><font color="red">*</font>&nbsp;Click on the names that appear below "Added external People" to remove them from the list.</small><br/>
+          <small style="text-align:left">If the tags doesn't show up, try refreshing the page. If the problem still persist, please contact <a href="mailto:prakshal@buffalo.edu">here</a>.</small>
+        </div></div>
+  
+        <div><div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
+          <center><h5>Choose related Resources</h5></center>
+          <div class="wrap">
+
+            <!-- Begin Multiple Dropdown -->
+              <center>
+            <form class="form" id="foo_form">
+              <select id="slides_id" class="dropdown" form="foo_form" multiple data-placeholder="Select slides & papers" onchange='checkArray("resources", this.value);'></select>
+                  
+              <select id="links_id" class="dropdown" form="foo_form" multiple data-placeholder="Select Links" onchange='checkArray("resources_slides", this.value);'></select>
+            </form>
+              </center>
+            <!-- End Multiple Dropdown -->
+          
+          </div><!-- .wrap -->
+          </div>
+          <hr/>
+
+
+          <center><h6>Enter External Resources</h6></center>
+          <input type="text" id="links" placeholder="Enter links" style="width: 70%;"/>&nbsp;<input type="button" value="Add another link" onclick="save_link()">
+          <br /><br /><ul id="link_status" style="text-align: left; padding:15px;"><LH><b>Added Links:</b></LH></ul><font color="red">*</font>Click on a link to remove it.<br>
+          <small style="text-align:left">To upload any files, visit <a href="https://github.com/CS4SG/CS4SG.github.io/tree/master/_resources" target="_blank">Resources</a><br>
+            To upload any resource link, visit <a href="https://github.com/CS4SG/CS4SG.github.io/tree/master/_resource_links" target="_blank">Resource Links</a>
+          </small><br>
+          <small style="text-align:left">If the tags doesn't show up, try refreshing the page. If the problem still persist, please contact <a href="mailto:prakshal@buffalo.edu">here</a>.</small>
+        </div></div>
+        
+      <div>
+      <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
+        <center><h5>Choose Related Projects</h5></center><div id="tagged" class="hiddenCB"></div>
+        <small style="text-align:left">If the tags doesn't show up, try refreshing the page. If the problem still persist, please contact <a href="mailto:prakshal@buffalo.edu">here</a>.</small>
+      </div></div>
+  
+      <div><div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
+        <center><h5>Choose Related Courses</h5></center><div id="tag_courses" class="hiddenCB"></div>
+        <small style="text-align:left">If the tags doesn't show up, try refreshing the page. If the problem still persist, please contact <a href="mailto:prakshal@buffalo.edu">here</a>.</small>
+      </div></div>
+        
+      <div><div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">  
+        <h5>Publication Abstract</h5>
+        <div>
+          <div><textarea id="descrip" style="width:100%;" rows=12></textarea></div>
+          <small style="text-align:left"><font color="red">*</font>&nbsp;If you want to add some special formatting, please use Markdown formats.</small><br/>
+          <small style="text-align:left"><a href="https://www.markdownguide.org/basic-syntax/" target="_blank">Basic Markdown Syntax</a></small>
+        </div>
+      </div></div>
+  
+      <center>
+        <div>
+            <input type="submit" value="Generate MD File" class="sectionbutton"/>
+        </div>
+        </center>
+      </form>
+    </div>
+  </center>
+  <script>
+    // window.onload = function() {
+    //   if(!window.location.hash) {
+    //       window.location = window.location + '#loaded';
+    //       window.location.reload();
+    //   }
+    // }
+    
+    let title_string = getdata("/publications.html");
+    var link_str = ""
+    var resources = [];
+    var resources_slides = [];
+      let saveFile = () => {
+          
+          // Get the data from each element on the form.
+          const topic = document.getElementById('topic').value;
+          const publishers = document.getElementById("publishers").value
+          const dates = document.getElementById("dts").value
+          save_link()
+          const links = (link_str.slice(2)).split(",")
+          const msg = document.getElementById('descrip').value;
+          
+          // This variable stores all the data.
+          let data = 
+              "---"+"\n"+
+              "layout: {{ page.destination_layout }}"+"\n"+
+              "title: "+topic+"\n"+
+              "authors: "+people.toString()+"\n"+
+              "published_in: "+publishers+"\n"+
+              "tagged_projects: "+res_topics.toString()+"\n"+
+              "tagged_people: "+tagged_people.map(i => i.substr(1)).join(",")+"\n"+
+              "date: "+dates+"\n"+
+              "links: "+((resources.concat(resources_slides).concat(links)).toString(","))+"\n"+
+              "tagged_courses: "+courses.toString()+"\n"+
+              "key: "+topic+"\n"+
+              "abstract: "+msg+"\n"+"---"
+  
+  
+  
+          // Convert the text to BLOB.
+          const textToBLOB = new Blob([data], { type: 'text/plain' });
+          const sFileName = encodeURIComponent(topic)+'.md';	   // The file to save the data.
+  
+          let newLink = document.createElement("a");
+          newLink.download = sFileName;
+  
+          if (window.webkitURL != null) {
+              newLink.href = window.webkitURL.createObjectURL(textToBLOB);
+          }
+          else {
+              newLink.href = window.URL.createObjectURL(textToBLOB);
+              newLink.style.display = "none";
+              document.body.appendChild(newLink);
+          }
+  
+          newLink.click(); 
+      }
+  
+      function after_submission(){
+        document.getElementById("after_submission").innerHTML = "<br><br><center><table width='80%'><h2>Thank you for submitting your publication.</h2><br><br> To add it to the CS4SG website, just upload the file to the destination folder. Here is the link for the folder <br><a href = '{{ page.upload }}' target='_blank'>{{ page.upload }}</a></table></center>"
+      }
+  
+      function save_link(){
+        s = document.getElementById("links").value;
+        if(s == ""){
+        }
+        else{
+          link_str = link_str.concat(", "+s);
+          var node = document.createElement("LI");
+          node.onclick = function() {this.parentNode.removeChild(this);};
+          var textnode = document.createTextNode(s);
+          node.appendChild(textnode);
+          document.getElementById("link_status").appendChild(node);
+          document.getElementById("links").value = "";
+        }
+      }
+      
+    var peop = getdata("/people.html")
+    var people = tagger(peop, 'peoples', "v");
+    var res_topics = tagger(getdata("/projects.html"), 'tagged', "t");
+    var courses = tagger(getdata("/courses.html"), 'tag_courses', "c");
+    
+  
+    var temporary = getdata("/people.html").split(",").map(i => '#' + i).join(",")
+    var tagged_people = tagger(temporary, 'tagged_people', "g");
+
+    var resources = populate_resources(getdata("/resourceLinks.html"), 'slides_id', "resources");
+    var resources_slides = populate_resources(getdata("/resource.html"), 'links_id', "resources_slides");
+
+    function populate_resources(data, id){
+      var breakData = data.split(",");
+      for(let e of breakData){
+        document.getElementById(id).innerHTML += "<option value='"+e+"'>"+e+"</option>"
+      }
+    }
+
+    function checkArray(lis, value){
+      var arr = eval(lis);
+      if(arr.includes(value)){
+        arrayRemove(arr, value);
+      }
+      else{
+        arr.push(value);
+      }
+      eval(lis) = arr
+    }
+  
+    function tagger(t, inside, samp_func){
+      var people_checked = []
+      var people_arr = t.split(",")
+      
+      var i=0;
+      function add(ids, parent){
+        i++;
+        var node = document.createElement('div');        
+        node.innerHTML = '<input type="checkbox" id="' + ids + '" onChange="'+samp_func+'(this)" name="check' + i + '"><label for="' + ids + '">'+ ids +'</label>&nbsp; &nbsp;';
+        document.getElementById(parent).appendChild(node);
+      }
+  
+      for (e of people_arr) {
+        add(e, inside)
+      }
+  
+      function remove(array, element) {
+        const index = array.indexOf(element);
+        array.splice(index, 1);
+      }
+  
+      window[samp_func] = function(item){
+        if(people_checked.includes(item.id)){
+          remove(people_checked,item)
+        }
+        else{
+          people_checked.push(String(item.id))
+        }
+        console.log(people_checked)
+      }
+      return people_checked
+    }
+  
+  function arrayRemove(arr, value) { return arr.filter(function(ele){ return ele != value; });}
+
+
+function add_new(){
+var n = document.getElementById("first_name").value
+var m = document.getElementById("last_name").value
+var link = document.getElementById("person_url").value
+if(n != "" && m != ""){
+  titles = peop.split(",")
+  if(titles.includes(n+" "+m)){
+    alert("You are already added to CS4SG Organization. Please select the name from above")
+    document.getElementById("first_name").value = '';
+    document.getElementById("last_name").value = '';
+    document.getElementById("person_url").value = "";
+  }
+  else{
+    var toadd = (link != "") ? "<a href = '"+ link +"' target='_blank'>"+n+" "+m+"</a>" : n+" "+m
+    tagged_people.push(toadd);
+    var node = document.createElement("li");
+    node.onclick = function() {this.parentNode.removeChild(this); tagged_people = arrayRemove(tagged_people, toadd);};
+    console.log(tagged_people);
+    node.innerHTML = (link != "") ? n+" "+m+"&nbsp;&nbsp;("+ link+")" : n+" "+m;
+    document.getElementById("new_people_added").appendChild(node);
+    document.getElementById("first_name").value = "";
+    document.getElementById("last_name").value = "";
+    document.getElementById("person_url").value = "";
+  }
+}
+else{
+alert("Please enter a firstname and / or lastname")
+}
+}
+
+
+function add_new2(){
+var n = document.getElementById("fn").value
+var m = document.getElementById("ln").value
+var link = document.getElementById("pu").value
+if(n != "" && m != ""){
+  titles = peop.split(",")
+  if(titles.includes(n+" "+m)){
+    alert("You are already added to CS4SG Organization. Please select the name from above")
+    document.getElementById("fn").value = '';
+    document.getElementById("ln").value = '';
+    document.getElementById("pu").value = "";
+  }
+  else{
+    var toadd = (link != "") ? "<a href = '"+ link +"' target='_blank'>"+n+" "+m+"</a>" : n+" "+m
+    people.push(toadd);
+    var node = document.createElement("li");
+    node.onclick = function() {this.parentNode.removeChild(this); people = arrayRemove(people, toadd);};
+    console.log(people);
+    node.innerHTML = (link != "") ? n+" "+m+"&nbsp;&nbsp;("+ link+")" : n+" "+m;
+    document.getElementById("new_author_added").appendChild(node);
+    document.getElementById("fn").value = "";
+    document.getElementById("ln").value = "";
+    document.getElementById("pu").value = "";
+  }
+}
+else{
+alert("Please enter a firstname and / or lastname")
+}
+}
+
+  function checkURL(ids){
+      let url = document.getElementById(ids).value;
+      if (url.indexOf('://') > 0 || url.indexOf('//') === 0 ) {
+          // URL is absolute
+      } else {
+          alert("Please enter a valid absolute URL");
+          document.getElementById(ids).value = "";
+      }
+  }
+
+  function add_tag(){
+      s2 = String(document.getElementById('topic').value)
+      if(res_topics.includes(s2)){
+      }
+      else{
+        res_topics.push(s2);
+      }
+    }
+
+  function getdata(file){
+    $.get(file, function(result){
+      var obj = $(result).find('script');
+      var page1X = $(result).find('div.myData').data('x');
+      sessionStorage.setItem(file, page1X);
+    });
+    var s = String(sessionStorage.getItem(file))
+    if(s == "null" && checkReload()){
+      window.location.reload();
+    }
+    (document.getElementById("loading")).style.display = "none";;
+    (document.getElementById("after_submission")).style.display = "block";
+    return(s);
+  }
+
+  function check_existence(id){
+      titles = title_string.toLowerCase().split(",")
+      if(titles.includes(document.getElementById(id).value.toLowerCase())){
+        alert("Title already exist! please choose another title.")
+        document.getElementById(id).value = '';
+      }
+  }
+
+  function save_link(){
+        s = document.getElementById("links").value;
+        if(s == ""){
+        }
+        else{
+          link_str = link_str.concat(", "+s);
+          var node = document.createElement("LI");
+          node.onclick = function() {this.parentNode.removeChild(this);};
+          var textnode = document.createTextNode(s);
+          node.appendChild(textnode);
+          document.getElementById("link_status").appendChild(node);
+          document.getElementById("links").value = "";
+        }
+  }
+
+  var button = document.getElementById("send-file-button");
+
+  function loadInfo() {
+    var files = document.getElementById("myfileinput").files;
+    var reader = new FileReader();
+    reader.onload = function () {
+      document.getElementById("bibx-in").innerText = reader.result;
+      populateData()
+    };
+    if(files[0]) {
+      // This does not return the text. It just starts reading.
+      // The onload handler is triggered when it is done and the result is available.
+      reader.readAsText(files[0]);
+    }
+  };
+
+  function fileUpload(){
+    document.getElementById("spawn").innerHTML = "<input type='file' id='myfileinput'><button type='button' class='control-button' onclick='loadInfo()'>SUBMIT-FILE</button>"
+  }
+
+  function populateData(){
+    const Cite = require('citation-js')
+    var cite = new Cite()
+    var parseAsync = Cite.parse.input.async.chain
+    var opt = {
+      format: 'string'
+    }
+    var $bibx_in = $('#bibx-in');
+
+    // Make a factory for callback
+    var callbackFactory = function() {
+      return function (data) {
+        var info = JSON.parse(cite.set(data).get(opt))
+        console.log(info);
+        var importables = "";
+        if(info.length == 1){
+          let subInfo = info[0];
+          var options = ["title", "institution", "organization", "publisher", "school", "issued", "author", "editor", "url"];
+          for (var key of Object.keys(subInfo)) {
+            if(options.indexOf(String(key).toLowerCase()) >= 0){
+              //Get Title
+              if(key.toLowerCase() == "title"){
+                document.getElementById('topic').value = (subInfo[key]).replace( /(<([^>]+)>)/ig, '');;
+              }
+              //Get Published In
+              if(key.toLowerCase() == "institution" || key.toLowerCase() == "organization" || key.toLowerCase() == "publisher" || key.toLowerCase() == "container-title" || key.toLowerCase() == "school" || key.toLowerCase() == "publisher-place") {
+                document.getElementById("publishers").value += subInfo[key];
+              }
+
+              //Get Date
+              var dates = ""
+              var dt = new Date();
+              if(key.toLowerCase() == "issued"){
+                dates = dates.concat(subInfo[key]["date-parts"][0][0]+ "-" + (((subInfo[key]["date-parts"][0]).length > 2) ? subInfo[key]["date-parts"][0][1] : "01") + "-" + "01");
+                document.getElementById("dts").value = dates;
+              }
+
+              //Get Authors
+              if(key.toLowerCase() == "author"){
+                for(let aut of subInfo[key]){
+                  let name = (aut["given"] !== undefined ? aut["given"] + " " : "") + (aut["literal"] !== undefined ? aut["literal"] + " " : "") + (aut["family"] !== undefined ? aut["family"] : "")
+                  var node = document.createElement("li");
+                  node.onclick = function() {this.parentNode.removeChild(this); people = arrayRemove(people, name);};
+                  node.innerHTML = name;
+                  document.getElementById("new_author_added").appendChild(node);
+                  people.push(name);
+                }
+              }
+
+              //Get Editors & related People
+              if(key.toLowerCase() == "editor"){
+                for(let aut of subInfo[key]){
+                  let name = (aut["given"] !== undefined ? aut["given"] + " " : "") + (aut["literal"] !== undefined ? aut["literal"] + " " : "") + (aut["family"] !== undefined ? aut["family"] : "")
+                  var node = document.createElement("li");
+                  node.onclick = function() {this.parentNode.removeChild(this); tagged_people = arrayRemove(tagged_people, name);};
+                  node.innerHTML = name;
+                  document.getElementById("new_people_added").appendChild(node);
+                  tagged_people.push(name);
+                }
+              }
+
+              //Get related Resources
+              if(key.toLowerCase() == "url" || key.toLowerCase() == "doi"){
+                var arr = subInfo[key].split(",")
+                for(let s of arr){
+                  link_str = link_str.concat(", "+s);
+                  var node = document.createElement("LI");
+                  node.onclick = function() {this.parentNode.removeChild(this);};
+                  var textnode = document.createTextNode(s);
+                  node.appendChild(textnode);
+                  document.getElementById("link_status").appendChild(node);
+                }
+              }
+
+              //Remaining must go to Publication abstract
+            }
+            else if(options.indexOf(key.toLowerCase()) < 0){
+              if(key.toLowerCase() != "_graph"){
+                importables = importables.concat(key + ": " + JSON.stringify(subInfo[key]) + '\n\n');
+              }
+            }
+          }
+          if (confirm("You have some data remaining in the BibTeX file which was not imported. Please click OK to import data. Cancel to discard")){
+            document.getElementById('descrip').value = importables
+          }
+          else{
+          }
+        }
+        else{
+          alert("Please provide exactly one bib-entry at a time.");
+        }
+      }
+    }
+
+    var bibxCb = callbackFactory()
+
+    parseAsync($bibx_in.text()).then(bibxCb)
+  }
+
+
+
+
+/**
+ * Chosen: Multiple Dropdown
+ */
+window.WDS_Chosen_Multiple_Dropdown = {};
+(function (window, $, that) {
+
+  // Constructor.
+  that.init = function () {
+    that.cache();
+
+    if (that.meetsRequirements) {
+      that.bindEvents();
+    }
+  };
+
+  // Cache all the things.
+  that.cache = function () {
+    that.$c = {
+      window: $(window),
+      theDropdown: $('.dropdown') };
+
+  };
+
+  // Combine all events.
+  that.bindEvents = function () {
+    that.$c.window.on('load', that.applyChosen);
+  };
+
+  // Do we meet the requirements?
+  that.meetsRequirements = function () {
+    return that.$c.theDropdown.length;
+  };
+
+  // Apply the Chosen.js library to a dropdown.
+  // https://harvesthq.github.io/chosen/options.html
+  that.applyChosen = function () {
+    that.$c.theDropdown.chosen({
+      inherit_select_classes: true,
+      width: '300px' });
+
+  };
+
+  // Engage!
+  $(that.init);
+
+})(window, jQuery, window.WDS_Chosen_Multiple_Dropdown);
+//# sourceURL=pen.js
+</script>
+<script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.jquery.js'></script>
+
+<!-- Developer: Prakshal Jain || Contact: prakshal@buffalo.edu -->
