@@ -21,6 +21,8 @@ destination_layout: publication
         <div><input type="text" id="topic" placeholder="Enter Title" required="required" onchange="check_existence('topic')"/></div>
 
         <div><input type="text" id="publishers" placeholder="Published in" /></div>
+
+        <div><input type="text" id="venue" placeholder="Enter Venue"/></div>
         
         <div><input type="date" id="dts" placeholder="Enter date" /></div>
         
@@ -113,6 +115,7 @@ destination_layout: publication
           
           // Get the data from each element on the form.
           const topic = specialToASCII(document.getElementById('topic').value);
+          const venue = specialToASCII(document.getElementById('venue').value);
           const publishers = specialToASCII(document.getElementById("publishers").value);
           const dates = document.getElementById("dts").value
           save_link()
@@ -124,6 +127,7 @@ destination_layout: publication
               "---"+"\n"+
               "layout: {{ page.destination_layout }}"+"\n"+
               "title: "+topic+"\n"+
+              "venue: "+venue+"\n"+
               "authors: "+people.toString()+"\n"+
               "published_in: "+publishers+"\n"+
               "tagged_projects: "+res_topics.toString()+"\n"+
