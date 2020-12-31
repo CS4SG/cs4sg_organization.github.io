@@ -112,12 +112,12 @@ destination_layout: publication
       let saveFile = () => {
           
           // Get the data from each element on the form.
-          const topic = document.getElementById('topic').value;
-          const publishers = document.getElementById("publishers").value
+          const topic = specialToASCII(document.getElementById('topic').value);
+          const publishers = specialToASCII(document.getElementById("publishers").value);
           const dates = document.getElementById("dts").value
           save_link()
           const links = (link_str.slice(2)).split(",")
-          const msg = document.getElementById('descrip').value;
+          const msg = specialToASCII(document.getElementById('descrip').value);
           
           // This variable stores all the data.
           let data = 

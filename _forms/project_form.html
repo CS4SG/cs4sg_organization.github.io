@@ -63,10 +63,10 @@ destination_layout: project
 let saveFile = () => {
 
 // Get the data from each element on the form.
-const topic = document.getElementById('topic').value;
-const description = document.getElementById('description').value;
-const subheading = document.getElementById('subheading').value;
-const msg = document.getElementById('descrip').value;
+const topic = specialToASCII(document.getElementById('topic').value);
+const description = specialToASCII(document.getElementById('description').value);
+const subheading = specialToASCII(document.getElementById('subheading').value);
+const msg = specialToASCII(document.getElementById('descrip').value);
 
 // This variable stores all the data.
 let data = 

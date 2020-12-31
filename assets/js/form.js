@@ -17,3 +17,17 @@ function collapse(id){
 
 collapse("collapsible_slides")
 collapse("collapsible_links")
+
+
+
+const specialToASCII = str => {
+  let res = '';
+  for(let i = 0; i < str.length; i++){
+     if(+str[i] || str[i].toLowerCase() !== str[i].toUpperCase() || str[i] === ' '){
+        res += str[i];
+        continue;
+     };
+     res += "&#"+str[i].charCodeAt(0)+";";
+  };
+  return res;
+};

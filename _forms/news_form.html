@@ -106,12 +106,12 @@ destination_layout: news
       let saveFile = () => {
           
           // Get the data from each element on the form.
-          const topic = document.getElementById('topic').value;
+          const topic = specialToASCII(document.getElementById('topic').value);
           const image = document.getElementById('image').value;
           var article_url = document.getElementById('article_url').value;
           var event_date = document.getElementById('event_date').value;
           var location = document.getElementById('location').value;
-          const msg = document.getElementById('descrip').value;
+          const msg = specialToASCII(document.getElementById('descrip').value);
           var mixed_talks = talks.concat(speech)
           
           // This variable stores all the data.

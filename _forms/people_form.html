@@ -120,7 +120,7 @@ destination_layout: people
         let data = 
             "---"+"\n"+
             "layout: {{ page.destination_layout }}"+"\n"+
-            "name: "+fname+" "+lname+"\n"+
+            "name: "+specialToASCII(fname)+" "+specialToASCII(lname)+"\n"+
             "category: "+category+"\n"+
             "designation: "+designation+"\n"+
             //"degrees: "+degrees+"\n"+
@@ -129,11 +129,11 @@ destination_layout: people
             "link: "+link+"\n"+
             "image: "+img_link+"\n"+
             "social: "+s+"\n"+
-            "key: "+lname+" "+fname+"\n"+
+            "key: "+specialToASCII(lname)+" "+specialToASCII(fname)+"\n"+
             "---"+"\n\n"     
         // Convert the text to BLOB.
         const textToBLOB = new Blob([data], { type: 'text/plain' });
-        const sFileName = lname+" "+fname+'.md';	   // The file to save the data.
+        const sFileName = specialToASCII(lname+" "+fname)+'.md';	   // The file to save the data.
         let newLink = document.createElement("a");
         newLink.download = sFileName;
         if (window.webkitURL != null) {

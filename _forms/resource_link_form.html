@@ -93,10 +93,10 @@ destination_layout: default
     var link_str = ""
     let saveFile = () => {
         // Get the data from each element on the form.
-        const topic = document.getElementById('topic').value;
+        const topic = specialToASCII(document.getElementById('topic').value);
         save_link()
         const links = link_str.slice(2)
-        const msg = document.getElementById('descrip').value;
+        const msg = specialToASCII(document.getElementById('descrip').value);
         
         // This variable stores all the data.
         let data = 

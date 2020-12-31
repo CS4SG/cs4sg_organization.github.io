@@ -73,13 +73,13 @@ destination_layout: default
     let saveFile = () => {
         
         // Get the data from each element on the form.
-        const topic = document.getElementById('topic').value;
-        const prefix_number = document.getElementById("prefix_number").value
+        const topic = specialToASCII(document.getElementById('topic').value);
+        const prefix_number = specialToASCII(document.getElementById("prefix_number").value);
         const catalog_link = document.getElementById("catalog_link").value
         save_link()
         sem_checkbox()
         const links = link_str.slice(2)
-        const msg = document.getElementById('descrip').value;
+        const msg = specialToASCII(document.getElementById('descrip').value);
         
         // This variable stores all the data.
         let data = 

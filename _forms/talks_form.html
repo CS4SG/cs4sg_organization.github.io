@@ -88,13 +88,13 @@ destination_layout: talk
     let saveFile = () => {
     	
         // Get the data from each element on the form.
-    	const topic = document.getElementById('topic').value;
+    	const topic = specialToASCII(document.getElementById('topic').value);
       const category = document.getElementById('category').value;
       var dates = document.getElementById("dts").value;
       save_link()
       const links = (link_str.slice(2)).split(",")
       
-      const msg = document.getElementById('descrip').value;
+      const msg = specialToASCII(document.getElementById('descrip').value);
       var t = talker();
       if(t === ""){
         t = ext_person

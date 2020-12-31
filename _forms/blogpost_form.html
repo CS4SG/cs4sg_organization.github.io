@@ -100,11 +100,11 @@ destination_layout: post
       let saveFile = () => {
           
           // Get the data from each element on the form.
-          const topic = document.getElementById('topic').value;
+          const topic = specialToASCII(document.getElementById('topic').value);
           const dates = document.getElementById("dts").value;
           const image = document.getElementById('image').value;
-          const imagedesc = document.getElementById('imagedesc').value;
-          const msg = document.getElementById('descrip').value;
+          const imagedesc = specialToASCII(document.getElementById('imagedesc').value);
+          const msg = specialToASCII(document.getElementById('descrip').value);
           
           // This variable stores all the data.
           let data = 
