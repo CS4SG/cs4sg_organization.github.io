@@ -129,7 +129,8 @@ destination_layout: publication
               "tagged_projects: "+res_topics.toString()+"\n"+
               "tagged_people: "+tagged_people.map(i => i.substr(1)).join(",")+"\n"+
               "date: "+dates+"\n"+
-              "links: "+((resources.concat(resources_slides).concat(links)).toString(","))+"\n"+
+              "resource_links: "+links.toString(",")+"\n"+
+              "abs_links: "+(resources.concat(resources_slides)).toString(",")+"\n"+
               "tagged_courses: "+courses.toString()+"\n"+
               "key: "+topic+"\n"+
               "abstract: "+msg+"\n"+"---"
