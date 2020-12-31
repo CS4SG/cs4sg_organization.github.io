@@ -63,7 +63,7 @@ destination_layout: publication
           </div>
           <hr/>
           <center><h6>Enter External Resources</h6></center>
-          <input type="text" id="links" placeholder="Enter links" style="width: 70%;"/>&nbsp;<input type="button" value="Add another link" onclick="save_link()">
+          <input type="text" id="links" placeholder="Enter links" style="width: 70%;" onchange="checkURL('links')"/>&nbsp;<input type="button" value="Add another link" onclick="save_link()">
           <br /><br /><ul id="link_status" style="text-align: left; padding:15px;"><LH><b>Added Links:</b></LH></ul><font color="red">*</font>Click on a link to remove it.<br>
           <small style="text-align:left">To upload any files, visit <a href="https://github.com/CS4SG/CS4SG.github.io/tree/master/_resources" target="_blank">Resources</a><br>
             To upload any resource link, visit <a href="https://github.com/CS4SG/CS4SG.github.io/tree/master/_resource_links" target="_blank">Resource Links</a>
