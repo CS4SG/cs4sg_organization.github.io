@@ -392,7 +392,7 @@ alert("Please enter a firstname and / or lastname")
               var dates = ""
               var dt = new Date();
               if(key.toLowerCase() == "issued"){
-                dates = dates.concat(subInfo[key]["date-parts"][0][0]+ "-" + (((subInfo[key]["date-parts"][0]).length > 2) ? subInfo[key]["date-parts"][0][1] : "01") + "-" + "01");
+                dates = dates.concat(subInfo[key]["date-parts"][0][0]+ "-" + (((subInfo[key]["date-parts"][0]).length >= 2) ? subInfo[key]["date-parts"][0][1] : "01") + "-" + (((subInfo[key]["date-parts"][0]).length >= 3) ? subInfo[key]["date-parts"][0][2] : "01"));
                 document.getElementById("dts").value = dates;
               }
 
