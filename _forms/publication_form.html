@@ -205,7 +205,7 @@ destination_layout: publication
       function add(ids, parent){
         i++;
         var node = document.createElement('div');        
-        node.innerHTML = '<input type="checkbox" id="' + ids + '" onChange="'+samp_func+'(this)" name="check' + i + '"><label for="' + ids + '">'+ ids +'</label><br/>';
+        node.innerHTML = '<input type="checkbox" id="' + ids + '" onChange="'+samp_func+'(this)" name="check' + i + '"><label for="' + ids + '">'+ ids +'</label>&nbsp; &nbsp;';
         document.getElementById(parent).appendChild(node);
       }
   
