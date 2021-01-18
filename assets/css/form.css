@@ -119,3 +119,17 @@ content: "";
   overflow: hidden;
   background-color: transparent;
 }
+
+.table {
+  display: table;
+  width: 100%;
+  border: 0px;
+}
+.cell {
+  display: table-cell;
+  height: auto;
+  vertical-align: top;
+  text-align: center;
+  border: 0px;
+  padding: 2vh;
+}
