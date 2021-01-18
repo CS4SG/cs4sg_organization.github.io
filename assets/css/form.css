@@ -97,6 +97,29 @@ content: "";
 
 
 /* For Collapsible Resources */
+.collapsible_slides, .collapsible_links {
+  background-color: transparent;
+  color: #999999;
+  cursor: pointer;
+  padding: 3px;
+  width: 100%;
+  border: none;
+  text-align: center;
+  outline: none;
+}
+
+.active, .collapsible_slides:hover {
+  color: #000000;
+  outline: none;
+}
+
+.content_slides, .content_links, .content_papers {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: transparent;
+}
+
 .table {
   display: table;
   width: 100%;
@@ -109,40 +132,4 @@ content: "";
   text-align: center;
   border: 0px;
   padding: 2vh;
-}
-
-.collapsible {
-  background-color: #777;
-  color: white;
-  cursor: pointer;
-  padding: 18px;
-  width: 100%;
-  border: none;
-  text-align: left;
-  outline: none;
-  font-size: 15px;
-}
-
-.active, .collapsible:hover {
-  background-color: #555;
-}
-
-.collapsible:after {
-  content: '\002B';
-  color: white;
-  font-weight: bold;
-  float: right;
-  margin-left: 5px;
-}
-
-.active:after {
-  content: "\2212";
-}
-
-.content {
-  padding: 0 18px;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.2s ease-out;
-  background-color: #f1f1f1;
 }
