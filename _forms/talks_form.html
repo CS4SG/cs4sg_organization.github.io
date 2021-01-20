@@ -145,7 +145,8 @@ destination_layout: talk
     }
 
     function after_submission(){
-      document.getElementById("after_submission").innerHTML = "<br><br><center><table width='80%'><h2>Thank you for submitting your talks.</h2><br><br> To add it to the CS4SG Talks Section, just upload the file to the <b>_talks<b> folder. Here is the link for the folder <br><a href = 'https://github.com/CS4SG/CS4SG.github.io/tree/master/_talks' target='_blank'>https://github.com/CS4SG/CS4SG.github.io/tree/master/_talks</a></table></center>"
+      dest = "{{ page.title }}".split(" ").slice(0, -1).join(" ").toLowerCase();
+      document.getElementById("after_submission").innerHTML = "<br><br><center><table width='80%'><h2>Thank you for submitting your "+dest+".</h2><br><br> To add it to the C4SG "+dest+" section, just upload the file to the designated folder. Here is the link for the folder <br><a href = '{{ page.upload }}' target='_blank'>{{ page.upload }}</a></table></center>"
     }
 
   var peop = getdata("/people.html",'x')

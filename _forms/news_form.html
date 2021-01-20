@@ -153,9 +153,10 @@ destination_layout: news
           newLink.click(); 
       }
   
-      function after_submission(){
-        document.getElementById("after_submission").innerHTML = "<br><br><center><table width='80%'><h2>Thank you for submitting your publication.</h2><br><br> To add it to the CS4SG Research Section, just upload the file to the destination folder. Here is the link for the folder <br><a href = '{{ page.upload }}' target='_blank'>{{ page.upload }}</a></table></center>"
-      }
+    function after_submission(){
+      dest = "{{ page.title }}".split(" ").slice(0, -1).join(" ").toLowerCase();
+      document.getElementById("after_submission").innerHTML = "<br><br><center><table width='80%'><h2>Thank you for submitting your "+dest+".</h2><br><br> To add it to the C4SG "+dest+" section, just upload the file to the designated folder. Here is the link for the folder <br><a href = '{{ page.upload }}' target='_blank'>{{ page.upload }}</a></table></center>"
+    }
       
     var peop = getdata("/people.html")
     var res_topics = tagger(getdata("/projects.html"), 'tagged', "t");

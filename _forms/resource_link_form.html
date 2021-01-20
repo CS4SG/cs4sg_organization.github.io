@@ -135,7 +135,8 @@ destination_layout: default
     }
 
     function after_submission(){
-        document.getElementById("after_submission").innerHTML = "<br><br><center><table width='80%'><h2>Thank you for submitting your Code.</h2><br><br> To add it to the CS4SG Code Section, just upload the file to the destination folder. Here is the link for the folder <br><a href = '{{ page.upload }}' target='_blank'>{{ page.upload }}</a></table></center>"
+        dest = "{{ page.title }}".split(" ").slice(0, -1).join(" ").toLowerCase();
+        document.getElementById("after_submission").innerHTML = "<br><br><center><table width='80%'><h2>Thank you for submitting your "+dest+".</h2><br><br> To add it to the C4SG "+dest+" section, just upload the file to the designated folder. Here is the link for the folder <br><a href = '{{ page.upload }}' target='_blank'>{{ page.upload }}</a></table></center>"
     }
 
     function save_link(){

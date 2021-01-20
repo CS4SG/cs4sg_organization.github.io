@@ -31,7 +31,3 @@ const specialToASCII = str => {
   };
   return res;
 };
-
-function after_submission(){
-  document.getElementById("after_submission").innerHTML = "<br><br><center><table width='80%'><h2>Thank you for submitting your {{ page.destination_layout }}.</h2><br><br> To add it to the C4SG {{ page.destination_layout }} section, just upload the file to the designated folder. Here is the link for the folder <br><a href = '{{ page.upload }}' target='_blank'>{{ page.upload }}</a></table></center>"
-}
