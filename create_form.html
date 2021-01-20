@@ -335,11 +335,12 @@ layout: default
                     <p>To display the after form submission text, just copy and paste the following code.</p>
                     <code>
   function after_submission(){
+    dest = "{{ page.title }}".split(" ").slice(0, -1).join(" ").toLowerCase();
     document.getElementById("after_submission").innerHTML = "&#60;br&#62;&#60;br&#62;
     &#60;center&#62;&#60;table width='80%'&#62;&#60;h2&#62;
-    Thank you for submitting your publication.&#60;/h2&#62;
+    Thank you for submitting your "+dest+".&#60;/h2&#62;
     &#60;br&#62;&#60;br&#62;
-     To add it to the C4SG website, just upload the file to the destination folder.
+     To add it to the C4SG "+dest+" section, just upload the file to the designated folder.
       Here is the link for the folder
       &#60;br&#62;&#60;a href = '{{ page.upload }}' target='_blank'>{{ page.upload }}
       &#60;/a&#62;&#60;/table&#62;&#60;/center&#62;"
