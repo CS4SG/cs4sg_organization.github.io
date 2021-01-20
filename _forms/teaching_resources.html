@@ -1,0 +1,221 @@
+---
+layout: form
+title: Teaching Resources Form
+upload: https://github.com/CS4SG/CS4SG.github.io/tree/master/_teaching_resources
+destination_layout: teaching_resource
+---
+
+<center>
+<div id="loading">Loading...</div>
+<div id = "after_submission" style="display: none;">
+<form onsubmit="saveFile(); after_submission();">
+    <div><input type="text" id="topic" placeholder="Enter Title" required="required" onchange="check_existence('topic')"/></div>
+    
+    <div>
+      <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
+      <center><h5>Choose People related to this teaching resource</h5></center><div id="peoples" class="hiddenCB"></div>
+      <hr/>
+      <center><h5>Enter external people related to this teaching resource</h5></center>
+      <div><input type="text" id="first_name" placeholder="First Name" style="width:45%">&nbsp;<input type="text" id="last_name" placeholder="Last Name" style="width:45%"></div>
+      <div><input type="text" id="person_url" placeholder="Enter website URL (if any)" style="width:90%" onchange="checkURL('person_url')"></div>
+      <input type="button" onclick="add_new();" value="Add Person"> &nbsp; OR  &nbsp;
+      <input type="button" onclick="window.open('/people_form.html')" value="Add to Organization"><br />
+      <ul id="new_people_added" style="font-weight: normal; text-align: left; padding: 10px;"><LH><b>Added external People:</b></LH></ul>
+      <small style="text-align:left"><font color="red">*</font>&nbsp;Click on the names that appear below "Added external People" to remove them from the list.</small><br/>
+      <small style="text-align:left">If the tags doesn't show up, try refreshing the page. If the problem still persist, please contact <a href="mailto:prakshal@buffalo.edu">here</a>.</small>
+      </div>
+    </div>
+
+    
+    <div>
+    <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
+    <center><h5>Choose Related Research Projects</h5></center><div id="tagged" class="hiddenCB"></div>
+    <small style="text-align:left">If the tags doesn't show up, try refreshing the page. If the problem still persist, please contact <a href="mailto:prakshal@buffalo.edu">here</a>.</small>
+    </div></div>
+
+    <div>
+    <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
+    <center><h5>Choose Related Publications</h5></center><div id="publish" class="hiddenCB"></div>
+    <small style="text-align:left">If the tags doesn't show up, try refreshing the page. If the problem still persist, please contact <a href="mailto:prakshal@buffalo.edu">here</a>.</small>
+    </div></div> 
+    
+    <div>
+    <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">  
+        <h5>Teaching Resource Description</h5>
+        <div>
+          <div><textarea id="descrip" style="width:100%;" rows=12></textarea></div>
+          <small style="text-align:left"><font color="red">*</font>&nbsp;If you want to add some special formatting, please use Markdown formats.</small><br/>
+          <small style="text-align:left"><a href="https://www.markdownguide.org/basic-syntax/" target="_blank">Basic Markdown Syntax</a></small>
+        </div>
+    </div></div>  
+
+    <center>
+      <div>
+          <input type="submit" value="Generate MD File" class="sectionbutton"/>
+      </div>
+      </center>
+  </form>
+</div>
+</center>
+
+
+<script>
+    
+      let saveFile = () => {
+          
+          // Get the data from each element on the form.
+          const topic = specialToASCII(document.getElementById('topic').value);
+          const msg = specialToASCII(document.getElementById('descrip').value);
+          
+          // This variable stores all the data.
+          let data = 
+              "---"+"\n"+
+              "layout: news"+"\n"+
+              "title: "+topic+"\n"+
+              "tagged_people: "+people.toString()+"\n"+
+              "tagged_projects: "+res_topics.toString()+"\n"+
+              "tagged_publications: "+publications.toString()+"\n"+
+              "key: "+topic+"\n"+
+              "description: "+msg+"\n"+"---"
+  
+  
+  
+          // Convert the text to BLOB.
+          const textToBLOB = new Blob([data], { type: 'text/plain' });
+          const sFileName = encodeURIComponent(topic)+'.md';	   // The file to save the data.
+  
+          let newLink = document.createElement("a");
+          newLink.download = sFileName;
+  
+          if (window.webkitURL != null) {
+              newLink.href = window.webkitURL.createObjectURL(textToBLOB);
+          }
+          else {
+              newLink.href = window.URL.createObjectURL(textToBLOB);
+              newLink.style.display = "none";
+              document.body.appendChild(newLink);
+          }
+  
+          newLink.click(); 
+      }
+  
+    function after_submission(){
+      dest = "{{ page.title }}".split(" ").slice(0, -1).join(" ").toLowerCase();
+      document.getElementById("after_submission").innerHTML = "<br><br><center><table width='80%'><h2>Thank you for submitting your "+dest+".</h2><br><br> To add it to the C4SG "+dest+" section, just upload the file to the designated folder. Here is the link for the folder <br><a href = '{{ page.upload }}' target='_blank'>{{ page.upload }}</a></table></center>"
+    }
+      
+    var peop = getdata("/people.html")
+    var res_topics = tagger(getdata("/projects.html"), 'tagged', "t");
+    var people = tagger(peop, 'peoples', "v");
+    var publications = tagger(getdata("/publications.html"), 'publish', "publ");
+    
+  
+    function tagger(t, inside, samp_func){
+      var people_checked = []
+      var people_arr = t.split(",")
+      
+      var i=0;
+      function add(ids, parent){
+        i++;
+        var node = document.createElement('div');        
+        node.innerHTML = '<input type="checkbox" id="' + ids + '" onChange="'+samp_func+'(this)" name="check' + i + '"><label for="' + ids + '">'+ ids +'</label>&nbsp; &nbsp;';
+        document.getElementById(parent).appendChild(node);
+      }
+  
+      for (e of people_arr) {
+        add(e, inside)
+      }
+  
+      function remove(array, element) {
+        const index = array.indexOf(element);
+        array.splice(index, 1);
+      }
+  
+      window[samp_func] = function(item){
+        if(people_checked.includes(item.id)){
+          remove(people_checked,item)
+        }
+        else{
+          people_checked.push(String(item.id))
+        }
+        console.log(people_checked)
+      }
+      return people_checked
+    }
+  
+
+function add_new(){
+var n = document.getElementById("first_name").value
+var m = document.getElementById("last_name").value
+var link = document.getElementById("person_url").value
+if(n != "" && m != ""){
+  titles = peop.split(",")
+  if(titles.includes(n+" "+m)){
+    alert("You are already added to CS4SG Organization. Please select the name from above")
+    document.getElementById("first_name").value = '';
+    document.getElementById("last_name").value = '';
+    document.getElementById("person_url").value = "";
+  }
+  else{
+    var toadd = (link != "") ? "<a href = '"+ link +"' target='_blank'>"+n+" "+m+"</a>" : n+" "+m
+    people.push(toadd);
+    var node = document.createElement("li");
+    node.onclick = function() {this.parentNode.removeChild(this); people = arrayRemove(people, toadd);};
+    console.log(people);
+    node.innerHTML = (link != "") ? n+" "+m+"&nbsp;&nbsp;("+ link+")" : n+" "+m;
+    document.getElementById("new_people_added").appendChild(node);
+    document.getElementById("first_name").value = "";
+    document.getElementById("last_name").value = "";
+    document.getElementById("person_url").value = "";
+  }
+}
+else{
+alert("Please enter a firstname and / or lastname")
+}
+}
+
+  function checkURL(ids){
+      let url = document.getElementById(ids).value;
+      if (url.indexOf('://') > 0 || url.indexOf('//') === 0 ) {
+          // URL is absolute
+      } else {
+          alert("Please enter a valid absolute URL");
+          document.getElementById(ids).value = "";
+      }
+  }
+  
+  function add_tag(){
+      s2 = String(document.getElementById('topic').value)
+      if(res_topics.includes(s2)){
+      }
+      else{
+        res_topics.push(s2);
+      }
+    }
+
+  function getdata(file){
+    $.get(file, function(result){
+      var obj = $(result).find('script');
+      var page1X = $(result).find('div.myData').data('x');
+      sessionStorage.setItem(file, page1X);
+    });
+    var s = String(sessionStorage.getItem(file))
+    if(s == "null" && checkReload()){
+      window.location.reload();
+    }
+    (document.getElementById("loading")).style.display = "none";;
+    (document.getElementById("after_submission")).style.display = "block";
+    return(s);
+  }
+
+    let title_string = getdata("/teaching_resources.html");
+    function check_existence(id){
+        titles = title_string.toLowerCase().split(",")
+        if(titles.includes(document.getElementById(id).value.toLowerCase())){
+          alert("Title already exist! please choose another title.")
+          document.getElementById(id).value = '';
+        }
+    }
+</script>
+  
+<!-- Developer: Prakshal Jain || Contact: prakshal@buffalo.edu -->
