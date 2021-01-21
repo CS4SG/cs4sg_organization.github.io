@@ -37,7 +37,13 @@ destination_layout: teaching_resource
     <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
     <center><h5>Choose Related Publications</h5></center><div id="publish" class="hiddenCB"></div>
     <small style="text-align:left">If the tags doesn't show up, try refreshing the page. If the problem still persist, please contact <a href="mailto:prakshal@buffalo.edu">here</a>.</small>
-    </div></div> 
+    </div></div>
+
+    <div>
+      <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
+      <center><h5>Choose Related Code Resources</h5></center><div id="codes" class="hiddenCB"></div>
+      <small style="text-align:left">If the tags doesn't show up, try refreshing the page. If the problem still persist, please contact <a href="mailto:prakshal@buffalo.edu">here</a>.</small>
+    </div></div>
     
     <div>
     <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">  
@@ -75,14 +81,16 @@ destination_layout: teaching_resource
               "tagged_people: "+people.toString()+"\n"+
               "tagged_projects: "+res_topics.toString()+"\n"+
               "tagged_publications: "+publications.toString()+"\n"+
+              "tagged_code: "+codes.toString()+"\n"+
               "key: "+topic+"\n"+
-              "description: "+msg+"\n"+"---"
+              "---"+"\n"+
+              "<p>"+msg+"</p>"
   
   
   
           // Convert the text to BLOB.
           const textToBLOB = new Blob([data], { type: 'text/plain' });
-          const sFileName = encodeURIComponent(topic)+'.md';	   // The file to save the data.
+          const sFileName = 'index.html';	   // The file to save the data.
   
           let newLink = document.createElement("a");
           newLink.download = sFileName;
@@ -117,6 +125,7 @@ destination_layout: teaching_resource
     var res_topics = tagger(getdata("/projects.html"), 'tagged', "t");
     var people = tagger(peop, 'peoples', "v");
     var publications = tagger(getdata("/publications.html"), 'publish', "publ");
+    var codes = tagger(getdata("/code.html"), 'codes', "cod");
     
   
     function tagger(t, inside, samp_func){
