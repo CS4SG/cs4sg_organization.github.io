@@ -102,14 +102,14 @@ destination_layout: teaching_resource
     function after_submission(){
       dest = "{{ page.title }}".split(" ").slice(0, -1).join(" ").toLowerCase();
       document.getElementById("after_submission").innerHTML = "<br><br><center><table width='80%'><h2>What's Next?</h2><br><br> To add it to the C4SG "+dest+" section, follow the following steps:\
-        <ol>\
+        <ol style='text-align: left;'>\
           <li>Create a folder with the desired resource name.</li>\
           <li>Add the <b>index.html</b> file (which just got downloaded after you submitted this form) to the above mentioned folder.</li>\
           <li>Add all the resources (files / folders etc.) into the resource folder (which you created in Step-1).</li>\
           <li>Finally, upload the folder to the appropriate directory on the server at: <br><a href = '{{ page.upload }}' target='_blank'>{{ page.upload }}</a></li>\
         </ol>\
         Here is an example of a directory structure: <br/>\
-        <center><a href='./assets/images/help_img2.jpg'target='_blank'><img src='./assets/images/help_img2.jpg' alt='Steps after submitting the form' class='help_img'></a></center>\
+        <center><a href='../assets/images/Dir Structure.png'target='_blank'><img src='../assets/images/Dir Structure.png' alt='Steps after submitting the form' class='help_img'></a></center>\
         </table></center>"
     }
       
