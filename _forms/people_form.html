@@ -27,6 +27,8 @@ destination_layout: people
   <div>
     <input type="text" id="designation" placeholder="Enter your title and department/major, e.g., Associate Professor, Computer Science // Student, Sociology // PhD Student, Social Work " required="required"/>
   </div>
+  
+  <div><input type="text" id="link" placeholder="Enter your UB-directory page link. Should be https://www.buffalo.edu/people/UBITname" required="required"/></div>
 
 <div style="display:none;">
       <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;"><center><h3>Enter Degrees</h3></center>
@@ -116,7 +118,7 @@ destination_layout: people
             //"courses: "+courses + "\n"+
             "status: "+status+"\n"+
             "link: "+link+"\n"+
-            "image: "+img_link+"\n"+
+            "image: "+((img_link == "") ? "assets/img/team/default.png" : "assets/img/team/"+img_link)+"\n"+
             "social: "+s+"\n"+
             "key: "+specialToASCII(lname)+" "+specialToASCII(fname)+"\n"+
             "---"+"\n\n"     
