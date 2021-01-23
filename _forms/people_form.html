@@ -47,15 +47,16 @@ destination_layout: people
       </select>
   </div>
 
-  <div><input type="text" id="link" placeholder="Enter your UB-directory page link. Should be https://www.buffalo.edu/people/UBITname" required="required"/></div>
   <div>
-      <select id="images" onchange="location = this.value;">
-          <option selected value="">-- Select a method to upload your image --</option>
-          <option value="javascript:upload_link()">Enter Image URL</option>
-          <option value="javascript:upload_image()">Upload Image</option>
-      </select>
-  </div>
-  <div id="image_area"></div>
+    <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
+    <center><h5>Profile Image (Optional)</h5></center>
+    <br>
+    
+    <p style="text-align:left">Please upload the url of your profile image at <a href="https://github.com/CS4SG/CS4SG.github.io/tree/master/assets/img/team"></a> and enter the <b>filename</b> below.</p>
+
+    <div><input type="text" id="img_link" placeholder="Enter image filename e.g. sample.jpg"/></div>
+    <small style="color: red;">*</small><small>If you do not have access to the upload destination mentioned above, please contact <a href = "mailto:kjoseph@buffalo.edu">here</a>.</small>
+  </div></div>
 
   <div>
   <div style="padding: 12px; font: 17px Calibri; width: 100%; border: 1px solid #ccc; border-radius: 4px">
@@ -81,19 +82,7 @@ destination_layout: people
       const link = document.getElementById('link').value;
       const status = document.getElementById('status').value;
       const category = document.getElementById('category').value;
-      var img_link = ""
-      if (document.getElementById('img_link') != null){
-        img_link = String(document.getElementById('img_link').value)
-      }
-      else{
-        if(localStorage.getItem("image_data") != null){
-          img_link = localStorage.getItem("image_data")
-          window.localStorage.clear();
-        }
-        else{
-          img_link = "assets/img/team/default.png"
-        }
-      }
+      var img_link = document.getElementById('img_link').value
       // -----Handle social media links-----
       var social_dict = {"linkedin": document.getElementById("linkedin").value, "twitter": document.getElementById("twitter").value, "website": document.getElementById("website").value, "email": document.getElementById("email").value}
       clean(social_dict)
@@ -146,28 +135,9 @@ destination_layout: people
         }
         newLink.click(); 
     }
-    function after_submission(){
-      dest = "{{ page.title }}".split(" ").slice(0, -1).join(" ").toLowerCase();
-      document.getElementById("after_submission").innerHTML = "<br><br><center><table width='80%'><h2>Thank you for submitting your "+dest+".</h2><br><br> To add it to the C4SG "+dest+" section, just upload the file to the designated folder. Here is the link for the folder <br><a href = '{{ page.upload }}' target='_blank'>{{ page.upload }}</a></table></center>"
-    }
-    function upload_link(){
-      document.getElementById("image_area").innerHTML = '<input type="text" id="img_link" placeholder="Enter image Link" class="team_picture"/>'
-    }
-    function upload_image(){
-      document.getElementById("image_area").innerHTML = 
-      '<input id="inputFileToLoad" type="file" onchange="encodeImageFileAsURL();" />'
-    }
-  function encodeImageFileAsURL() {
-    var filesSelected = document.getElementById("inputFileToLoad").files;
-    if (filesSelected.length > 0) {
-      var fileToLoad = filesSelected[0];
-      var fileReader = new FileReader();
-      fileReader.onload = function(fileLoadedEvent) {
-        var srcData = fileLoadedEvent.target.result; // <--- data: base64
-        localStorage.setItem("image_data" ,String(srcData))
-      }
-      fileReader.readAsDataURL(fileToLoad);
-    }
+  function after_submission(){
+    dest = "{{ page.title }}".split(" ").slice(0, -1).join(" ").toLowerCase();
+    document.getElementById("after_submission").innerHTML = "<br><br><center><table width='80%'><h2>Thank you for submitting your "+dest+".</h2><br><br> To add it to the C4SG "+dest+" section, just upload the file to the designated folder. Here is the link for the folder <br><a href = '{{ page.upload }}' target='_blank'>{{ page.upload }}</a></table></center>"
   }
   function clean(obj) {
   for (var propName in obj) { 
