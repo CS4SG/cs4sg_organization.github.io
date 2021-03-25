@@ -110,7 +110,7 @@ destination_layout: news
           const image = document.getElementById('image').value;
           var article_url = document.getElementById('article_url').value;
           var event_date = document.getElementById('event_date').value;
-          var location = document.getElementById('location').value;
+          var location = specialToASCII(document.getElementById('location').value);
           const msg = specialToASCII(document.getElementById('descrip').value);
           var mixed_talks = talks.concat(speech)
           

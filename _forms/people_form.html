@@ -78,11 +78,11 @@ destination_layout: people
   var degrees_str = ""
   var courses_str = ""
     let saveFile = () => {
-      const fname = document.getElementById('fname').value;
-      const lname = document.getElementById('lname').value;
-      const designation = document.getElementById('designation').value;
+      const fname = specialToASCII(document.getElementById('fname').value);
+      const lname = specialToASCII(document.getElementById('lname').value);
+      const designation = specialToASCII(document.getElementById('designation').value);
       const link = document.getElementById('link').value;
-      const status = document.getElementById('status').value;
+      const status = specialToASCII(document.getElementById('status').value);
       const category = document.getElementById('category').value;
       var img_link = document.getElementById('img_link').value
       // -----Handle social media links-----
