@@ -97,7 +97,7 @@ destination_layout: talk
         // Get the data from each element on the form.
     	const topic = specialToASCII(document.getElementById('topic').value);
       const category = specialToASCII(document.getElementById('category').value);
-      var dates = specialToASCII(document.getElementById("dts").value);
+      var dates = document.getElementById("dts").value;
       save_link()
       const links = (link_str.slice(2)).split(",")
       
